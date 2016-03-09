@@ -1,2 +1,3 @@
+permalink: /blog/:year/:month/:day/:title
 name: Julius Krah, Awesome Programmer
 markdown: kramdown
