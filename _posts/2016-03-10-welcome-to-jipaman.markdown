@@ -1,7 +1,8 @@
 ---
 layout: post
-title:  "Welcome to Jekyll!"
+title:  "Welcome to Jipaman!"
 date:   2016-03-10 19:11:20 +0000
+author: Julius Krah
 categories: java update
 ---
 You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run `jekyll serve`, which launches a web server and auto-regenerates your site when a file is updated.
@@ -12,7 +13,8 @@ Jekyll also offers powerful support for code snippets:
 
 {% highlight java %}
 public static void main(String... args) {
-    System.out.println('Tom')
+  String name = "Hi, Tom";
+  System.out.println(name)
 }
 #=> prints 'Hi, Tom' to STDOUT.
 {% endhighlight %}
