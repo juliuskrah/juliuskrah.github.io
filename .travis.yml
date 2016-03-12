@@ -1,1 +1,6 @@
 language: ruby
+rvm:
+  - rbx-2.1.1
+script:
+  - bundle exec rake build
+  - bundle exec rake builddoc
