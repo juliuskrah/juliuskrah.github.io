@@ -6,9 +6,7 @@ task :default => [:test]
 
 task :test do
     HTML::Proofer.new("./_site", {
-        :href_ignore => [
-	    "#"
-	],
+        :allow_hash_href => true,
 	:disable_external => true,
 	:empty_alt_ignore => true,
 	:ext => ".html"
