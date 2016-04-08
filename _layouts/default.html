@@ -1,68 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
-{% include head.html %}
+  {% include head.html %}
 
-<body data-target=".content-nav">
+  <body>
 
     {% include header.html %}
 
-    <section id="body">
-        <div class="container">
-            <div class="row">
-                {{ content }}
+    <div class="page-content">
+      <div class="wrapper">
+        {{ content }}
+      </div>
+    </div>
 
-                <div class="span3">
-                    <div class="content-nav" data-spy="affix" data-offset-top="80">
-                        <ul class="nav nav-tabs nav-stacked primary">
-                            <li><a href="#introduction">Introduction</a></li>
-                            <li><a href="#features">Features</a></li>
-                            <li><a href="#download">Download</a></li>
-                            <li><a href="#contributing">Contributing</a></li>
-                            <li><a href="#license">License</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+    {% include footer.html %}
 
-            {% include footer.html %}
-        </div>
-    </section>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script src="{{ " /js/bootstrap.min.js " | prepend: site.baseurl }}"></script>
-    <script src="{{ " /js/jquery.smooth-scroll.min.js " | prepend: site.baseurl }}"></script>
-    <script src="{{ " /js/jquery-maven-artifact.min.js " | prepend: site.baseurl }}"></script>
-    <script src="{{ " /js/prettify.js " | prepend: site.baseurl }}"></script>
-    <script type="text/javascript">
-        $(function() {
-        // Syntax highlight code blocks.
-        prettyPrint();
-
-        // Spy on scroll position for real-time updating of current section.
-        $('body').scrollspy();
-
-        // Use smooth-scroll for internal links.
-        $('a').smoothScroll();
-
-        // Enable tooltips on the header nav image items.
-        $('.menu').tooltip({
-          placement: 'bottom',
-          trigger: 'hover',
-          container: 'body',
-          delay: {
-            show: 500,
-            hide: 0
-          }
-        });
-
-        // Look up the latest version of the library.
-        $.fn.artifactVersion('com.squareup.picasso', 'picasso', function(version, url) {
-          $('.version').text(version);
-          $('.version-tag').text('v' + version);
-          $('.version-href').attr('href', url);
-        });
-      });
-    </script>
-</body>
+  </body>
 
 </html>
