@@ -18,3 +18,4 @@ github_username:  juliuskrah
 
 # Build settings
 markdown: kramdown
+theme: minima
