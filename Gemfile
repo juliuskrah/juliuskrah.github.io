@@ -24,3 +24,10 @@ gem "html-proofer"
 # group :jekyll_plugins do
 #   gem "jekyll-github-metadata", "~> 1.0"
 # end
+
+# As of v1.3.0, Jekyll uses the listen gem to watch 
+# for changes when the --watch switch is specified during 
+# a build or serve. While listen has built-in support 
+# for UNIX systems, it requires an extra gem for compatibility 
+# with Windows. Add the following to the Gemfile for your site:
+gem 'wdm', '~> 0.1.0' if Gem.win_platform?

@@ -6,27 +6,44 @@
 
 
 // Our variables
-$base-font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-$base-font-size:   16px;
-$base-font-weight: 400;
-$small-font-size:  $base-font-size * 0.875;
-$base-line-height: 1.5;
+$base-font-family:        'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$base-font-size:          16px;
+$base-font-weight:        400;
+$small-font-size:         $base-font-size * 0.875;
+$base-line-height:        1.5;
 
-$spacing-unit:     30px;
+$default-border-radius:   4px;
+$spacing-unit:            15px;
+$post-spacing-unit:       30px;
 
-$text-color:       #111;
-$background-color: #fdfdfd;
-$brand-color:      #2a7ae2;
+$post-font-size:          16px;
 
-$grey-color:       #828282;
-$grey-color-light: lighten($grey-color, 40%);
-$grey-color-dark:  darken($grey-color, 25%);
+$post-title-color:        #fff;
+$post-header-color:       #fff;
+$text-color:              #ddd;
+$background-color:        #222;
+$column-background-color: rgba(34, 35, 38, 0.8);
+$brand-color:             #49afef;
+
+$grey-color:              #828282;
+$grey-color-light:        lighten($grey-color, 40%);
+$grey-color-med-light:    lighten($grey-color, 10%);
+$grey-color-dark:         darken($grey-color, 25%);
+
+$svg-icon-color:          #ffffff;
+$border-color:            #666;
+$code-border-color:       #333;
+$blockquote-left-color:   #F47920;
+$blockquote-bg-color:     #141414;
 
 // Width of the content area
-$content-width:    800px;
+$content-width:           1000px;
 
-$on-palm:          600px;
-$on-laptop:        800px;
+$on-phone:                400px;
+$on-small:                600px;
+$on-big:                  1500px;
+$on-palm:                 600px;
+$on-laptop:               800px;
 
 
 
@@ -43,7 +60,11 @@ $on-laptop:        800px;
     }
 }
 
-
+@mixin media-query-min($device) {
+    @media screen and (min-width: $device) {
+        @content;
+    }
+}
 
 // Import partials from `sass_dir` (defaults to `_sass`)
 @import
