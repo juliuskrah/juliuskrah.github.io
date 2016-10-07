@@ -11,7 +11,7 @@ email: juliuskrah@gmail.com
 description: > # this means to ignore newlines until "baseurl:"
   Web development blog that uses Java and other related web technologies
   with a strong emphasis on spring, thymeleaf, websockets and microservices
-permalink: /:categories/:year/:month/:day/:title/
+permalink: /blog/:year/:month/:day/:title/
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://juliuskrah.github.io" # the base hostname & protocol for your site
 twitter_username: juliuskrah
