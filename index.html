@@ -1,24 +1,18 @@
 ---
 layout: default
 section: home
+footer_nav: true
 ---
-
 <div class="home">
-
-  <h1 class="page-heading">Posts</h1>
-
-  <ul class="post-list">
-    {% for post in site.posts %}
-      <li>
-        <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
-
-        <h2>
-          <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
-        </h2>
-      </li>
-    {% endfor %}
-  </ul>
-
-  <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p>
-
+  <div class="post-list">
+    {% for post in site.categories.blog limit: 5 %}
+    <section>
+      <h1><a class="post-link" href="{% if post.stuburl %}{{ post.stuburl }}{% else %}{{ post.url | prepend: site.baseurl }}{% endif %}">{{ post.title }}</a></h1>
+      <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
+      <article class="post-content{% if forloop.index0 != 0 %} excerpt{% endif %}">{% if forloop.index0 == 0 %}{{ post.content }}{% else %}{{ post.excerpt }}<a class="excerpt-link" href="{% if post.stuburl %}{{ post.stuburl }}{% else %}{{ post.url | prepend: site.baseurl }}{% endif %}">Continue reading...</a>{%
+        endif %}
+      </article>
+    </section>{% endfor %}
+    <span class="archive-link"><a href="/blog/">View all post</a> ({{ site.posts | size }} posts)</span>
+  </div>
 </div>

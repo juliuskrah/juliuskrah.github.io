@@ -5,12 +5,9 @@ permalink: /about/
 section: about
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](http://jekyllrb.com/)
+My name is Julius Krah and I am a software developer. I recently started this blog to share my software experiences and what I have learnt
+in my career as a developer.
 
-You can find the source code for the Jekyll new theme at:
-{% include icon-github.html username="jglovier" %} /
-[jekyll-new](https://github.com/jglovier/jekyll-new)
-
-You can find the source code for Jekyll at
-{% include icon-github.html username="jekyll" %} /
-[jekyll](https://github.com/jekyll/jekyll)
+You can find my open source projects at
+{% include icon-github.html username=site.github_username %} /
+[juliuskrah](https://github.com/{{ site.github_username }})
