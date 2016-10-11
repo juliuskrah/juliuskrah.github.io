@@ -31,3 +31,7 @@ gem "html-proofer"
 # for UNIX systems, it requires an extra gem for compatibility 
 # with Windows. Add the following to the Gemfile for your site:
 gem 'wdm', '~> 0.1.0' if Gem.win_platform?
+
+# Jekyll plugin to silently generate a sitemaps.org 
+# compliant sitemap for your Jekyll site
+gem 'jekyll-sitemap'

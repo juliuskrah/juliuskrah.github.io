@@ -18,6 +18,8 @@ twitter_username: juliuskrah
 github_username:  juliuskrah
 stackoverflow_link: users/6157880/julius-krah
 repository: juliuskrah/juliuskrah.github.io
+gems:
+  - jekyll-sitemap
 
 # Build settings
 markdown: kramdown

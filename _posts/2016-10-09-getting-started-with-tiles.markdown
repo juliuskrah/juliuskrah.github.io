@@ -2,7 +2,7 @@
 layout:     post
 title:      "Getting Started with Tiles"
 date:       2016-10-09 22:05:31 +0000
-categories: blog java tiles
+categories: blog java tiles tiles3
 section:    blog
 ---
 > Brief description of `Apache Tiles` goes here.
