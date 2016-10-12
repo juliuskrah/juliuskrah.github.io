@@ -35,3 +35,7 @@ gem 'wdm', '~> 0.1.0' if Gem.win_platform?
 # Jekyll plugin to silently generate a sitemaps.org 
 # compliant sitemap for your Jekyll site
 gem 'jekyll-sitemap'
+# A Jekyll plugin that provides users with a traditional CMS-style graphical interface to author content and 
+# administer Jekyll sites. The project is divided into two parts. A Ruby-based HTTP API that handles Jekyll 
+# and filesystem operations, and a Javascript-based front end, built on that API.
+gem 'jekyll-admin', group: :jekyll_plugins
