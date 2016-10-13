@@ -21,46 +21,37 @@ One of such tools that goes a step futher is `Apache Tiles`. `Apache Tiles` is a
 At the end of this guide our folder structure will look similar to this:
 
 ```
-ROOT\
-  |\
-  src\
-    |\
-    main\
-      webapp\
-        layouts\
-          |\
-          classic.jsp
-        resources\
-          |\
-          css\
-            |\
-            blog.css
-            bootstrap.min.css
-            ie10-viewport-bug-workaround.css
-          images\
-            |\
-            favicon.ico
-          js\
-            |\
-            bootstrap.min.js
-            ie-emulation-modes-warning.js
-            ie10-viewport-bug-workaround.js
-            ie8-responsive-file-warning.js
-            jquery.min.js
-        tiles\
-          |\
-          banner.jsp
-          blog_header.jsp
-          common_menu.jsp
-          credits.jsp
-          home_body.jsp
-          navigation.jsp
-        WEB-INF\
-          |\
-          tiles.xml
-          web.xml
-        index.jsp
-  pom.xml
+- ROOT
+  - src
+    - main
+      - webapp
+        - layouts
+          - classic.jsp
+        - resources
+          - css
+            - blog.css
+            - bootstrap.min.css
+            - ie10-viewport-bug-workaround.css
+          - images
+            - favicon.ico
+          - js
+            - bootstrap.min.js
+            - ie-emulation-modes-warning.js
+            - ie10-viewport-bug-workaround.js
+            - ie8-responsive-file-warning.js
+            - jquery.min.js
+        - tiles
+          - banner.jsp
+          - blog_header.jsp
+          - common_menu.jsp
+          - credits.jsp
+          - home_body.jsp
+          - navigation.jsp
+        - WEB-INF
+          - tiles.xml
+          - web.xml
+        - index.jsp
+  - pom.xml
 ```
 
 

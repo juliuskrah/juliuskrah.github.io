@@ -22,7 +22,14 @@ github_username:  juliuskrah
 stackoverflow_link: users/6157880/julius-krah
 repository: juliuskrah/juliuskrah.github.io
 gems:
+  - jemoji
+  - jekyll-mentions
+  - jekyll-feed
+  - jekyll-seo-tag
   - jekyll-sitemap
+# Default is https://github.com
+jekyll-mentions:
+  base_url: https://twitter.com
 
 # Build settings
 markdown: kramdown

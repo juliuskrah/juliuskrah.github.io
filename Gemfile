@@ -39,3 +39,16 @@ gem 'jekyll-sitemap'
 # administer Jekyll sites. The project is divided into two parts. A Ruby-based HTTP API that handles Jekyll 
 # and filesystem operations, and a Javascript-based front end, built on that API.
 gem 'jekyll-admin', group: :jekyll_plugins
+
+# @mentionable support for your Jekyll site
+gem 'jekyll-mentions'
+
+# A Jekyll plugin to generate an Atom (RSS-like) feed of your Jekyll posts
+gem 'jekyll-feed'
+
+# A Jekyll plugin to add metadata tags for search engines and social networks to better 
+# index and display your site's content.
+gem 'jekyll-seo-tag'
+
+# GitHub-flavored Emoji plugin for Jekyll
+gem 'jemoji'
