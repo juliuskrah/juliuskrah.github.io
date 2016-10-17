@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      "Getting Started with Tiles"
-date:       2016-10-09 22:05:31 +0000
+date:       2016-10-17 23:00:31 +0000
 categories: blog java tiles tiles3
 section:    blog
 author:
@@ -115,7 +115,7 @@ The versions of the various dependencies are represented as placeholders to ease
 {% highlight xml %}
 <properties>
   ...
-  <tiles-version>3.0.5</tiles-version>
+  <tiles-version>3.0.7</tiles-version>
   <servlet.api.version>3.1.0</servlet.api.version>
   <jsp.api.version>2.3.1</jsp.api.version>
   <jsp.jstl.version>1.2.1</jsp.jstl.version>
@@ -233,9 +233,203 @@ directory and add the following files to it:
 - `home_body.jsp`
 - `navigation.jsp`
 
+Let us add some content to our `JSP` files.  
+`src/main/webapp/tiles/banner.jsp`:
+
+{% highlight html %}
+<div>
+  <nav>
+    <a href="#">Home</a> 
+    <a href="#">New features</a> 
+    <a href="#">Press</a> 
+    <a href="#">New hires</a> 
+    <a href="#">About</a>
+  </nav>
+</div>
+{% endhighlight %}
+
+
+`src/main/webapp/tiles/blog_header.jsp`:
+
+{% highlight html %}
+<h1 class="blog-title">Getting started with Tiles</h1>
+<p class="lead blog-description">
+  The official example template of creating a blog with Bootstrap.
+</p>
+{% endhighlight %}
+
+`src/main/webapp/tiles/common_menu.jsp`:
+
+{% highlight html %}
+<div>
+  <h4>About</h4>
+  <p>
+    Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis
+    consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla
+    sed consectetur.
+  </p>
+</div>
+<div>
+  <h4>Archives</h4>
+  <ol>
+    <li><a href="#">March 2014</a></li>
+    <li><a href="#">February 2014</a></li>
+    <li><a href="#">January 2014</a></li>
+    <li><a href="#">December 2013</a></li>
+    <li><a href="#">November 2013</a></li>
+    <li><a href="#">October 2013</a></li>
+    <li><a href="#">September 2013</a></li>
+    <li><a href="#">August 2013</a></li>
+    <li><a href="#">July 2013</a></li>
+    <li><a href="#">June 2013</a></li>
+    <li><a href="#">May 2013</a></li>
+    <li><a href="#">April 2013</a></li>
+  </ol>
+</div>
+<div>
+  <h4>Elsewhere</h4>
+  <ol>
+    <li><a href="#">GitHub</a></li>
+    <li><a href="#">Twitter</a></li>
+    <li><a href="#">Facebook</a></li>
+  </ol>
+</div>
+{% endhighlight %}
+
+`src/main/webapp/tiles/credits.jsp`, our example project makes use of [Twitter Bootstrap][Bootstrap]:
+
+{% highlight html %}
+<p>
+  Blog template built for 
+  <a href="//getbootstrap.com">Bootstrap</a> by 
+  <a href="//twitter.com/mdo">@mdo</a>.
+</p>
+<p>
+  <a href="#">Back to top</a>
+</p>
+{% endhighlight %}
+
+`src/main/webapp/tiles/home_body.jsp`:
+
+{% highlight html %}
+<div>
+  <h2>Sample blog post</h2>
+  <p>
+    January 1, 2014 by <a href="#">Mark</a>
+  </p>
+
+  <p>
+    This blog post shows a few different types of content that's
+    supported and styled with Bootstrap. Basic typography, images, and
+    code are all supported.
+  </p>
+  <hr/>
+  <p>
+    Cum sociis natoque penatibus et magnis 
+    <a href="#">dis parturient montes</a>, 
+    nascetur ridiculus mus. Aenean eu leo quam. Pellentesque
+    ornare sem lacinia quam venenatis vestibulum. Sed posuere consectetur
+    est at lobortis. Cras mattis consectetur purus sit amet fermentum.
+  </p>
+  <blockquote>
+    <p>
+      Curabitur blandit tempus porttitor. 
+      <strong>Nullam quis risus eget urna mollis</strong> 
+      ornare vel eu leo. Nullam id dolor id nibh
+      ultricies vehicula ut id elit.
+    </p>
+  </blockquote>
+  <p>
+    Etiam porta 
+    <em>sem malesuada magna</em> mollis euismod. Cras mattis
+    consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla
+    sed consectetur.
+  </p>
+</div>
+{% endhighlight %}
+
+`src/main/webapp/tiles/navigation.jsp`
+
+{% highlight html %}
+<nav>
+  <ul>
+    <li><a href="#">Previous</a></li>
+    <li><a href="#">Next</a></li>
+  </ul>
+</nav>
+{% endhighlight %}
+
+# Putting it all together
+To wrap up, this is the complete `tiles-definition`:
+
+{% highlight xml %}
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+  "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+  "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+  <definition name="myapp.homepage" template="/layouts/classic.jsp">
+    <put-attribute name="title" value="Tiles tutorial homepage" />
+    <put-attribute name="header" value="/tiles/banner.jsp" />
+    <put-attribute name="menu" value="/tiles/common_menu.jsp" />
+    <put-attribute name="body" value="/tiles/home_body.jsp" />
+    <put-attribute name="footer" value="/tiles/credits.jsp" />
+    <put-attribute name="heading" value="/tiles/blog_header.jsp" />
+    <put-attribute name="navigation" value="/tiles/navigation.jsp" />
+  </definition>
+</tiles-definitions>
+{% endhighlight %}
+
+Now in our welcome page `(src/main/webapp/index.jsp)` let us make use of our tiles definition name (Remember I said we would 
+come back to it) `myapp.homepage`:
+
+{% highlight xml %}
+<?xml version="1.0" encoding="UTF-8" ?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+  xmlns:tiles="http://tiles.apache.org/tags-tiles"
+  xmlns:c="http://java.sun.com/jsp/jstl/core" version="2.0">
+  <jsp:directive.page contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8" session="false" />
+  <jsp:output doctype-root-element="html"
+    doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+    doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"
+    omit-xml-declaration="true" />
+
+  <tiles:insertDefinition name="myapp.homepage" />
+
+</jsp:root>
+{% endhighlight %}
+
+Notice the `<tiles>` element right before the `<jsp:root>` closing tag, we are calling the tiles-definition by name. This tells
+tiles to insert the `classic.jsp` layout in the index page.  
+Run this in any servlet 3.1 container to see the final output.
+
+> When tiles dispatcher servlet is configured, you can serve definition names directly with *.tiles e.g. `/myapp.homepage.tiles`:
+
+`src/main/webapp/WEB-INF/web.xml`
+{% highlight xml %}
+...
+<servlet>
+  <servlet-name>Tiles Dispatch Servlet</servlet-name>
+  <servlet-class>org.apache.tiles.web.util.TilesDispatchServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+  <servlet-name>Tiles Dispatch Servlet</servlet-name>
+  <url-pattern>*.tiles</url-pattern>
+</servlet-mapping>
+...
+{% endhighlight %}
+
+# Conclusion
+Tiles can be used with web frameworks such as [Spring][] and [Struts][], and template technologies like JSP and [Thymeleaf][].  
+You can find the source to this guide {% include source.html %}. Happy coding :+1:.
+
+
 
 [Maven]: http://maven.apache.org
 [Tiles]: https://tiles.apache.org/framework/index.html
 [JDK]: http://www.oracle.com/technetwork/java/javase/downloads/index.html
 [Struts]: http://struts.apache.org/
 [Spring]: https://spring.io
+[Bootstrap]: http://getbootstrap.com/
+[Thymeleaf]: http://www.thymeleaf.org/
