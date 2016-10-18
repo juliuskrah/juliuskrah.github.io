@@ -15,7 +15,7 @@ baseurl: "" # the subpath of your site, e.g. /blog
 github:
   url: https://github.com
 permalink: /blog/:year/:month/:day/:title/
-url: "https://juliuskrah.github.io" # the base hostname & protocol for your site
+url: "http://juliuskrah.com" # the base hostname & protocol for your site
 author:
   twitter: juliuskrah
 twitter:
