@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      "Post 2"
-categories: blog update
+categories: blog
 section:    blog
 author:
   twitter:  juliuskrah

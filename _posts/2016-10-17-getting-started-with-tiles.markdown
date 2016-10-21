@@ -2,7 +2,8 @@
 layout:     post
 title:      "Getting Started with Tiles"
 date:       2016-10-17 23:00:31 +0000
-categories: blog java tiles tiles3
+categories: blog
+tags: java tiles tiles3
 section:    blog
 author:
   twitter:  juliuskrah
