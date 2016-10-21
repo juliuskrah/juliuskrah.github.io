@@ -17,13 +17,19 @@ gem "minima"
 
 # If you want to use GitHub Pages, remove the "gem "jekyll"" above and
 # uncomment the line below. To upgrade, run `bundle update github-pages`.
-gem "github-pages", group: :jekyll_plugins
+# gem "github-pages", group: :jekyll_plugins
 
 gem "html-proofer"
 # If you have any plugins, put them here!
-# group :jekyll_plugins do
-#   gem "jekyll-github-metadata", "~> 1.0"
-# end
+group :jekyll_plugins do
+  gem "github-pages"
+  gem 'jekyll-admin'
+  gem 'jemoji'
+  gem 'jekyll-mentions'
+  gem 'jekyll-feed'
+  gem 'jekyll-seo-tag'
+  gem 'jekyll-sitemap'
+end
 
 # As of v1.3.0, Jekyll uses the listen gem to watch 
 # for changes when the --watch switch is specified during 
@@ -34,21 +40,21 @@ gem 'wdm', '~> 0.1.0' if Gem.win_platform?
 
 # Jekyll plugin to silently generate a sitemaps.org 
 # compliant sitemap for your Jekyll site
-gem 'jekyll-sitemap'
+# gem 'jekyll-sitemap'
 # A Jekyll plugin that provides users with a traditional CMS-style graphical interface to author content and 
 # administer Jekyll sites. The project is divided into two parts. A Ruby-based HTTP API that handles Jekyll 
 # and filesystem operations, and a Javascript-based front end, built on that API.
-gem 'jekyll-admin', group: :jekyll_plugins
+# gem 'jekyll-admin', group: :jekyll_plugins
 
 # @mentionable support for your Jekyll site
-gem 'jekyll-mentions'
+# gem 'jekyll-mentions'
 
 # A Jekyll plugin to generate an Atom (RSS-like) feed of your Jekyll posts
-gem 'jekyll-feed'
+# gem 'jekyll-feed'
 
 # A Jekyll plugin to add metadata tags for search engines and social networks to better 
 # index and display your site's content.
-gem 'jekyll-seo-tag'
+# gem 'jekyll-seo-tag'
 
 # GitHub-flavored Emoji plugin for Jekyll
-gem 'jemoji'
+# gem 'jemoji'
