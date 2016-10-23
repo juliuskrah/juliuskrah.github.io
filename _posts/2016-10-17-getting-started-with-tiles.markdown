@@ -3,7 +3,7 @@ layout:     post
 title:      "Getting Started with Tiles"
 date:       2016-10-17 23:00:31 +0000
 categories: blog
-tags: java tiles tiles3
+tags:       java tiles maven
 section:    blog
 author:
   twitter:  juliuskrah
@@ -36,19 +36,6 @@ At the end of this guide our folder structure will look similar to this:
       - webapp/
         - layouts/
           - classic.jsp
-        - resources/
-          - css/
-            - blog.css
-            - bootstrap.min.css
-            - ie10-viewport-bug-workaround.css
-          - images/
-            - favicon.ico
-          - js/
-            - bootstrap.min.js
-            - ie-emulation-modes-warning.js
-            - ie10-viewport-bug-workaround.js
-            - ie8-responsive-file-warning.js
-            - jquery.min.js
         - tiles/
           - banner.jsp
           - blog_header.jsp
@@ -165,6 +152,8 @@ Let us now use the definitions in our `jsp` template `(src/main/webapp/layouts/c
 Notice the `<tiles>` child element within the `<title>` element. It is tagged with `getAsString` which retrieves the `title` property
 `(Tiles getting started homepage)` from the `<put-attribute>`. To run this we need one more configuration bootstrap in `web.xml` 
 `(src/main/webapp/WEB-INF/web.xml)`:
+
+> Also take note of the `tiles` namespace on the second line `(xmlns:tiles="http://tiles.apache.org/tags-tiles")`
 
 {% highlight xml %}
 <?xml version="1.0" encoding="UTF-8"?>

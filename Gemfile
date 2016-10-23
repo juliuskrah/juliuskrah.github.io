@@ -29,6 +29,7 @@ group :jekyll_plugins do
   gem 'jekyll-feed'
   gem 'jekyll-seo-tag'
   gem 'jekyll-sitemap'
+  gem 'jekyll-compose'
 end
 
 # As of v1.3.0, Jekyll uses the listen gem to watch 
