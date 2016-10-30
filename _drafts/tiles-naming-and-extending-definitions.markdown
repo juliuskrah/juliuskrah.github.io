@@ -4,8 +4,7 @@ title:      'Tiles: Naming and Extending Definitions'
 categories: blog
 tags:       java tiles maven
 section:    blog
-author:
-  twitter:  juliuskrah
+author:     Julius Krah
 repo:       apache-tiles-advanced-example
 ---
 > [Apache Tiles][Tiles] is a free open-sourced templating framework for modern Java applications. Based upon the Composite pattern 
