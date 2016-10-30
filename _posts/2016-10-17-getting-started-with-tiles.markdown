@@ -22,8 +22,8 @@ built to simplify the development of web application user interfaces, but it is 
 For complex web sites it remains the easiest and most elegant way to work alongside any MVC technology. Tiles allows authors to define
 page fragments which can be assembled into a complete page at runtime. These fragments, or tiles, can be used as simple includes in
 order to reduce the duplication of common page elements or embedded within other tiles to develop a series of reusable templates.
-These templates streamline the development of a consistent look and feel across an entire application.
-The final working sample can be found {% include source.html %}.
+These templates streamline the development of a consistent look and feel across an entire application.  
+The final working sample can be found {% include source.html %}. For advanced usage of tiles refer to this [blog post]({% post_url 2016-10-30-tiles-nesting-and-extending-definitions%})
 
 ## Structure
 At the end of this guide our folder structure will look similar to this:
@@ -55,7 +55,7 @@ At the end of this guide our folder structure will look similar to this:
 - [Maven][]
 
 # Getting dependencies
-This getting started guide will use `Maven` to manage the dependencies. Add the following to your `pom.xml`:
+In this getting started guide we will use `Maven` to manage the dependencies. Let's add the following to our `pom.xml`:
 
 {% highlight xml %}
 <dependencies>
@@ -70,7 +70,7 @@ This getting started guide will use `Maven` to manage the dependencies. Add the 
 {% endhighlight %}
 
 The dependency on `tiles-extras` pulls in all transitive dependencies of tiles. For this guide, we will be using tiles in a web
-environment and as such require `servlet` and `jsp`:
+environment and as such require `servlet-api` and `jsp` jars:
 
 {% highlight xml %}
 <dependencies>
