@@ -226,25 +226,77 @@ but the layout is different.
 
 In this case, the page will have the same appearance as the `myapp.homepage` definition, but its `heading` subpage is different.
 
-Let us look at how we make use of these definitions in our jsp:
+# Putting it all together
+We will first create our welcome page in the `layouts` folder `(/layouts/classic.jsp)`:
 
-{% highlight xml %}
+{% highlight html %}
+<?xml version="1.0" encoding="UTF-8" ?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+  xmlns:tiles="http://tiles.apache.org/tags-tiles" version="2.0">
+  <jsp:directive.page contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8" session="false" />
+  <jsp:output doctype-root-element="html"
+    doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+    doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"
+    omit-xml-declaration="true" />
+<html>
+<head>
+  <title><tiles:getAsString name="title" /></title>
+</head>
+<body>
+  <div>
+    <tiles:insertAttribute name="header" />
+  </div>
+  <div>
+    <div>
+      <tiles:insertAttribute name="heading" />
+    </div>
+    <div>
+      <div>
+        <tiles:insertAttribute name="body" />
+        <tiles:insertAttribute name="navigation" />
+      </div>
+      <div>
+        <tiles:insertAttribute name="menu" />
+      </div>
+    </div>
+  </div>
+  <footer>
+    <tiles:insertAttribute name="footer" />
+  </footer>
+</body>
+</html>
+</jsp:root>
+{% endhighlight %}
+
+Our next jsp template is the `banner.jsp` in the `tiles` folder `(/tiles/banner.jsp)`:
+
+{% highlight html %}
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
   xmlns:c="http://java.sun.com/jsp/jstl/core" version="2.0">
   <c:url value="/myapp.new-features.tiles" var="newfeatures" />
   <c:url value="/myapp.homepage.tiles" var="homepage" />
   <c:url value="/myapp.list.tiles" var="list" />
-  <div class="container">
-    <nav class="blog-nav">
-      <a class="blog-nav-item active" href="${homepage}">Home</a> 
-      <a class="blog-nav-item" href="${newfeatures}">Override</a> 
-      <a class="blog-nav-item" href="${list}">List</a> 
-      <a class="blog-nav-item" href="#">Dummy</a> 
-      <a class="blog-nav-item" href="#">About</a>
+  <div>
+    <nav>
+      <a href="${homepage}">Home</a> 
+      <a href="${newfeatures}">Override</a> 
+      <a href="${list}">List</a> 
+      <a href="#">Dummy</a> 
+      <a href="#">About</a>
     </nav>
   </div>
 </jsp:root>
 {% endhighlight %}
+
+`/tiles/blog_header.jsp`:
+
+{% highlight html %}
+<h1 class="blog-title">The Bootstrap Blog</h1>
+<p class="lead blog-description">The official example template of creating a blog with Bootstrap.</p>
+{% endhighlight %}
+
+For the full source code look {% include source.html %}.
 
 # Conclusion
 In this blog post, we have looked at how to extend and nest tiles definition. As usual you can find the source to this guide 

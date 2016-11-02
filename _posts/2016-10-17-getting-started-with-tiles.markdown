@@ -23,7 +23,7 @@ For complex web sites it remains the easiest and most elegant way to work alongs
 page fragments which can be assembled into a complete page at runtime. These fragments, or tiles, can be used as simple includes in
 order to reduce the duplication of common page elements or embedded within other tiles to develop a series of reusable templates.
 These templates streamline the development of a consistent look and feel across an entire application.  
-The final working sample can be found {% include source.html %}. For advanced usage of tiles refer to this [blog post]({% post_url 2016-10-30-tiles-nesting-and-extending-definitions%})
+The final working sample can be found {% include source.html %}. For advanced usage of tiles refer to this [blog post]({% post_url 2016-10-30-tiles-nesting-and-extending-definitions%}).
 
 ## Structure
 At the end of this guide our folder structure will look similar to this:
