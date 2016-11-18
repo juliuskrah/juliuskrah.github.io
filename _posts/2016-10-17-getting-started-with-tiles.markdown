@@ -8,8 +8,8 @@ section:    blog
 author:     Julius Krah
 repo:       apache-tiles-basic-example
 ---
-> [Apache Tiles][Tiles] is a free open-sourced templating framework for modern Java applications. Based upon the Composite pattern 
-  it is built to simplify the development of user interfaces.
+> [Apache Tiles][Tiles]{:target="_blank"} is a free open-sourced templating framework for modern Java applications. Based upon the 
+Composite pattern it is built to simplify the development of user interfaces.
 
 # Introduction
 Building web applications most often than not requires duplicating page elements across several pages. When adding page navigation
@@ -51,8 +51,8 @@ At the end of this guide our folder structure will look similar to this:
 
 
 # Pre-requisites
-- [Java Development Kit][JDK]  
-- [Maven][]
+- [Java Development Kit][JDK]{:target="_blank"}  
+- [Maven][]{:target="_blank"}
 
 # Getting dependencies
 In this getting started guide we will use `Maven` to manage the dependencies. Let's add the following to our `pom.xml`:
@@ -410,7 +410,8 @@ Run this in any servlet 3.1 container to see the final output.
 {% endhighlight %}
 
 # Conclusion
-Tiles can be used with web frameworks such as [Spring][] and [Struts][], and template technologies like JSP and [Thymeleaf][].  
+Tiles can be used with web frameworks such as [Spring][]{:target="_blank"} and [Struts][]{:target="_blank"}, and template 
+technologies like JSP and [Thymeleaf][]{:target="_blank"}.  
 You can find the source to this guide {% include source.html %}. Happy coding :+1:.
 
 

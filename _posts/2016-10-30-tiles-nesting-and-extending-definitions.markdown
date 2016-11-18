@@ -8,7 +8,7 @@ section:    blog
 author:     Julius Krah
 repo:       apache-tiles-advanced-example
 ---
-> [Apache Tiles][Tiles] is a free open-sourced templating framework for modern Java applications. Based upon the Composite pattern 
+> [Apache Tiles][Tiles]{:target="_blank"} is a free open-sourced templating framework for modern Java applications. Based upon the Composite pattern 
   it is built to simplify the development of user interfaces.
 
 # Introduction
@@ -19,8 +19,8 @@ of sections. In this case, nesting a definition (the one for the body) inside an
 You can follow along this guide or get the final example {% include source.html %}.
 
 # Pre requisites
-- [Java Development Kit][JDK]  
-- [Maven][]
+- [Java Development Kit][JDK]{:target="_blank"}  
+- [Maven][]{:target="_blank"}
 
 # Getting the Dependencies
 In this guide we will use `Maven` to manage the dependencies. Let's add the following to our `pom.xml`:
@@ -295,8 +295,6 @@ Our next jsp template is the `banner.jsp` in the `tiles` folder `(/tiles/banner.
 <h1 class="blog-title">The Bootstrap Blog</h1>
 <p class="lead blog-description">The official example template of creating a blog with Bootstrap.</p>
 {% endhighlight %}
-
-For the full source code look {% include source.html %}.
 
 # Conclusion
 In this blog post, we have looked at how to extend and nest tiles definition. As usual you can find the source to this guide 
