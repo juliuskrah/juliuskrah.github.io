@@ -1,8 +1,8 @@
 ---
-layout: page
-title: About
-permalink: /about/
-section: about
+layout:     page
+title:      About
+permalink:  /about/
+section:    about
 ---
 
 My name is Julius Krah and I am a software engineer. I started this blog to share my software engineering experience in what
