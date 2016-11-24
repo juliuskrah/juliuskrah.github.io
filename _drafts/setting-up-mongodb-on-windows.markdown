@@ -167,6 +167,46 @@ mongod --remove
 {% endhighlight %}
 
 
+# The mongo Shell
+Now that we have MongoDB set up as a Windows service, we can start hacking with the `mongo` shell.  
+The [mongo][]{:target="_blank"} shell is an interactive JavaScript interface to MongoDB. You can use the 
+[mongo][]{:target="_blank"} shell to query and update data as well as perform administrative operations.
+
+> **NOTE**  
+  The rest of this article assumes that you have MongoDB running as a service on Windows and added MongoDB to
+  the `path`
+
+To start the `mongo` shell and connect to your MongoDB instance running on **localhost** with **default port**:
+
+{% highlight posh %}
+mongo
+{% endhighlight %}
+
+The command above will generate an output similar to this:
+
+{% highlight posh%}
+MongoDB shell version: 3.2.11
+connecting to: test
+{% endhighlight %}
+
+When starting, `mongo` checks the user’s `HOME` directory for a JavaScript file named `.mongorc.js`. 
+If found, `mongo` interprets the content of `.mongorc.js` before displaying the prompt for the first time. 
+If you use the shell to evaluate a JavaScript file or expression, either by using the `--eval` option on the command line 
+or by specifying a `.js` file to `mongo`, `mongo` will read the `.mongorc.js` file _after_ the JavaScript has 
+finished processing. You can prevent `.mongorc.js` from being loaded by using the `--norc` option.
+
+To check the current database you are connected to run:
+
+{% highlight posh %}
+> db
+{% endhighlight %}
+
+The interactive shell will output something like:
+
+{% highlight posh %}
+test
+{% endhighlight %}
+
 [MongoDB]: https://www.mongodb.com/what-is-mongodb
 [mongo]: https://docs.mongodb.com/manual/mongo/
 [BSON]: http://bsonspec.org/
