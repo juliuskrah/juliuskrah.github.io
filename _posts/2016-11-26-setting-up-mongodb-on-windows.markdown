@@ -1,25 +1,26 @@
 ---
 layout:     post
-title:      Setting up MongoDB on Windows
+title:      'Setting up MongoDB on Windows'
+date:       2016-11-26 22:42:17 +0000
 categories: blog
-tags:       mongoDB Windows
+tags:       MongoDB Windows
 section:    blog
 author:     Julius Krah
 ---
 > [MongoDB][]{:target="_blank"} is an open-source, document database designed for ease of development and scaling.
 
 # Introduction
-In this blog post, we are going to learn how to setup mongoDB on a Windows machine. At the end of this post, we would have 
+In this blog post, we are going to learn how to setup mongoDB on Windows. At the end of this post, we would have 
 accomplished the following objectives:
 
-- Setup and configure mongoDB as a Windows service
-- Launch and interact with the [`mongo`][mongo]{:target="_blank"} Shell JavaScript Interface
-- Write and retrieve [BSON][]{:target="_blank"} documents to and from mongoDB using the `mongo` Shell 
+- Setup and configured mongoDB as a Windows service
+- Launched and interacted with the [`mongo`][mongo]{:target="_blank"} Shell JavaScript Interface
+- Written and retrieved [BSON][]{:target="_blank"} documents to and from mongoDB using the `mongo` Shell 
 
-In the next section of this post, we are going to look at how to install mongoDB on a windows machine after it has been downloaded.
-The section that follows after that will look at how to launch the interactive shell after server is configured as a windows 
-service. The final section will then cover the basics of the BSON interchange format and how to save and retrieve it to and from
-mongoDB.
+In the next section of this post, we are going to look at how to install mongoDB on Windows.
+The section that follows will show you how to launch the interactive shell after server is configured as a Windows 
+service. The penultimate section will then cover the basics of the BSON interchange format and how to save and retrieve documents
+to and from mongoDB.
 
 # Setting up MongoDB
 Before you install the `.msi` package, make sure your system meets the following requirements:
@@ -33,7 +34,7 @@ To know which version of Windows you are running, enter the following command in
 wmic os get caption
 {% endhighlight %}
 
-Once you machine meets the above requirements, you have to determine which build of MongoDB you need (32 bit or 64 bit). 
+Once your machine meets the above requirements, you have to determine which build of MongoDB you need (32 bit or 64 bit). 
 To know your Windows OS architecture, run the following command in **Command Prompt** or **Powershell**:
 
 {% highlight posh %}
@@ -136,7 +137,7 @@ Before we go any further, we will add MongoDB to the `path`. Please refer to [th
 if you are not familiar with creating environment variables on Windows.  
 Add a new _System Environment Variable_. Set the _Variable name_ to `MONGO_HOME`; and the _Variable value_ to `path\to\mongo\root`.
 If you are following along this blog and you used all the defaults, this value will be `C:\Program Files\MongoDB\Server\3.2`.  
-Next we would add the `MONGO_HOME` variable to the `path`. Select `path` from _System Variables_ and click **Edit...** add `%MONGO_HOME%\bin`
+Next we would add the `MONGO_HOME` variable to the `path`. Select `path` from _System Variables_ and click **Edit...** add `;%MONGO_HOME%\bin`
 at the end of the `path` _Variable value_.
 
 Install the MongoDB service by starting `mongod.exe` with the `--install` option and the `-config` option to specify the previously 
@@ -178,7 +179,7 @@ The [`mongo`][mongo]{:target="_blank"} shell is an interactive JavaScript interf
   the `path`
 
 In this section we will be learning basic hacks with the `mongo` Shell. In the next section we will look at inserting into and
-retrieving records from the database using the `mongo` Shell. To start the `mongo` shell and connect to your MongoDB instance 
+retrieving documents from the database using the `mongo` Shell. To start the `mongo` shell and connect to your MongoDB instance 
 running on **localhost** with **default port**:
 
 {% highlight posh %}
@@ -248,10 +249,103 @@ With this in mind the output of the previously executed JavaScript loop will be:
 We will look at `BSON` documents in the next section.
 
 # Write and Retrieve BSON Documents
+A record in MongoDB is a document, which is a data structure composed of field and value pairs. MongoDB documents are similar to 
+`JSON` objects. The values of fields may include other documents, arrays, and arrays of documents.
+
+`BSON`, short for Bin­ary JSON, is a bin­ary-en­coded seri­al­iz­a­tion of JSON-like doc­u­ments. Like JSON, BSON sup­ports the em­bed­ding of 
+doc­u­ments and ar­rays with­in oth­er doc­u­ments and ar­rays. BSON also con­tains ex­ten­sions that al­low rep­res­ent­a­tion of data types that 
+are not part of the JSON spec. For ex­ample, BSON has a `Date type` and a `BinData type`.
+
+A document in MongoDB will be represented similar to this:
+
+{% highlight json %}
+{
+    name: "Julius",
+    age: 26,
+    status: "Alive",
+    groups: ["google", "github"]
+}
+{% endhighlight %}
+
+The advantages of using documents are:
+
+- Documents (i.e. objects) correspond to native data types in many programming languages.
+- Embedded documents and arrays reduce need for expensive joins.
+- Dynamic schema supports fluent polymorphism.
+
+In this section we are going to write into and read from a MongoDB database. To demonstrate this, we will be using the `test` database.
+Launch the `mongo` Shell interface and execute the following commands to switch to the `test` database:
+
+{% highlight posh %}
+> use test
+{% endhighlight %}
+
+MongoDB stores BSON documents, i.e. data records, in `collections`; the `collections` in databases. MongoDB stores documents in 
+`collections`. `Collections` are analogous to tables in relational databases.
+
+Let us write our first document into MongoDB. To write documents into MongoDB we use Create Operations.  
+Create or insert operations add new documents to a collection. If the collection does not currently exist, insert operations 
+will create the collection.
+
+MongoDB provides the following methods to insert documents into a collection:
+
+- db.collection.insert()
+- db.collection.insertOne()
+- db.collection.insertMany()
+
+For this post we will be using only the `insert()` method. In MongoDB, insert operations target a single collection. 
+All write operations in MongoDB are atomic on the level of a single document:
+
+{% highlight posh %}
+> db.users.insert(
+  {
+    name: "Julius",
+    age: 26,
+    status: "Alive"
+  }
+)
+{% endhighlight %}
+
+This will create the `users` collection and give the sample output:
+
+{% highlight posh %}
+WriteResult({ "nInserted" : 1 })
+{% endhighlight %}
+
+MongoDB uses Read operations to retrieve documents from a collection; i.e. queries a collection for documents. MongoDB provides the 
+following methods to read documents from a collection:
+
+- db.collection.find()
+- db.collection.findOne()
+
+We will retreive the document we just inserted into the `users` collection with the `find()` method:
+
+{% highlight posh %}
+> db.users.find()
+{% endhighlight %}
+
+You will get output similar to this:
+
+{% highlight json %}
+{ "_id" : ObjectId("5839f9585165b6512261035c"), "name" : "Julius", "age" : 26, "status" : "Alive" }
+{% endhighlight %}
+
+From the above output there is one thing of note here `_id`. In MongoDB, each document stored in a collection requires a 
+unique `_id` field that acts as a primary key. If an inserted document omits the `_id` field, the MongoDB driver automatically 
+generates an [ObjectId][]{:target="_blank"} for the `_id` field.  
+The above output can be made pretty with indentation by calling `pretty()` on the returned cursor of `find()`:
+
+{% highlight posh %}
+> db.users.find().pretty()
+{% endhighlight %}
 
 # Conclusion
+In this blog post, we learned how to setup MongoDB as a Windows service. We also learned how to use and interact with the `mongo` 
+JavaScript Shell interface. We finished up with working with BSON documents.  
+I enjoyed writing this post, I hope you did too :smile:.
 
 
 [MongoDB]: https://www.mongodb.com/what-is-mongodb
 [mongo]: https://docs.mongodb.com/manual/mongo/
 [BSON]: http://bsonspec.org/
+[ObjectId]: https://docs.mongodb.com/v3.2/reference/method/ObjectId/
