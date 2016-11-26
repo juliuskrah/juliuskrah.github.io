@@ -13,8 +13,8 @@ In this blog post, we are going to learn how to setup mongoDB on a Windows machi
 accomplished the following objectives:
 
 - Setup and configure mongoDB as a Windows service
-- Launch and interact with the [mongo][]{:target="_blank"} Shell JavaScript Interface
-- Write and retrieve [BSON][]{:target="_blank"} documents to and from mongoDB  
+- Launch and interact with the [`mongo`][mongo]{:target="_blank"} Shell JavaScript Interface
+- Write and retrieve [BSON][]{:target="_blank"} documents to and from mongoDB using the `mongo` Shell 
 
 In the next section of this post, we are going to look at how to install mongoDB on a windows machine after it has been downloaded.
 The section that follows after that will look at how to launch the interactive shell after server is configured as a windows 
@@ -72,7 +72,7 @@ You may install MongoDB Community unattended on Windows from the command line us
 
     {% highlight posh %}
     msiexec.exe /q /i mongodb-win32-x86_64-2008plus-ssl-3.2.11-signed.msi ^
-            INSTALLLOCATION="C:\Program Files\MongoDB\Server\3.2.11\" ^
+            INSTALLLOCATION="C:\Program Files\MongoDB\Server\3.2\" ^
             ADDLOCAL="all"
     {% endhighlight %}
 
@@ -94,7 +94,7 @@ For instance, to install only the MongoDB utilities, invoke:
 
 {% highlight posh %}
 msiexec.exe /q /i mongodb-win32-x86_64-2008plus-ssl-3.2.11-signed.msi ^
-            INSTALLLOCATION="C:\Program Files\MongoDB\Server\3.2.11\" ^
+            INSTALLLOCATION="C:\Program Files\MongoDB\Server\3.2\" ^
             ADDLOCAL="MonitoringTools,ImportExportTools,MiscellaneousTools"
 {% endhighlight %}
 
@@ -113,7 +113,8 @@ mkdir c:\data\log
 Execute the above commands one after the other.
 
 Create a configuration file (`mongod.cfg`). The file **must** set [`systemLog.path`](https://docs.mongodb.com/manual/reference/configuration-options/#systemLog.path){:target="_blank"}.
-For example, create a file at `C:\Program Files\MongoDB\Server\3.2\mongod.cfg` that specifies both [`systemLog.path`](https://docs.mongodb.com/manual/reference/configuration-options/#systemLog.path){:target="_blank"} 
+For example, create a file at `C:\Program Files\MongoDB\Server\3.2\mongod.cfg` or whatever location you prefer that specifies both 
+[`systemLog.path`](https://docs.mongodb.com/manual/reference/configuration-options/#systemLog.path){:target="_blank"} 
 and [`storage.dbPath`](https://docs.mongodb.com/manual/reference/configuration-options/#storage.dbPath){:target="_blank"}:
 
 {% highlight yaml %}
@@ -134,7 +135,7 @@ storage:
 Before we go any further, we will add MongoDB to the `path`. Please refer to [this page](https://www.java.com/en/download/help/path.xml){:target="_blank"}
 if you are not familiar with creating environment variables on Windows.  
 Add a new _System Environment Variable_. Set the _Variable name_ to `MONGO_HOME`; and the _Variable value_ to `path\to\mongo\root`.
-If you are following along with this blog and you used all the defaults, this value will be `C:\Program Files\MongoDB\Server\3.2`.  
+If you are following along this blog and you used all the defaults, this value will be `C:\Program Files\MongoDB\Server\3.2`.  
 Next we would add the `MONGO_HOME` variable to the `path`. Select `path` from _System Variables_ and click **Edit...** add `%MONGO_HOME%\bin`
 at the end of the `path` _Variable value_.
 
@@ -169,14 +170,16 @@ mongod --remove
 
 # The mongo Shell
 Now that we have MongoDB set up as a Windows service, we can start hacking with the `mongo` shell.  
-The [mongo][]{:target="_blank"} shell is an interactive JavaScript interface to MongoDB. You can use the 
-[mongo][]{:target="_blank"} shell to query and update data as well as perform administrative operations.
+The [`mongo`][mongo]{:target="_blank"} shell is an interactive JavaScript interface to MongoDB. You can use the 
+[`mongo`][mongo]{:target="_blank"} shell to query and update data as well as perform administrative operations.
 
 > **NOTE**  
-  The rest of this article assumes that you have MongoDB running as a service on Windows and added MongoDB to
+  The rest of this article assumes that you have MongoDB running as a service on Windows and MongoDB is on
   the `path`
 
-To start the `mongo` shell and connect to your MongoDB instance running on **localhost** with **default port**:
+In this section we will be learning basic hacks with the `mongo` Shell. In the next section we will look at inserting into and
+retrieving records from the database using the `mongo` Shell. To start the `mongo` shell and connect to your MongoDB instance 
+running on **localhost** with **default port**:
 
 {% highlight posh %}
 mongo
@@ -195,17 +198,59 @@ If you use the shell to evaluate a JavaScript file or expression, either by usin
 or by specifying a `.js` file to `mongo`, `mongo` will read the `.mongorc.js` file _after_ the JavaScript has 
 finished processing. You can prevent `.mongorc.js` from being loaded by using the `--norc` option.
 
-To check the current database you are connected to run:
+To display the database you are using, type `db`:
 
 {% highlight posh %}
 > db
 {% endhighlight %}
 
-The interactive shell will output something like:
+The operation should return the default database `test`:
 
 {% highlight posh %}
 test
 {% endhighlight %}
+
+You should also note that the `mongo` Shell is a JavaScript interface. You can write regular JavaScript in the Shell:
+
+{% highlight posh %}
+> var intValue = 0;
+{% endhighlight %}
+
+We can then write a regular `while loop` and then print the incrementing value of `intValue`:
+
+{% highlight posh %}
+> while (intValue < 10) {
+... intValue++;
+... print(intValue);
+... }
+{% endhighlight %}
+
+From the example above, there are a few things to note. If you end a line with an open parenthesis ('`(`'), an open 
+brace ('`{`'), or an open bracket ('`[`'), then the subsequent lines start with ellipsis ("`...`") until you enter 
+the corresponding closing parenthesis ('`)`'), the closing brace ('`}`') or the closing bracket ('`]`'). The `mongo` 
+shell waits for the closing parenthesis, closing brace, or the closing bracket before evaluating the code.
+
+With this in mind the output of the previously executed JavaScript loop will be:
+
+{% highlight posh %}
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+{% endhighlight %}
+
+We will look at `BSON` documents in the next section.
+
+# Write and Retrieve BSON Documents
+
+# Conclusion
+
 
 [MongoDB]: https://www.mongodb.com/what-is-mongodb
 [mongo]: https://docs.mongodb.com/manual/mongo/
