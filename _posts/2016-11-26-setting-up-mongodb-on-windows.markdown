@@ -66,7 +66,7 @@ You may install MongoDB in any folder (e.g. `D:\test\mongodb`).
 You may install MongoDB Community unattended on Windows from the command line using `msiexec.exe`.
 
 1.  `Open an Administrator command prompt.`  
-    Press the `Win` key, type `cmd.exe`, and press `Ctrl + Shift + Enter` to run the **Command Prompt** as Administrator.  
+    Press the `Win`{:.fa .fa-windows} key, type `cmd.exe`, and press `Ctrl + Shift + Enter` to run the **Command Prompt** as Administrator.  
     Execute the remaining steps from the Administrator command prompt.  
 2.  `Install MongoDB for Windows.`  
     Change to the directory containing the `.msi` installation binary of your choice and invoke:
@@ -100,7 +100,7 @@ msiexec.exe /q /i mongodb-win32-x86_64-2008plus-ssl-3.2.11-signed.msi ^
 {% endhighlight %}
 
 ## Configure a Windows Service for MongoDB Community Edition
-Open an Administrative **Command Prompt** by pressing the `Win` key. Type `cmd.exe`, and press `Ctrl + Shift + Enter` to open
+Open an Administrative **Command Prompt** by pressing the `Win`{:.fa .fa-windows} key. Type `cmd.exe`, and press `Ctrl + Shift + Enter` to open
 **Command Prompt** in elevated mode.  
 Execute the remaining steps from the Administrator command prompt.
 
