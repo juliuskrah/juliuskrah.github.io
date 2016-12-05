@@ -1,6 +1,7 @@
 ---
 layout:     post
 title:      'Building Apache Hadoop from Source on Windows 10 with Visual Studio 2015'
+date:       2016-12-05 23:32:12 +0000
 categories: blog
 tags:       Hadoop Windows
 section:    blog
@@ -14,7 +15,7 @@ author:     Julius Krah
 
 # Introduction
 The easiest way to setup `Hadoop` is to download the binaries from any of the [Apache Download Mirrors][Releases]{:target="_blank"}.
-However this only holds true for GNU/Linux. 
+However this only works for GNU/Linux. 
 
 > **NOTE**  
   Hadoop version 2.2 onwards includes native support for Windows.
@@ -24,8 +25,9 @@ According to the official `Hadoop` [Wiki][]{:target="_blank"}:
 
 > building a Windows package from the sources is fairly straightforward. 
 
-This information however must be taken with a grain of salt. In this post we are going to build `Hadoop` from source on Windows 10
-with [Visual Studio Community Edition 2015][Visual Studio]{:target="_blank"}.
+This information however must be taken with a grain of salt as it wasn't _straightforward_ when I built my Windows distribution from 
+source. In this post we are going to build `Hadoop` from source on Windows 10 with 
+[Visual Studio Community Edition 2015][Visual Studio]{:target="_blank"}.
 
 ## Pre-requisites
 - Windows 10 64 bit
@@ -40,7 +42,7 @@ with [Visual Studio Community Edition 2015][Visual Studio]{:target="_blank"}.
 - Internet connection for first build (to fetch all Maven and Hadoop dependencies)
 
 # Setup Environment
-The first step to building `Hadoop` on Windows is to setup our Windows build environment. To accomplish this, we will define 
+The first step to building `Hadoop` on Windows is to setup our Windows build environment. To set this up, we will define 
 the following environment variables:
 
 - `JAVA_HOME`
@@ -75,7 +77,7 @@ mklink /D JDK "C:\Program Files\Java\jdk1.8.0_111"
 {% endhighlight %}
 
 The `JAVA_HOME` environment System variable can then be set to the  following (with no embedded spaces):  
-`JAVA_HOME` ==>  C:\ProgramData\Oracle\Java\javapath\JDK 
+`JAVA_HOME` ==>  `C:\ProgramData\Oracle\Java\javapath\JDK` 
 
 The Environment Variable editor can be accessed from the "Start" menu by clicking on "Control Panel", then "System and Security", 
 then "System", then "Advanced System Settings", then "Environment Variables".  
@@ -91,14 +93,14 @@ javac -version
 Sample output:
 
 {% highlight posh %}
-javac 1.8.0_101
+javac 1.8.0_111
 {% endhighlight %}
 
 > **NOTE**  
   The following assume `Maven 3.3.9` is downloaded
 
 Extract `Maven` binaries to `C:\apache-maven-3.3.9`. Set the `MAVEN_HOME` environment System variable to the following:
-`MAVEN_HOME` ==>  C:\apache-maven-3.3.9  
+`MAVEN_HOME` ==>  `C:\apache-maven-3.3.9`  
 The `PATH` environment System variable should then be prefixed with the following  
 `%MAVEN_HOME%\bin`
 
@@ -160,7 +162,7 @@ CMake suite maintained and supported by Kitware (kitware.com/cmake).
 Next the `PATH` environment System variable should then be prefixed with the following  
 `C:\cygwin64\bin`
 
-Extract the contents of [zlib128-dll][zlib] to `C:\zlib`. This will be needed later.
+Extract the contents of [zlib128-dll][zlib]{:target="_blank"} to `C:\zlib`. This will be needed later.
 
 And that's it for setting up the System Environment variables. Whew! That was a lot of setting up to do.
 
@@ -278,8 +280,221 @@ When everything is successful, we will get an output similar to this:
 [INFO] ------------------------------------------------------------------------
 {% endhighlight %}
 
+This will build the binaries to `C:\hdfs\hadoop-dist\target\hadoop-2.7.3.tar.gz`.
+
+# Install Hadoop
+With our build successful, we can now install `Hadoop` on Windows 10. Pick a target directory for installing the package. 
+We use `C:\hadoop` as an example. Extract the `tar.gz` file (e.g.hadoop-2.7.3.tar.gz) under `C:\hadoop`. This will yield a 
+directory structure like the following. If installing a multi-node cluster (We will cover this in a different post), 
+then repeat this step on every node:
+
+{% highlight posh %}
+C:\hadoop>dir
+ Volume in drive C is Windows
+ Volume Serial Number is 0627-71D6
+
+ Directory of C:\hadoop
+
+12/04/2016  22:49    <DIR>          .
+12/04/2016  22:49    <DIR>          ..
+12/04/2016  22:14    <DIR>          bin
+12/04/2016  22:14    <DIR>          etc
+12/04/2016  22:14    <DIR>          include
+12/04/2016  22:14    <DIR>          libexec
+12/04/2016  16:46            84,854 LICENSE.txt
+12/04/2016  22:41    <DIR>          logs
+12/04/2016  16:46            14,978 NOTICE.txt
+12/04/2016  16:46             1,366 README.txt
+12/04/2016  22:14    <DIR>          sbin
+12/04/2016  22:14    <DIR>          share
+               3 File(s)        101,198 bytes
+               9 Dir(s)  231,546,564,608 bytes free
+{% endhighlight %} 
+
+This section describes the absolute minimum configuration required to start a Single Node (pseudo-distributed) cluster.
+
+Add Environment Variable `HADOOP_HOME` and edit `Path` Variable to add `bin` directory of `HADOOP_HOME` (say `%HADOOP_HOME%\bin`).  
+Before you can start the `Hadoop` Daemons you will need to make a few edits to configuration files. The configuration file 
+templates will all be found in `C:\hadoop\etc\hadoop`, assuming your installation directory is `C:\hadoop`. 
+
+> Follow the following to edit the HDFS Configuration
+
+First edit the file **hadoop-env.cmd** to add the following lines near the end of the file:
+
+{% highlight posh %}
+set HADOOP_PREFIX=C:\hadoop
+set HADOOP_CONF_DIR=%HADOOP_PREFIX%\etc\hadoop
+set YARN_CONF_DIR=%HADOOP_CONF_DIR%
+set PATH=%PATH%;%HADOOP_PREFIX%\bin
+{% endhighlight %} 
+
+Edit the file **core-site.xml** and make sure it has the following configuration key: 
+
+{% highlight xml %}
+<configuration>
+  <property>
+    <name>fs.default.name</name>
+    <value>hdfs://0.0.0.0:19000</value>
+  </property>
+</configuration>
+{% endhighlight %}
+
+> **fs.default.name**:  
+  The name of the default file system. A URI whose scheme and authority determine the FileSystem implementation. 
+  The uri's scheme determines the config property (fs.SCHEME.impl) naming the FileSystem implementation class. 
+  The uri's authority is used to determine the host, port, etc. for a filesystem.
+
+Edit the file **hdfs-site.xml** and add the following configuration key:
+
+{% highlight xml %}
+<configuration>
+  <property>
+    <name>dfs.replication</name>
+    <value>1</value>
+  </property>
+</configuration>
+{% endhighlight %}
+
+> **dfs.replication**:  
+  Default block replication. The actual number of replications can be specified when the file is created. The default is used if 
+  replication is not specified in create time.
+
+Finally, edit the file **slaves** and make sure it has the following entry:
+
+{% highlight posh %}
+localhost
+{% endhighlight %}
+
+The default configuration puts the HDFS metadata and data files under `\tmp` on the current drive. In the above example 
+this would be `C:\tmp`. For your first test setup you can just leave it at the default.
+
+> Follow the following to edit the YARN Configuration
+
+Edit **mapred-site.xml** under `%HADOOP_PREFIX%\etc\hadoop`:
+
+{% highlight posh %}
+copy mapred-site.xml.template mapred-site.xml
+{% endhighlight %}
+
+Add the following entries:
+
+{% highlight xml %}
+<configuration>
+   <property>
+     <name>mapreduce.framework.name</name>
+     <value>yarn</value>
+   </property>
+</configuration> 
+{% endhighlight %}
+
+> **mapreduce.framework.name**:  
+  The runtime framework for executing MapReduce jobs. Can be one of local, classic or yarn.
+
+Finally, edit **yarn-site.xml** and add the following entries:
+
+{% highlight xml %} 
+<configuration>
+  <property>
+    <name>yarn.nodemanager.aux-services</name>
+    <value>mapreduce_shuffle</value>
+  </property>
+
+  <property>
+    <name>yarn.nodemanager.aux-services.mapreduce.shuffle.class</name>
+    <value>org.apache.hadoop.mapred.ShuffleHandler</value>
+  </property>
+
+  <property>
+    <name>yarn.application.classpath</name>
+    <value>%HADOOP_CONF_DIR%,%HADOOP_COMMON_HOME%/share/hadoop/common/*,%HADOOP_COMMON_HOME%/share/hadoop/common/lib/*,%HADOOP_HDFS_HOME%/share/hadoop/hdfs/*,%HADOOP_HDFS_HOME%/share/hadoop/hdfs/lib/*,%HADOOP_MAPRED_HOME%/share/hadoop/mapreduce/*,%HADOOP_MAPRED_HOME%/share/hadoop/mapreduce/lib/*,%HADOOP_YARN_HOME%/share/hadoop/yarn/*,%HADOOP_YARN_HOME%/share/hadoop/yarn/lib/*</value>
+  </property>
+</configuration>
+{% endhighlight %}
+
+> **yarn.nodemanager.aux-services**:  
+  The auxiliary service name. Default value is omapreduce_shuffle  
+  **yarn.nodemanager.aux-services.mapreduce.shuffle.class**:  
+  The auxiliary service class to use. Default value is org.apache.hadoop.mapred.ShuffleHandler  
+  **yarn.application.classpath**:  
+  CLASSPATH for YARN applications. A comma-separated list of CLASSPATH entries.
+
+Run 
+
+{% highlight posh %}
+C:\deploy\etc\hadoop\hadoop-env.cmd
+{% endhighlight %}
+
+to setup environment variables that will be used by the startup scripts and the daemons. 
+
+Format the filesystem with the following command:
+
+{% highlight posh %}
+hdfs namenode -format
+{% endhighlight %}
+
+This command will print a number of filesystem parameters. Just look for the following two strings to ensure that the 
+format command succeeded:
+
+{% highlight posh %}
+16/12/05 22:05:35 INFO namenode.FSImageFormatProtobuf: Saving image file \tmp\hadoop-username\dfs\name\current\fsimage.ckpt_0000000000000000000 using no compression
+16/12/05 22:05:35 INFO namenode.FSImageFormatProtobuf: Image file \tmp\hadoop-username\dfs\name\current\fsimage.ckpt_0000000000000000000 of size 355 bytes saved in 0 seconds.
+{% endhighlight %}
+
+Run the following command to start the NameNode and DataNode on localhost:
+
+{% highlight posh %}
+%HADOOP_PREFIX%\sbin\start-dfs.cmd
+{% endhighlight %}
+
+Two separate Command Prompt windows will be opened automatically to run **Namenode** and **Datanode**.
+
+To verify that the HDFS daemons are running, we would create a file:
+
+{% highlight posh %}
+echo > myfile.txt
+{% endhighlight %}
+
+Try copying the file to HDFS:
+
+{% highlight posh %}
+%HADOOP_PREFIX%\bin\hdfs dfs -put myfile.txt /
+%HADOOP_PREFIX%\bin\hdfs dfs -ls /
+{% endhighlight %}
+
+Sample output:
+
+{% highlight posh %}
+Found 1 items
+drwxr-xr-x   - username supergroup          4640 2014-01-18 08:40 /myfile.txt
+{% endhighlight %}
+
+Finally, start the YARN daemons:
+
+{% highlight posh %}
+%HADOOP_PREFIX%\sbin\start-yarn.cmd
+{% endhighlight %}
+
+Similarly, two separate Command Prompt windows will be opened automatically to run **Resource Manager** and **Node Manager**.
+The cluster should be up and running! To verify, we can run a simple wordcount job on the text file we just copied to HDFS:
+
+{% highlight posh %}
+%HADOOP_PREFIX%\bin\yarn jar %HADOOP_PREFIX%\share\hadoop\mapreduce\hadoop-mapreduce-example
+s-2.5.0.jar wordcount /myfile.txt /out
+{% endhighlight %}
+
+If everything goes well then you will be able to open the **Resource Manager** and **Node Manager** at 
+[http://localhost:8042](http://localhost:8042){:target="_blank"} and **Namenode** at [http://localhost:50070](http://localhost:50070){:target="_blank"}.
+
+Stop HDFS & MapReduce with the following commands:
+
+{% highlight posh %}
+%HADOOP_PREFIX%\sbin\stop-dfs.cmd
+%HADOOP_PREFIX%\sbin\stop-yarn.cmd
+{% endhighlight %}
+
 # Conclusion
-The instructions here are unofficial...
+In this post, we built `Hadoop` from source on Windows 10 64 bit with `Visual Studio 2015 Community Edition` albeit a tideous process. 
+We also setup a single `Hadoop` cluster on Windows. Until the next post, keep doing cool things :smile:.
 
 
 [Hadoop]: http://hadoop.apache.org/

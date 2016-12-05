@@ -298,7 +298,7 @@ Our next jsp template is the `banner.jsp` in the `tiles` folder `(/tiles/banner.
 
 # Conclusion
 In this blog post, we have looked at how to extend and nest tiles definition. As usual you can find the source to this guide 
-{% include source.html %}. Happy coding :+1:.
+{% include source.html %}. Until the next post, keep doing cool things :+1:.
 
 
 

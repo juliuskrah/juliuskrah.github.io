@@ -412,7 +412,7 @@ Run this in any servlet 3.1 container to see the final output.
 # Conclusion
 Tiles can be used with web frameworks such as [Spring][]{:target="_blank"} and [Struts][]{:target="_blank"}, and template 
 technologies like JSP and [Thymeleaf][]{:target="_blank"}.  
-You can find the source to this guide {% include source.html %}. Happy coding :+1:.
+You can find the source to this guide {% include source.html %}. Until the next post, keep doing cool things :+1:.
 
 
 

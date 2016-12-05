@@ -342,7 +342,7 @@ The above output can be made pretty with indentation by calling `pretty()` on th
 # Conclusion
 In this blog post, we learned how to setup MongoDB as a Windows service. We also learned how to use and interact with the `mongo` 
 JavaScript Shell interface. We finished up with working with BSON documents.  
-I enjoyed writing this post, I hope you did too :smile:.
+I enjoyed writing this post, I hope you did too and until the next post, keep doing cool things :smile:.
 
 
 [MongoDB]: https://www.mongodb.com/what-is-mongodb

@@ -55,4 +55,4 @@ and will automatically expand as necessary to accommodate additions to the strin
 Back to the question raised at the beginning of this post. Which would you consider? It depends. When you are writing reactively
 fast applications and speed is a concern, you may consider `StringBuilder`. On the other hand when memory is a major constraint and
 GC overhead is an issue then `String` may very well suit your needs. This does not however lock you to use one or the other. Feel 
-free using both in the same application wherever they are best suited. Cheers :smile:.
+free using both in the same application wherever they are best suited. Until the next post, keep doing cool things :smile:.
