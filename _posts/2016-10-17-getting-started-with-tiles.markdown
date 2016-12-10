@@ -12,41 +12,42 @@ repo:       apache-tiles-basic-example
 Composite pattern it is built to simplify the development of user interfaces.
 
 # Introduction
-Building web applications most often than not requires duplicating page elements across several pages. When adding page navigation
-for instance, one is required to copy/paste these elements on all pages with navigation. This can sometimes prove to be stressfull
-and wrought with errors.  
+Building web applications most often than not requires duplicating common page elements across several pages. When adding links to page 
+navigation for instance, one is required to copy/paste these links on all pages that have navigation. This can sometimes prove to be 
+repetitive and wrought with errors.  
 To avoid code duplication, developers look for tools and/or libraries to make this easier. Shared page elements can be created as
-independent homogeneous units and reused across the entire web application using these tools.  
+autonomous units and reused across the entire web application using these units.  
 One of such tools that goes a step futher is `Apache Tiles`. `Apache Tiles` is a template composition framework. Tiles was originally
 built to simplify the development of web application user interfaces, but it is no longer restricted to the JavaEE web environment. 
 For complex web sites it remains the easiest and most elegant way to work alongside any MVC technology. Tiles allows authors to define
-page fragments which can be assembled into a complete page at runtime. These fragments, or tiles, can be used as simple includes in
-order to reduce the duplication of common page elements or embedded within other tiles to develop a series of reusable templates.
+page `fragments` which can be assembled into a complete page at runtime. These `fragments`, or `tiles`, can be used as simple `includes` 
+in order to reduce the duplication of common page elements or embedded within other tiles to develop a series of reusable templates.
 These templates streamline the development of a consistent look and feel across an entire application.  
-The final working sample can be found {% include source.html %}. For advanced usage of tiles refer to this [blog post]({% post_url 2016-10-30-tiles-nesting-and-extending-definitions%}).
+The final working sample can be found {% include source.html %}. For advanced usage of tiles refer to this 
+[blog post]({% post_url 2016-10-30-tiles-nesting-and-extending-definitions %}).
 
 ## Structure
 At the end of this guide our folder structure will look similar to this:
 
 ```
-- ROOT
-  - src/
-    - main/
-      - webapp/
-        - layouts/
-          - classic.jsp
-        - tiles/
-          - banner.jsp
-          - blog_header.jsp
-          - common_menu.jsp
-          - credits.jsp
-          - home_body.jsp
-          - navigation.jsp
-        - WEB-INF/
-          - tiles.xml
-          - web.xml
-        - index.jsp
-  - pom.xml
+.
+|__src/
+|  |__main/
+|  |  |__webapp/
+|  |  |  |__layouts/
+|  |  |  |  |__classic.jsp
+|  |  |  |__tiles/
+|  |  |  |  |__banner.jsp
+|  |  |  |  |__blog_header.jsp
+|  |  |  |  |__common_menu.jsp
+|  |  |  |  |__credits.jsp
+|  |  |  |  |__home_body.jsp
+|  |  |  |  |__navigation.jsp
+|  |  |  |__WEB-INF/
+|  |  |  |  |__tiles.xml
+|  |  |  |  |__web.xml
+|  |  |  |__index.jsp
+|__pom.xml
 ```
 
 

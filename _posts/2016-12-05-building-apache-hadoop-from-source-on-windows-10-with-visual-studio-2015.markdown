@@ -361,9 +361,9 @@ Edit the file **hdfs-site.xml** and add the following configuration key:
 
 Finally, edit the file **slaves** and make sure it has the following entry:
 
-{% highlight posh %}
+```
 localhost
-{% endhighlight %}
+```
 
 The default configuration puts the HDFS metadata and data files under `\tmp` on the current drive. In the above example 
 this would be `C:\tmp`. For your first test setup you can just leave it at the default.
