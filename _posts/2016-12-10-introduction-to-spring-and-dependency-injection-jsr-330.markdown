@@ -122,10 +122,18 @@ will use a `pom.xml` to manage our dependencies:
 ...
 {% endhighlight %}
 
-In this post we will be using the Standard `JSR 330` annotations to demonstrate DI.
+In this post we will be using the Standard `JSR 330` (found in `javax.inject` package) annotations to demonstrate DI.
 
 # Adding Spring and JSR 330 Annotations
-The above `MessagePrinter` class can be rewritten to add Spring support:
+Before we dive into the cool things, let us look at the various options for injection in Spring:
+
+1. Constructor-based dependency injection
+2. Setter-based dependency injection
+3. Field-based dependency injection
+
+We will demonstrate all three with code examples.
+
+The above `MessagePrinter` class can be rewritten to add Spring support using constructor-based injection:
 
 {% highlight java %}
 import javax.inject.Inject;
@@ -147,7 +155,13 @@ public class MessagePrinter {
 }
 {% endhighlight %}
 
-Notice the introduction of two new annotations; `@Component` at the class or type level and `@Inject` at the constructor level.  
+Notice the introduction of two new annotations; `@Component` at the class or type level and `@Inject` at the constructor level. 
+
+> **NOTE**  
+  Since [Spring 4.3][4.3]{:target="_blank"} it is no longer necessary to specify an injection point if the target bean only 
+  defines one constructor. In our case, the `@Inject` annotation is not necessary as we have only one constructor.
+
+
 The example above shows the basic concept of dependency injection, the `MessagePrinter` is decoupled from the `MessageService` 
 implementation, with Spring Framework wiring everything together.
 
@@ -157,6 +171,51 @@ implementation, with Spring Framework wiring everything together.
   injectable member may have any access modifier (private, package-private, protected, public). Constructors are injected 
   first, followed by fields, and then methods. Fields and methods in superclasses are injected before those in subclasses. 
   Ordering of injection among fields and among methods in the same class is not specified.
+
+The `MessagePrinter` class can be rewritten to add Spring support using setter-based injection:
+
+{% highlight java %}
+import javax.inject.Inject;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class MessagePrinter {
+  private MessageService messageService;
+
+  public MessageService getMessageService() {
+    return messageService;
+  }
+
+  @Inject
+  public void setMessageService(MessageService messageService) {
+    this.messageService = messageService;
+  }
+
+  public void printMessage() {
+    System.out.println(this.messageService.getMessage());
+  }
+}
+{% endhighlight %}
+
+The `MessagePrinter` class can be rewritten to add Spring support using field-based injection:
+
+{% highlight java %}
+import javax.inject.Inject;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class MessagePrinter {
+  @Inject
+  private MessageService messageService;
+
+  public void printMessage() {
+    System.out.println(this.messageService.getMessage());
+  }
+}
+{% endhighlight %}
+
 
 Now that we have most of our application configuration metadata out of the way, we can create our configuration class:
 
@@ -197,7 +256,7 @@ Before we go any further, a few more notes on `@ComponentScan` as it applies in 
 
 1.    Either `basePackageClasses` or `basePackages` (or its alias value) may be specified to define specific packages to scan. 
       If specific packages are not defined, scanning will occur from the package of the class that declares this annotation 
-      (in our case `com.juliuskrah.gs`). What this means is, you can specify a package that Spring needs to scan for `Components`.
+      (in our case `com.juliuskrah.gs`). What this means is, you can specify a package that Spring needs to scan for `Component`s.
 2.    The `MessagePrinter` class is annotated with `@Component` which makes it eligible for discovery by the `@ComponentScan` as
       it is also located in the `com.juliuskrah.gs` package.
 3.    `MessagePrinter` now scanned by the Spring container can now process `@Inject` annotations.
@@ -225,11 +284,13 @@ class implemented to return `"Hello World!"` for the `getMessage()` method.
 When this project is run, it will print `"Hello World!"` in the console.
 
 # Conclusion
-In this post we learnt the basics of the Spring Framework and Dependency Injection using code samples.
-You can find the source to this guide {% include source.html %}. Until the next post, keep doing cool things :+1:.
-
+In this post we learnt the basics of the Spring Framework and Dependency Injection using code samples. We also talked about the 
+types of injection in Spring. You can mix, Constructor-based, Setter-based and Field-based DI but it is a good rule of thumb to use 
+constructor arguments for mandatory dependencies and setters or field for optional dependencies.
+You can find the source to this guide {% include source.html %}. Until the next post, keep doing cool things :smile:.
 
 [Spring]: http://projects.spring.io/spring-framework/
 [JSR-330]: https://jcp.org/en/jsr/detail?id=330
 [IoC]: https://docs.spring.io/spring/docs/current/spring-framework-reference/html/overview.html#background-ioc
 [Maven]: http://maven.apache.org/
+[4.3]: http://docs.spring.io/spring/docs/4.3.x/spring-framework-reference/htmlsingle/#new-in-4.3

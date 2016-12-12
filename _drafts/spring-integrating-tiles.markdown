@@ -12,5 +12,9 @@ repo:       spring-tiles-example
   [Spring][]{:target="_blank"} is a DI bla bla bla
 
 
+  Checkout my [previous post]({% post_url 2016-12-10-introduction-to-spring-and-dependency-injection-jsr-330 %}) for an intro to Spring.
+  Check this [one]({% post_url 2016-10-17-getting-started-with-tiles %}) for intro to tiles
+
+
   [Tiles]: https://tiles.apache.org/
   [Spring]: https://spring.io/
