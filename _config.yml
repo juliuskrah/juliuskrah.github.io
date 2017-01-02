@@ -31,6 +31,7 @@ gems:
   - jekyll-feed
   - jekyll-seo-tag
   - jekyll-sitemap
+
 # Default is https://github.com
 jekyll-mentions:
   base_url: https://twitter.com
@@ -46,3 +47,17 @@ theme: minima
 exclude:
   - README.md
   - .gitignore
+
+# Custom collection for post tags
+collections:
+  blog_tags:
+    output: true
+    permalink: /tag/:name/
+
+# Specifies where the layouts for custom collection is located
+defaults:
+  - scope:
+      path: ""
+      type: blog_tags
+    values:
+      layout: tag

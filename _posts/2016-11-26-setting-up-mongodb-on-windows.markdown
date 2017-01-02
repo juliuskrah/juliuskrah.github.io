@@ -3,7 +3,7 @@ layout:     post
 title:      'Setting up MongoDB on Windows'
 date:       2016-11-26 22:42:17 +0000
 categories: blog
-tags:       MongoDB Windows
+tags:       mongodb windows
 section:    blog
 author:     Julius Krah
 ---

@@ -3,7 +3,7 @@ layout:     post
 title:      'Building Apache Hadoop from Source on Windows 10 with Visual Studio 2015'
 date:       2016-12-05 23:32:12 +0000
 categories: blog
-tags:       Hadoop Windows
+tags:       hadoop windows
 section:    blog
 author:     Julius Krah
 ---
