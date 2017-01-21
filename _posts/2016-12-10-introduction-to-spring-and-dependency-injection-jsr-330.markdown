@@ -27,7 +27,11 @@ The container then injects those dependencies when it creates the `bean`. This p
 `Inversion of Control` (IoC), of the `bean` itself controlling the instantiation or location of its dependencies by using direct 
 construction of classes, or a mechanism such as the _Service Locator_ pattern.
 
-## Folder Structure
+## Pre-requisites
+- [Java Development Kit][JDK]{:target="_blank"}  
+- [Maven][]{:target="_blank"}
+
+## Project Structure
 To demonstrate Dependency Injection, we will create a project that showcases the concept. This project will have the following 
 directory structure:
 
@@ -294,3 +298,4 @@ You can find the source to this guide {% include source.html %}. Until the next 
 [IoC]: https://docs.spring.io/spring/docs/current/spring-framework-reference/html/overview.html#background-ioc
 [Maven]: http://maven.apache.org/
 [4.3]: http://docs.spring.io/spring/docs/4.3.x/spring-framework-reference/htmlsingle/#new-in-4.3
+[JDK]: http://www.oracle.com/technetwork/java/javase/downloads/index.html

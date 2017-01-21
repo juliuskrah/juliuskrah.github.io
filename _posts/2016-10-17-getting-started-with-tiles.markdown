@@ -9,7 +9,7 @@ author:     Julius Krah
 repo:       apache-tiles-basic-example
 ---
 > [Apache Tiles][Tiles]{:target="_blank"} is a free open-sourced templating framework for modern Java applications. Based upon the 
-Composite pattern it is built to simplify the development of user interfaces.
+  Composite pattern it is built to simplify the development of user interfaces.
 
 # Introduction
 Building web applications most often than not requires duplicating common page elements across several pages. When adding links to page 
@@ -26,7 +26,7 @@ These templates streamline the development of a consistent look and feel across 
 The final working sample can be found {% include source.html %}. For advanced usage of tiles refer to this 
 [blog post]({% post_url 2016-10-30-tiles-nesting-and-extending-definitions %}).
 
-## Structure
+## Project Structure
 At the end of this guide our folder structure will look similar to this:
 
 ```
@@ -55,7 +55,7 @@ At the end of this guide our folder structure will look similar to this:
 - [Java Development Kit][JDK]{:target="_blank"}  
 - [Maven][]{:target="_blank"}
 
-# Getting dependencies
+# Getting Dependencies
 In this getting started guide we will use `Maven` to manage the dependencies. Let's add the following to our `pom.xml`:
 
 {% highlight xml %}
@@ -196,7 +196,7 @@ Notice the `<tiles>` child element within the `<title>` element. It is tagged wi
 
 Run this in any compartible servlet 3.1 container to view the output.
 
-# Adding attributes
+# Adding Attributes
 Now that we have seen how to create `definitions`, let us add some more `attributes` to this definition `(tiles.xml)`:  
 
 {% highlight xml %}
@@ -349,7 +349,7 @@ Let us add some content to our `JSP` files.
 </nav>
 {% endhighlight %}
 
-# Putting it all together
+# Putting it all Together
 To wrap up, this is the complete `tiles-definition`:
 
 {% highlight xml %}

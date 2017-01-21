@@ -18,7 +18,7 @@ say, a structured body. Typically, there is a main layout (for example, the "cla
 of sections. In this case, nesting a definition (the one for the body) inside another definition (the main layout) can be useful.  
 You can follow along this guide or get the final example {% include source.html %}.
 
-# Pre requisites
+# Pre-requisites
 - [Java Development Kit][JDK]{:target="_blank"}  
 - [Maven][]{:target="_blank"}
 
@@ -171,7 +171,7 @@ Our `/layouts/home_body.jsp` will contain this content:
 # Extending Definitions
 You can extend definitions like a Java class. The concepts of `abstract` definition, `extension` and `override` are available.
 
-## Abstract definition
+## Abstract Definition
 It is a definition in which the template attributes are not completely filled. They are useful to create a base page and a 
 number of extending definitions, reusing already created layout. For example:
 
@@ -226,7 +226,7 @@ but the layout is different.
 
 In this case, the page will have the same appearance as the `myapp.homepage` definition, but its `heading` subpage is different.
 
-# Putting it all together
+# Putting it all Together
 We will first create our welcome page in the `layouts` folder `(/layouts/classic.jsp)`:
 
 {% highlight html %}
