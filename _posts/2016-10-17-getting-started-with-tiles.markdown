@@ -51,7 +51,7 @@ At the end of this guide our folder structure will look similar to this:
 ```
 
 
-# Pre-requisites
+# Prerequisites
 - [Java Development Kit][JDK]{:target="_blank"}  
 - [Maven][]{:target="_blank"}
 

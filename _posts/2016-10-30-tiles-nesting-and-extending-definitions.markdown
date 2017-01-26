@@ -18,7 +18,7 @@ say, a structured body. Typically, there is a main layout (for example, the "cla
 of sections. In this case, nesting a definition (the one for the body) inside another definition (the main layout) can be useful.  
 You can follow along this guide or get the final example {% include source.html %}.
 
-# Pre-requisites
+# Prerequisites
 - [Java Development Kit][JDK]{:target="_blank"}  
 - [Maven][]{:target="_blank"}
 

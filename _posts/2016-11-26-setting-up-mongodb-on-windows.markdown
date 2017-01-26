@@ -10,10 +10,11 @@ author:     Julius Krah
 > [MongoDB][]{:target="_blank"} is an open-source, document database designed for ease of development and scaling.
 
 # Introduction
-In this blog post, we are going to learn how to setup mongoDB on Windows. At the end of this post, we would have 
-accomplished the following objectives:
+In this blog post, we are going to learn how to setup mongoDB on Windows. If you are looking for instructions on
+[how to setup MongoDB on Ubuntu]({% post_url 2017-01-26-setting-up-mongodb-on-ubuntu-16-04 %}) check out my post on the topic. 
+At the end of this post, we would have accomplished the following objectives:
 
-- Setup and configured mongoDB as a Windows service
+- Setup and configured MongoDB as a Windows service
 - Launched and interacted with the [`mongo`][mongo]{:target="_blank"} Shell JavaScript Interface
 - Written and retrieved [BSON][]{:target="_blank"} documents to and from mongoDB using the `mongo` Shell 
 

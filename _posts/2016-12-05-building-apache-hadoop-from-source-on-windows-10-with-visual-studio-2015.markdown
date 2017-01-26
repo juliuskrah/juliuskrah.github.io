@@ -29,7 +29,7 @@ This information however must be taken with a grain of salt as it wasn't _straig
 source. In this post we are going to build `Hadoop` from source on Windows 10 with 
 [Visual Studio Community Edition 2015][Visual Studio]{:target="_blank"}.
 
-## Pre-requisites
+## Prerequisites
 - Windows 10 64 bit
 - [Oracle JDK][JDK]{:target="_blank"} 1.8.0_111+
 - [Maven][]{:target="_blank"} 3.3.9+

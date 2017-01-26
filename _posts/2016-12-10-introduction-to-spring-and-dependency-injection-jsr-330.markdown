@@ -27,7 +27,7 @@ The container then injects those dependencies when it creates the `bean`. This p
 `Inversion of Control` (IoC), of the `bean` itself controlling the instantiation or location of its dependencies by using direct 
 construction of classes, or a mechanism such as the _Service Locator_ pattern.
 
-## Pre-requisites
+## Prerequisites
 - [Java Development Kit][JDK]{:target="_blank"}  
 - [Maven][]{:target="_blank"}
 

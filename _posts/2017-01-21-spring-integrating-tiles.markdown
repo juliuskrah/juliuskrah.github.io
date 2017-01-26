@@ -19,7 +19,7 @@ In this post we are going to learn how to make `Spring` play nice with `Tiles`. 
 [previous post]({% post_url 2016-12-10-introduction-to-spring-and-dependency-injection-jsr-330 %}) for an introduction. If you are 
 new to Tiles as well, look [here]({% post_url 2016-10-17-getting-started-with-tiles %}) for a beginner's overview.
 
-## Pre-requisites
+## Prerequisites
 - [Java Development Kit][JDK]{:target="_blank"}  
 - [Maven][]{:target="_blank"}
 
