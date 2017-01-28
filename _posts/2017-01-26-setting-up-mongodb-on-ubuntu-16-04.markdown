@@ -201,7 +201,7 @@ On line `24` just below `port: 27017` comment out `bindIp: 127.0.0.1`.
 Run `sudo service mongod restart` to activate the configuration changes.
 
 # Conclusion
-In this blog post, we learned how to setup MongoDB as a service on Ubuntu. We also learned how to enable MongoDB thorugh network firewall.  
+In this blog post, we learned how to setup MongoDB as a service on Ubuntu. We also learned how to enable MongoDB through network firewall.  
 I enjoyed writing this post, I hope you did too and until the next post, keep doing cool things :smile:.
 
 
