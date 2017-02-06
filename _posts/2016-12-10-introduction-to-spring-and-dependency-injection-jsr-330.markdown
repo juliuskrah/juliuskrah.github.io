@@ -5,7 +5,7 @@ date:       2016-12-10 00:08:31 +0000
 categories: blog
 tags:       java spring maven
 section:    blog
-author:     Julius Krah
+author:     juliuskrah
 repo:       gs-spring
 ---
 > The [Spring Framework][Spring]{:target="_blank"} provides a comprehensive programming and configuration model for modern Java-based 

@@ -5,7 +5,7 @@ date:       2016-12-05 23:32:12 +0000
 categories: blog
 tags:       hadoop windows
 section:    blog
-author:     Julius Krah
+author:     juliuskrah
 ---
 > The [Apache Hadoop][Hadoop]{:target="_blank"}  software library is a framework that allows for the distributed processing of large 
   data sets across clusters of computers using simple programming models. It is designed to scale up from single servers to thousands 

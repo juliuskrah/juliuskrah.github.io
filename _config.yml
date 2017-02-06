@@ -19,6 +19,35 @@ url: "http://juliuskrah.com" # the base hostname & protocol for your site
 author: juliuskrah
 twitter:
   username: juliuskrah
+
+# Facebook settings
+# facebook:
+#   app_id: 1234
+#   publisher: 1234
+#   admins: 1234
+
+# Replace with logo stored on Imgur
+# logo: http://imgur.com/juliuskrah/assets/android-icon-192x192.png
+
+social:
+  name: Julius Krah
+  links:
+    - https://twitter.com/juliuskrah
+    - https://www.linkedin.com/in/juliuskrah
+    - https://github.com/juliuskrah
+    - http://stackoverflow.com/users/6157880/julius-krah
+    - https://plus.google.com/+JuliusKrah
+
+# Google site verification for verifying ownership via Google webmaster tools
+# google_site_verification: 1234
+
+# Image customization
+# image:
+#   twitter: /img/twitter.png
+#   facebook: /img/facebook.png
+#   height: 100
+#   width: 100
+
 disqus:
   shortname: juliuskrah
 google_analytics: UA-86031412-1

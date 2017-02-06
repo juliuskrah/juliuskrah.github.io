@@ -5,7 +5,7 @@ date:       2016-11-26 22:42:17 +0000
 categories: blog
 tags:       mongodb windows
 section:    blog
-author:     Julius Krah
+author:     juliuskrah
 ---
 > [MongoDB][]{:target="_blank"} is an open-source, document database designed for ease of development and scaling.
 

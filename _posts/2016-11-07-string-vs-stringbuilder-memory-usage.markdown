@@ -5,7 +5,7 @@ date:       2016-11-07 16:35:45 +0000
 categories: gist
 tags:       java spring-boot maven
 section:    blog
-author:     Julius Krah
+author:     juliuskrah
 ---
 When writing an application in Java, there are several things to look out for. What is the optimization consideration? Speed 
 or Memory? This begs the question, when do you use `String` and `StringBuilder`?  

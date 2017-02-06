@@ -5,7 +5,7 @@ date:       2016-10-30 22:35:31 +0000
 categories: blog
 tags:       java tiles maven
 section:    blog
-author:     Julius Krah
+author:     juliuskrah
 repo:       apache-tiles-advanced-example
 ---
 > [Apache Tiles][Tiles]{:target="_blank"} is a free open-sourced templating framework for modern Java applications. Based upon the Composite pattern 

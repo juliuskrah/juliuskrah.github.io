@@ -5,7 +5,7 @@ date:       2017-01-21 21:25:22 +0000
 categories: blog
 tags:       java spring tiles maven
 section:    blog
-author:     Julius Krah
+author:     juliuskrah
 repo:       spring-tiles-example
 ---
 > [Apache Tiles][Tiles]{:target="_blank"} is a free open-sourced templating framework for modern Java applications. Based upon the 

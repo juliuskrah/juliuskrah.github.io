@@ -5,7 +5,7 @@ date:       2017-01-26 13:24:21 +0000
 categories: blog
 tags:       mongodb ubuntu
 section:    blog
-author:     Julius Krah
+author:     juliuskrah
 ---
 > [MongoDB][]{:target="_blank"} is an open-source, document database designed for ease of development and scaling.
 
