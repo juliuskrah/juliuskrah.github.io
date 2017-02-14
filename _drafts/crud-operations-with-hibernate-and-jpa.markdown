@@ -13,9 +13,9 @@ repo:       java-crud/tree/hibernate-jpa
   managing relational data in Java applications.
   
 # Introduction
-This is the first part of a series of tutorials focused on `Hibernate` and `JPA`. In this tutorial we are going to look at the basics of 
+This is the first part of a series of posts focused on `Hibernate` and `JPA`. In this tutorial we are going to look at the basics of 
 Hibernate and JPA.  
-The relationship between Hibernate and JPA is Hibernate is an implementation of the JPA specification. In this post we will create a
+The relationship between Hibernate and JPA is that **Hibernate** is an implementation of the JPA specification. In this post we will create a
 simple project that performs [CRUD][]{:target="_blank"} operations to demonstrates the powerful capabilities of JPA using Hibernate.
 
 ## Prerequisites
@@ -42,6 +42,7 @@ We will create a [Maven][]{:target="_blank"} project using the standard director
 |  |  |  |__META-INF/
 |  |  |  |  |__persistence.xml
 |  |  |  |__log4j2.properties
+|__pom.xml
 ```
 
 # Setting up Dependencies
@@ -74,7 +75,7 @@ The object/relational mapping information can take the form of annotations on th
 persistence unit, an `orm.xml` file contained in the `META-INF` directory of the root of the persistence unit, one or more XML 
 files on the classpath and referenced from the persistence.xml file, or a combination of these.
 
-For our simple use case we will create a `persistence.xml`.  
+For our simple use case we will create a `persistence.xml` file.  
 file: `src/main/resources/META-INF/persistence.xml`:
 
 {% highlight xml %}
@@ -101,9 +102,9 @@ file: `src/main/resources/META-INF/persistence.xml`:
 </persistence>
 {% endhighlight %}
 
-From the above snippet we have specified the persistence unit name as `com.juliuskrah.tutorial`. This is the value we will use to invoke the
-[EntityManagerFactory][]{:target="_blank"}.  
-In the same snippet we have specified the [Entity][]{:target="_blank"} class (`Person`) to managed by the 
+From the above snippet we have specified the persistence unit name as `com.juliuskrah.tutorial`. This is the value we will use to create
+the [EntityManagerFactory][]{:target="_blank"}.  
+In the same snippet we have specified the [Entity][]{:target="_blank"} class (`Person`) to be managed by the 
 [EntityManager][]{:target="_blank"}  
 We have also specified the properties Hibernate will use to connect to the database. The most important property here is the
 `javax.persistence.provider` which tells JPA which implementation to use (in our case Hibernate).
@@ -114,8 +115,6 @@ file: `src/main/java/com/tutorial/entity/Person.java`:
 {% highlight java %}
 @Entity
 public class Person implements Serializable {
-
-  private static final long serialVersionUID = 1L;
 
   @Id
   @GeneratedValue
@@ -138,7 +137,7 @@ public class Person implements Serializable {
 }
 {% endhighlight %}
 
-The `@Entity` annotation on the `Person` class is a mapping metadata that tells JPA to map the fields of Person object to the columns
+The `@Entity` annotation on the `Person` class is a mapping metadata that tells JPA to map the fields of the Person object to the columns
 in the PERSON table. For example the `firstName` field of type `String` is mapped to `FIRSTNAME` column of type `varchar`. You can 
 read more on Entity mapping [here][Domain Mapping]{:target="_blank"}.  
 The `@Id` annotation on `id` field marks it as the `primary key` of the PERSON table. The `@GeneratedValue` annotation defines a 
@@ -218,10 +217,13 @@ of an EntityManager. The PersonRepository contains methods to perform the CRUD o
 
 # Running the Application
 We will create a main class to test our CRUD methods.
+
 > **NOTE**  
   In our `persistence.xml` file we set a property `javax.persistence.schema-generation.database.action` to `drop-and-create`. This 
   instructs Hibernate to drop and recreate the database everytime the application is run. Please don't use this setting in a production
   environment.
+
+file: `src/main/java/com/tutorial/Application.java`:
 
 {% highlight java %}
 public class Application {
@@ -282,7 +284,7 @@ server = Server.createTcpServer().start();
 {% endhighlight %}
 
 Once the database server is up Hibernate can perform [DDL][]{:target="_blank"} and [DML][]{:target="_blank"} operations on the embedded
-database server. We do a cleanup of resources when our application exits by calling `server.stop()` and `repository.close()`.
+database server. We do a cleanup of resources when our application exits by calling `server.stop()` and `repository.close()` methods.
 
 # Conclusion
 In this post we were briefly introduced to JPA and its Hibernate implementation. We saw how to perform basic CRUD operations using 
