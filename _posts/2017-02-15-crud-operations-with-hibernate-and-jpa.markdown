@@ -1,6 +1,7 @@
 ---
 layout:     post
 title:      'CRUD operations with Hibernate and JPA'
+date:       2017-02-15 21:21:21 +0000
 categories: tutorial
 tags:       java maven hibernate jpa
 section:    series
@@ -15,7 +16,11 @@ repo:       java-crud/tree/hibernate-jpa
 # Introduction
 This is the first part of a series of posts focused on `Hibernate` and `JPA`. In this tutorial we are going to look at the basics of 
 Hibernate and JPA.  
-The relationship between Hibernate and JPA is that **Hibernate** is an implementation of the JPA specification. In this post we will create a
+The relationship between Hibernate and JPA is that **Hibernate** is an implementation of the JPA specification. 
+
+> JPA is a *specification*. Hibernate is its *implementation*.
+
+In this post we will create a
 simple project that performs [CRUD][]{:target="_blank"} operations to demonstrates the powerful capabilities of JPA using Hibernate.
 
 ## Prerequisites
@@ -137,9 +142,9 @@ public class Person implements Serializable {
 }
 {% endhighlight %}
 
-The `@Entity` annotation on the `Person` class is a mapping metadata that tells JPA to map the fields of the Person object to the columns
-in the PERSON table. For example the `firstName` field of type `String` is mapped to `FIRSTNAME` column of type `varchar`. You can 
-read more on Entity mapping [here][Domain Mapping]{:target="_blank"}.  
+The `@Entity` annotation on the `Person` class is a [mapping][Domain Mapping]{:target="_blank"} metadata that tells JPA to map the 
+fields of the Person object to the columns in the PERSON table. For example the `firstName` field of type `String` is mapped to 
+`FIRSTNAME` column of type `varchar`.  
 The `@Id` annotation on `id` field marks it as the `primary key` of the PERSON table. The `@GeneratedValue` annotation defines a 
 strategy for generating primary key values (e.g. auto-increment).
 
@@ -221,7 +226,7 @@ We will create a main class to test our CRUD methods.
 > **NOTE**  
   In our `persistence.xml` file we set a property `javax.persistence.schema-generation.database.action` to `drop-and-create`. This 
   instructs Hibernate to drop and recreate the database everytime the application is run. Please don't use this setting in a production
-  environment.
+  environment. In the third part of this series we will look at database migration which is a recommended approach.
 
 file: `src/main/java/com/tutorial/Application.java`:
 
