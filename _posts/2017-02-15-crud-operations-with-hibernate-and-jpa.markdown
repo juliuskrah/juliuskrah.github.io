@@ -14,8 +14,8 @@ repo:       java-crud/tree/hibernate-jpa
   managing relational data in Java applications.
   
 # Introduction
-This is the first part of a series of posts focused on `Hibernate` and `JPA`. In this tutorial we are going to look at the basics of 
-Hibernate and JPA.  
+This is the first part of a series of [posts]({% post_url 2017-02-16-getting-started-with-hikaricp-hibernate-and-jpa %}) focused on 
+`Hibernate` and `JPA`. In this tutorial we are going to look at the basics of Hibernate and JPA.  
 The relationship between Hibernate and JPA is that **Hibernate** is an implementation of the JPA specification. 
 
 > JPA is a *specification*. Hibernate is its *implementation*.

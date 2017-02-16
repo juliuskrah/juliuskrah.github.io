@@ -1,6 +1,7 @@
 ---
 layout:     post
 title:      'Getting Started with HikariCP, Hibernate and JPA'
+date:       2017-02-16 16:39:15 +0000
 categories: tutorial
 tags:       java maven hibernate jpa hikaricp
 section:    series
