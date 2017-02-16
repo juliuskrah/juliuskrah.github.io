@@ -34,4 +34,7 @@ layout: default
   {% if site.disqus.shortname %}
     {% include disqus_comments.html %}
   {% endif %}
+  {% if jekyll.environment == 'production' and site.infolinks_pid and site.infolinks_wsid %}
+    {% include infolinks.html %}
+  {% endif %}
 </article>
