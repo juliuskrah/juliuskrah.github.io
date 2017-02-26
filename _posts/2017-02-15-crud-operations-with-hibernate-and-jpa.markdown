@@ -226,7 +226,8 @@ We will create a main class to test our CRUD methods.
 > **NOTE**  
   In our `persistence.xml` file we set a property `javax.persistence.schema-generation.database.action` to `drop-and-create`. This 
   instructs Hibernate to drop and recreate the database everytime the application is run. Please don't use this setting in a production
-  environment. In the third part of this series we will look at database migration which is a recommended approach.
+  environment. In the [third part]({% post_url 2017-02-26-database-migration-with-liquibase-hikaricp-hibernate-and-jpa %}) of this 
+  series we will look at database migration which is a recommended approach.
 
 file: `src/main/java/com/tutorial/Application.java`:
 
