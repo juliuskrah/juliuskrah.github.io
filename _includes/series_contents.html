@@ -1,0 +1,8 @@
+<div class="unit one-fifth hide-on-mobiles">
+  <aside>
+    {% for section in site.data.series %}
+    <h4>{{ section.title }}</h4>
+    {% include series_ul.html items=section.tutorial %}
+    {% endfor %}
+  </aside>
+</div>

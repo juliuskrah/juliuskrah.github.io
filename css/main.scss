@@ -10,7 +10,7 @@ $small-font-size:       13px;
 $base-line-height:      1.5;
 
 $default-border-radius: 4px;
-$spacing-unit:          15px;
+$spacing-unit:          10px;
 $post-spacing-unit:     30px;
 
 $post-font-size:        16px;
@@ -35,7 +35,7 @@ $blockquote-bg-color:   #141414;
 
 
 // Width of the content area
-$content-width:         1000px;
+$content-width:         1200px;
 
 $on-phone:              400px;
 $on-small:              600px;
@@ -52,7 +52,9 @@ $on-big:                1500px;
     }
 }
 @import
-        "base",
+        "normalize",
+        "gridism",
         "font-awesome",
+        "base",
         "layout",
         "syntax-highlighting";

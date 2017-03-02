@@ -1,0 +1,45 @@
+---
+layout: default
+---
+
+  <section class="docs">
+    <div class="grid">
+
+      {% include series_contents_mobile.html %}
+
+      <div class="unit four-fifths no-gutters">
+        
+        <article>
+          <div class="improve right hide-on-mobiles">
+            <a href="{{ site.github.url }}/{{ site.repository }}/edit/master/{{ page.path }}"><i class="fa fa-pencil"></i> &nbsp;edit</a>
+          </div>
+          <h1 class="post-title" itemprop="name headline">{{ page.title }}</h1>
+          <header class="post-header">
+            <p class="post-meta"><time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">{{ page.date | date: "%b %-d, %Y" }}</time>{% if page.author %} • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">@{{ page.author }}</span></span>{% endif %}</p>
+          </header>
+
+          {% include post-tags.html %}
+
+          <p>
+            <small>{{ tags_content }}</small>
+          </p>
+
+          <div class="post-content" itemprop="articleBody">
+            {{ content }}
+          </div>
+          {% include section_nav.html %}
+        </article>
+      </div>
+
+      {% include series_contents.html %}
+
+      {% if site.disqus.shortname %}
+        {% include disqus_comments.html %}
+      {% endif %}
+      {% if jekyll.environment == 'production' and site.infolinks_pid and site.infolinks_wsid %}
+        {% include infolinks.html %}
+      {% endif %}
+      <div class="clear"></div>
+
+    </div>
+  </section>

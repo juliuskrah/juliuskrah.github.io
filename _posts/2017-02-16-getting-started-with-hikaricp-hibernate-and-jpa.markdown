@@ -1,5 +1,5 @@
 ---
-layout:     post
+layout:     series
 title:      'Getting Started with HikariCP, Hibernate and JPA'
 date:       2017-02-16 16:39:15 +0000
 categories: tutorial
@@ -11,7 +11,7 @@ repo:       java-crud/tree/hikari-hibernate-jpa
 > [HikariCP][]{:target="_blank"} is a “zero-overhead” production-quality connection pool.
 
 # Introduction
-This is the second part of a series of posts focused on `Hibernate` and `JPA`. In this tutorial we are going to look at database 
+This is the second part of a [series]({% post_url 2017-02-15-crud-operations-with-hibernate-and-jpa %}) of [posts]({% post_url 2017-02-26-database-migration-with-liquibase-hikaricp-hibernate-and-jpa %}) focused on `Hibernate` and `JPA`. In this tutorial we are going to look at database 
 pooling using HikariCP for Hibernate and JPA.  
 A connection pool is a cache of database connections maintained so that the connections can be reused when future requests to the 
 database are required. Connecting to a data source can be time consuming. To minimize the cost of opening connections, you need to 
@@ -223,8 +223,9 @@ In this post we understood the basics of setting up HikariCP with Hibernate and 
 As usual you can find the full example to this guide {% include source.html %}. Until the next post, keep doing cool things :+1:.
 
 
-[HikariCP]: http://brettwooldridge.github.io/HikariCP/
-[Pool Sizing]: https://github.com/brettwooldridge/HikariCP/wiki/About-Pool-Sizing
-[Optional]: http://docs.oracle.com/javase/8/docs/api/java/util/Optional.html
-[Maven]: http://maven.apache.org
-[JDK]: http://www.oracle.com/technetwork/java/javase/downloads/index.html
+[HikariCP]:     http://brettwooldridge.github.io/HikariCP/
+[Pool Sizing]:  https://github.com/brettwooldridge/HikariCP/wiki/About-Pool-Sizing
+[Optional]:     http://docs.oracle.com/javase/8/docs/api/java/util/Optional.html
+[Maven]:        http://maven.apache.org
+[JDK]:          http://www.oracle.com/technetwork/java/javase/downloads/index.html
+

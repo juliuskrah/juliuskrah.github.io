@@ -1,6 +1,6 @@
 ---
-layout:     post
-title:      'Database migration with Liquibase, HikariCP, Hibernate and JPA'
+layout:     series
+title:      'Database Migration with Liquibase, HikariCP, Hibernate and JPA'
 date:       2017-02-26 16:19:59 +0000
 categories: tutorial
 tags:       java maven hibernate jpa hikaricp liquibase
@@ -12,7 +12,7 @@ repo:       java-crud/tree/liquibase-hibernate-jpa
   library for tracking, managing and applying database schema changes.
 
 # Introduction
-This is the third [part]({% post_url 2017-02-15-crud-operations-with-hibernate-and-jpa %}) of a [series]({% post_url 2017-02-16-getting-started-with-hikaricp-hibernate-and-jpa %}) 
+This is the third [part]({% post_url 2017-02-15-crud-operations-with-hibernate-and-jpa %}) of a [series]({% post_url 2017-02-16-getting-started-with-hikaricp-hibernate-and-jpa %})
 of posts focused on `Hibernate` and `JPA`.  In this tutorial we are going to look at database migrations with `Liquibase`.
 When implementing and deploying a new version of an application, simple and fast refactoring of your database model is one of the most
 important things in order to implement flexible business requirements. Liquibase supports tracking, managing and applying database 

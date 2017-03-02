@@ -1,6 +1,6 @@
 ---
-layout:     post
-title:      'CRUD operations with Hibernate and JPA'
+layout:     series
+title:      'CRUD Operations with Hibernate and JPA'
 date:       2017-02-15 21:21:21 +0000
 categories: tutorial
 tags:       java maven hibernate jpa
@@ -14,7 +14,7 @@ repo:       java-crud/tree/hibernate-jpa
   managing relational data in Java applications.
   
 # Introduction
-This is the first part of a series of [posts]({% post_url 2017-02-16-getting-started-with-hikaricp-hibernate-and-jpa %}) focused on 
+This is the first part of a [series]({% post_url 2017-02-16-getting-started-with-hikaricp-hibernate-and-jpa %}) of [posts]({% post_url 2017-02-26-database-migration-with-liquibase-hikaricp-hibernate-and-jpa %}) focused on 
 `Hibernate` and `JPA`. In this tutorial we are going to look at the basics of Hibernate and JPA.  
 The relationship between Hibernate and JPA is that **Hibernate** is an implementation of the JPA specification. 
 
@@ -299,16 +299,16 @@ As usual you can find the full example to this guide {% include source.html %}. 
 
 
 
-[Hibernate]: http://hibernate.org/orm/
-[ORM]: https://en.wikipedia.org/wiki/Object-relational_mapping
-[JPA]: https://docs.oracle.com/javaee/7/tutorial/partpersist.htm
-[CRUD]: https://en.wikipedia.org/wiki/Create,_read,_update_and_delete
-[Maven]: http://maven.apache.org
-[JDK]: http://www.oracle.com/technetwork/java/javase/downloads/index.html
+[Hibernate]:            http://hibernate.org/orm/
+[ORM]:                  https://en.wikipedia.org/wiki/Object-relational_mapping
+[JPA]:                  https://docs.oracle.com/javaee/7/tutorial/partpersist.htm
+[CRUD]:                 https://en.wikipedia.org/wiki/Create,_read,_update_and_delete
+[Maven]:                http://maven.apache.org
+[JDK]:                  http://www.oracle.com/technetwork/java/javase/downloads/index.html
 [EntityManagerFactory]: http://docs.oracle.com/javaee/7/api/javax/persistence/EntityManagerFactory.html
-[Entity]: http://docs.oracle.com/javaee/7/api/javax/persistence/Entity.html
-[EntityManager]: http://docs.oracle.com/javaee/7/api/javax/persistence/EntityManager.html
-[Domain Mapping]: http://docs.jboss.org/hibernate/orm/5.2/userguide/html_single/Hibernate_User_Guide.html#domain-model
-[Factory]: https://en.wikipedia.org/wiki/Factory_method_pattern
-[DDL]: https://en.wikipedia.org/wiki/Data_definition_language
-[DML]: https://en.wikipedia.org/wiki/Data_manipulation_language
+[Entity]:               http://docs.oracle.com/javaee/7/api/javax/persistence/Entity.html
+[EntityManager]:        http://docs.oracle.com/javaee/7/api/javax/persistence/EntityManager.html
+[Domain Mapping]:       http://docs.jboss.org/hibernate/orm/5.2/userguide/html_single/Hibernate_User_Guide.html#domain-model
+[Factory]:              https://en.wikipedia.org/wiki/Factory_method_pattern
+[DDL]:                  https://en.wikipedia.org/wiki/Data_definition_language
+[DML]:                  https://en.wikipedia.org/wiki/Data_manipulation_language

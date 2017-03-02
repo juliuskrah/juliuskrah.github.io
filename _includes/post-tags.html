@@ -1,0 +1,11 @@
+{% if page.tags.size > 0 %}
+  {% capture tags_content %}<i class="fa fa-tag{% if page.tags.size > 1 %}s{% endif %}" aria-hidden="true"></i> {% endcapture %}
+  {% for post_tag in page.tags %}
+    {% assign tag = site.blog_tags | where: "slug", post_tag %}
+    {% if tag %}
+      {% assign tag = tag[0] %}
+      {% capture tags_content_temp %}{{ tags_content }}<a href="{{ tag.url }}">{{ tag.name }}</a>{% if forloop.last == false %}, {% endif %}{% endcapture %}
+      {% assign tags_content = tags_content_temp %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
