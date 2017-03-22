@@ -270,7 +270,7 @@ public class Application {
     p = repository.read(1L);
     p.ifPresent(consumer -> {
       System.out.format("Person from database: %s", consumer);
-		});
+    });
     // Delete person
     repository.delete(p.get());
 

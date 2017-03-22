@@ -5,11 +5,11 @@ permalink:  /about/
 section:    about
 ---
 
-My name is Julius Krah and I am a software engineer. I started this blog to share my software engineering experiences and what
-I have learned in my career as an engineer.  
-I am a senior software engineer at Super Tech (STL) Limited. I love to **write code** and **write about what I code**.
+Julius Krah is a Senior Software Engineer at Super Tech (STL) Limited. He is passionate about software and the software process.
+He started this blog to share his software engineering experiences and what he has learned in career as an engineer.  
+He loves to **write code** and **write about what he codes**.
 
-I contribute to open source and you can find my open source contributions on
+He is an avid proponent to open source and you can find his open source contributions on
 {% include icon-github.html username=site.github_username %} /
 [GitHub]({{ site.github.url }}/{{ site.github_username }}){:target="_blank"} and
 [Bitbucket](https://bitbucket.org/{{ site.github_username }}){:target="_blank"}
