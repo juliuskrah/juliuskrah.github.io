@@ -103,7 +103,7 @@ The following properties have been modified in the `persistence.xml` file
 Liquibase [database changelog][Changelog]{:target="_blank"} file is where all database changes are listed. Liquibase supports 
 `XML`, `YAML`, `JSON` and `SQL` as formats for `Changelog` files. Beyond these built-in formats, the Liquibase extension system 
 allows you to create changelog files in whatever format you like. This makes it highly flexible.  
-For this tutorial we will use the `XML` changelog format: 
+For this tutorial we will use the `XML` changelog format. 
 
 file: `src/main/resources/dbChangelog.xml`:
 

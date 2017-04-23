@@ -78,6 +78,8 @@ theme: minima
 exclude:
   - README.md
   - .gitignore
+  - [vendor]
+# Travis bundles all gems in the vendor directory on its build servers, which Jekyll will mistakenly read and explode on.
 
 # Custom collection for post tags
 collections:
