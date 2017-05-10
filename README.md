@@ -13,6 +13,9 @@ Once you have jekyll installed run
 * `bundle install`  
 * `bundle exec jekyll serve`
 
+## Contributors
+Refer to the [CONTRIBUTORS.txt](/CONTRIBUTORS.txt) for a full list of contributors
+
 
 [ruby]: https://www.ruby-lang.org/en/downloads/
 [jekyll]: http://jekyllrb.com/
