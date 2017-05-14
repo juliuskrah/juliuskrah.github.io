@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      'CRUD operations with Morphia'
+title:      'CRUD operations on MongoDB with Morphia'
 date:       2017-05-14 00:06:48 +0000
 categories: blog
 tags:       java gradle mongodb morphia spring-boot
