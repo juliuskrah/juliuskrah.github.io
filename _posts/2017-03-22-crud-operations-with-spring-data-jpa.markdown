@@ -3,7 +3,7 @@ layout:     series
 title:      CRUD Operations with Spring Data JPA
 date:       2017-03-22 18:00:47 +0000
 categories: tutorial
-tags:       java maven hibernate jpa spring
+tags:       java maven hibernate jpa spring-data spring
 section:    series
 author:     juliuskrah
 repo:       java-crud/tree/spring-data-hibernate-jpa
