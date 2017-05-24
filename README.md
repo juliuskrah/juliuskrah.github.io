@@ -13,9 +13,11 @@ Once you have jekyll installed run
 * `bundle install`  
 * `bundle exec jekyll serve`
 
-## Contributors
+# Contributors
 Refer to the [CONTRIBUTORS.txt](/CONTRIBUTORS.txt) for a full list of contributors
 
+# Licence
+Creative commons Licence https://creativecommons.org/licenses/by-sa/4.0/. Known as the [Licence](/license)
 
 [ruby]: https://www.ruby-lang.org/en/downloads/
 [jekyll]: http://jekyllrb.com/

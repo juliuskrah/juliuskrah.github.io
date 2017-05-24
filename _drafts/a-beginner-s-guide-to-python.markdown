@@ -1,8 +1,8 @@
 ---
 layout:     post
-title:      Scheduling with Spring
+title:      A Beginner's Guide to Python
 categories: blog
-tags:       java spring-boot
+tags:       python
 section:    blog
 author:     juliuskrah
 ---
