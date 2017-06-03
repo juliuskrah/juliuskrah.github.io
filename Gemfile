@@ -23,7 +23,7 @@ gem "html-proofer"
 # If you have any plugins, put them here!
 group :jekyll_plugins do
   gem "github-pages"
-  gem 'jekyll-admin'
+  # gem 'jekyll-admin'
   gem 'jemoji'
   gem 'jekyll-mentions'
   gem 'jekyll-feed'

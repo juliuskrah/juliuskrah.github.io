@@ -1,8 +1,0 @@
----
-layout:     post
-title:      Scheduling with Spring
-categories: blog
-tags:       java spring-boot
-section:    blog
-author:     juliuskrah
----
