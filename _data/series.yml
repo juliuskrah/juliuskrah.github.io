@@ -7,7 +7,6 @@
   - 2017/03/22/crud-operations-with-spring-data-jpa
   - 2017/04/23/crud-operations-with-spring-boot
 
-# - title: Series 2
-#   docs:
-#   - frontmatter
-#   - posts
+- title: REST Web Services
+  tutorial:
+  - 2017/07/16/developing-restful-services-with-jax-rs-jersey

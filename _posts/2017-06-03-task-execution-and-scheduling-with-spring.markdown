@@ -41,6 +41,16 @@ This is a `maven` based project and we are using the standard Java project struc
 |  |  |  |__application.properties
 |__pom.xml
 ```
+## Project Dependencies
+This is a Spring-Boot based project and we are going to add the following dependencies to our `pom.xml`:
+
+{% highlight xml%}
+...
+<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter</artifactId>
+</dependency>
+{% endhighlight %}
 
 # Task Sheduler
 Sometimes you will want to perform an unsupervised task at a future time. For example you have a social media site 
