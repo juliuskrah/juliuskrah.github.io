@@ -55,6 +55,7 @@ At the end of this guide our folder structure will look similar to the following
 To follow along this guide, your development system should have the following applications installed:
 - [Java Development Kit][JDK]{:target="_blank"}  
 - [Maven][]{:target="_blank"}
+- [cURL][]{:target="_blank"}
 
 
 # Creating Project Template
@@ -178,6 +179,7 @@ In the snippet above we have specified the `dependencyManagement` so that we can
 |DELETE              | `/api/v1.0/resources/[resource_id]`  |Delete a resource           |
 {:.comparison}
 
+
 The HTTP GET method is used to **read** (or retrieve) a representation of a resource. In the `“happy”` (or non-error) 
 path, GET returns a representation in `XML` or `JSON` and an HTTP response code of `200` (OK). In an error case, it 
 most often returns a `404` (NOT FOUND) or `400` (BAD REQUEST).  
@@ -192,6 +194,7 @@ Do not expose unsafe operations via GET — it should never modify any resources
 - GET http://www.example.com/resources/1  
 - GET http://www.example.com/resources/1/items
 
+---
 
 The POST verb is most-often utilized to **create** new resources. In particular, it's used to create subordinate 
 resources. That is, subordinate to some other (e.g. parent) resource. In other words, when creating a new resource, 
@@ -206,6 +209,7 @@ identical POST requests will most-likely result in two resources containing the 
 - POST http://www.example.com/resources  
 - POST http://www.example.com/resources/1/items
 
+---
 
 PUT is most-often utilized for **update** capabilities, PUT-ing to a known resource URI with the request body 
 containing the newly-updated representation of the original resource.  
@@ -230,6 +234,7 @@ recommended to keep PUT requests idempotent. It is strongly recommended to use P
 - PUT http://www.example.com/resources/1  
 - PUT http://www.example.com/resources/1/items/1
 
+---
 
 DELETE is pretty easy to understand. It is used to **delete** a resource identified by a URI.  
 On successful deletion, return HTTP status `200` (OK) along with a response body, perhaps the representation of the
@@ -373,12 +378,8 @@ mvn clean compile exec:java -Dexec.mainClass="com.juliuskrah.App"
 With the Netty server up and running, open another shell window and execute the following `cURL` command:
 
 {% highlight bash %}
-curl -i -H "Accept: application/json" http://localhost:8080/api/v1.0/resources
-{% endhighlight %}
+> curl -i -H "Accept: application/json" http://localhost:8080/api/v1.0/resources
 
-We would get the following response from the server in `JSON`:
-
-{% highlight json %}
 HTTP/1.1 200 OK
 Content-Type: application/json
 content-length: 991
@@ -450,13 +451,9 @@ connection: keep-alive
 
 We can request for the same resource represented as `XML`:
 
-{% highlight bash %}
-curl -i -H "Accept: application/xml" http://localhost:8080/api/v1.0/resources
-{% endhighlight %}
-
-And our sample output will be:
-
 {% highlight xml %}
+> curl -i -H "Accept: application/xml" http://localhost:8080/api/v1.0/resources
+
 HTTP/1.1 200 OK
 Content-Type: application/xml
 content-length: 1288
@@ -546,13 +543,9 @@ from within the `static` resources field. If it exist return the response to the
 
 Test this resource by running:
 
-{% highlight bash %}
-curl -i -H "Accept: application/json" http://localhost:8080/api/v1.0/resources/1
-{% endhighlight %}
-
-The response will be something similar to this:
-
 {% highlight json %}
+> curl -i -H "Accept: application/json" http://localhost:8080/api/v1.0/resources/1
+
 HTTP/1.1 200 OK
 Content-Type: application/json
 content-length: 96
@@ -596,19 +589,15 @@ with the location of the newly created resource.
 If the resource being created already exists on the server an error code of `409` is returned by the server.
 
 {% highlight bash %}
-curl -i -X POST -H "Content-Type: application/json" -d "{ \"id\": 87, \"description\": \"Resource Eighty-Seven\"}" http://localhost:8080/api/v1.0/resources
-{% endhighlight %}
+> curl -i -X POST -H "Content-Type: application/json" -d "{ \"id\": 87, \"description\": \"Resource Eighty-Seven\"}" http://localhost:8080/api/v1.0/resources
 
-For those not using windows, you should omit the escape `\`.
-
-The response from the server will be:
-
-{% highlight bash %}
 HTTP/1.1 201 Created
 Location: http://localhost:8080/api/v1.0/resources/87
 content-length: 0
 connection: keep-alive
 {% endhighlight %}
+
+For those not using Windows, you should omit the escape `\`.
 
 The remaining two methods of our webservice is shown below:
 
@@ -679,6 +668,7 @@ As usual you can find the full example to this guide {% include source.html %}. 
 [Cacheable]:                http://restcookbook.com/Basics/caching/
 [Client-Server]: https://github.com/brettshollenberger/codecabulary/blob/master/REST%20Constraint%20-%20Client-Server%20Separation.md
 [Code on Demand]:           http://restfulapi.net/rest-architectural-constraints/#code-on-demand
+[cURL]:                     https://curl.haxx.se/
 [Fielding Dissertation]:    https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm
 [JDK]:                      http://www.oracle.com/technetwork/java/javase/downloads/index.html
 [JAX-RS]:                   https://jcp.org/en/jsr/detail?id=339
