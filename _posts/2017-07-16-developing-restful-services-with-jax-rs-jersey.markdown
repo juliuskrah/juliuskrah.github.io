@@ -543,7 +543,7 @@ from within the `static` resources field. If it exist return the response to the
 
 Test this resource by running:
 
-{% highlight json %}
+{% highlight bash %}
 > curl -i -H "Accept: application/json" http://localhost:8080/api/v1.0/resources/1
 
 HTTP/1.1 200 OK
