@@ -133,7 +133,7 @@ Review your selection and hit enter to proceed. At this stage your project is ge
 ## Setting up dependencies
 To build a RESTful webservice with Jersey, we must add the Jersey dependencies to our `pom.xml`:
 
-file: [`pom.xml`]({{ site.github.url }}/{{ site.github_username }}/rest-example/blob/master/pom.xml)
+file: [`pom.xml`](https://{{ site.github.hostname }}/{{ site.github_username }}/rest-example/blob/master/pom.xml)
 
 {% highlight xml %}
 ...
@@ -258,7 +258,7 @@ acceptable and communicates accurately the status of the call.
 ## Building Resources
 We will create a `POJO` to represent our REST resource.
 
-file: [`src/main/java/com/juliuskrah/Resource.java`]({{ site.github.url }}/{{ site.github_username }}/rest-example/blob/master/src/main/java/com/juliuskrah/Resource.java)
+file: [`src/main/java/com/juliuskrah/Resource.java`](https://{{ site.github.hostname }}/{{ site.github_username }}/rest-example/blob/master/src/main/java/com/juliuskrah/Resource.java)
 
 {% highlight java %}
 @XmlRootElement
@@ -315,7 +315,7 @@ The `Resource POJO` above consists of self explanatory feilds. The `@XmlRootElem
 jersey on how to represent the resource as XML.  
 The next thing is to wire up a `ResourceService`.
 
-file: [`src/main/java/com/juliuskrah/ResourceService.java`]({{ site.github.url }}/{{ site.github_username }}/rest-example/blob/master/src/main/java/com/juliuskrah/ResourceService.java)
+file: [`src/main/java/com/juliuskrah/ResourceService.java`](https://{{ site.github.hostname }}/{{ site.github_username }}/rest-example/blob/master/src/main/java/com/juliuskrah/ResourceService.java)
 
 {% highlight java %}
 @Path("/api/v1.0/resources")
@@ -354,7 +354,7 @@ on the server. The resource will be represented as `JSON` or `XML`.
 
 We will setup a [`Netty`][Netty]{:target="_blank"} server to serve our requests.
 
-file: [`src/main/java/com/juliuskrah/App.java`]({{ site.github.url }}/{{ site.github_username }}/rest-example/blob/master/src/main/java/com/juliuskrah/App.java)
+file: [`src/main/java/com/juliuskrah/App.java`](https://{{ site.github.hostname }}/{{ site.github_username }}/rest-example/blob/master/src/main/java/com/juliuskrah/App.java)
 
 {% highlight java %}
 public class App {
@@ -516,7 +516,7 @@ connection: keep-alive
 
 Let us write the REST operation for getting a specific resource `/api/v1.0/resources/[resource_id]`:
 
-file: [`src/main/java/com/juliuskrah/ResourceService.java`]({{ site.github.url }}/{{ site.github_username }}/rest-example/blob/master/src/main/java/com/juliuskrah/ResourceService.java)
+file: [`src/main/java/com/juliuskrah/ResourceService.java`](https://{{ site.github.hostname }}/{{ site.github_username }}/rest-example/blob/master/src/main/java/com/juliuskrah/ResourceService.java)
 
 {% highlight java %}
 ...
@@ -561,7 +561,7 @@ connection: keep-alive
 
 Now let us write our `POST` method that creates a new resource:
 
-file: [`src/main/java/com/juliuskrah/ResourceService.java`]({{ site.github.url }}/{{ site.github_username }}/rest-example/blob/master/src/main/java/com/juliuskrah/ResourceService.java)
+file: [`src/main/java/com/juliuskrah/ResourceService.java`](https://{{ site.github.hostname }}/{{ site.github_username }}/rest-example/blob/master/src/main/java/com/juliuskrah/ResourceService.java)
 
 {% highlight java %}
 ...
@@ -601,7 +601,7 @@ For those not using Windows, you should omit the escape `\`.
 
 The remaining two methods of our webservice is shown below:
 
-file: [`src/main/java/com/juliuskrah/ResourceService.java`]({{ site.github.url }}/{{ site.github_username }}/rest-example/blob/master/src/main/java/com/juliuskrah/ResourceService.java)
+file: [`src/main/java/com/juliuskrah/ResourceService.java`](https://{{ site.github.hostname }}/{{ site.github_username }}/rest-example/blob/master/src/main/java/com/juliuskrah/ResourceService.java)
 
 {% highlight java %}
 ...

@@ -12,8 +12,6 @@ description: > # this means to ignore newlines until "baseurl:"
   Web development blog that uses JavaEE and other related web technologies
   with a strong emphasis on Spring, Thymeleaf, Websockets and Microservices
 baseurl: "" # the subpath of your site, e.g. /blog
-github:
-  url: https://github.com
 permalink: /:categories/:year/:month/:day/:title/
 url: "http://juliuskrah.com" # the base hostname & protocol for your site
 author: juliuskrah
@@ -55,13 +53,15 @@ infolinks_pid: 2956258
 infolinks_wsid: 0
 github_username:  juliuskrah
 stackoverflow_link: users/6157880/julius-krah
-repository: https://github.com/juliuskrah/juliuskrah.github.io
+repository: juliuskrah/juliuskrah.github.io
+# plugins: Change from `gems` to `plugins` after upgrade to jekyll 3.5.0
 gems:
   - jemoji
   - jekyll-mentions
   - jekyll-feed
   - jekyll-seo-tag
   - jekyll-sitemap
+  - jekyll-github-metadata
 
 # Default is https://github.com
 jekyll-mentions:
