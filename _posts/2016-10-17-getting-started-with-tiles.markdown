@@ -6,7 +6,7 @@ categories: blog
 tags:       java tiles maven
 section:    blog
 author:     juliuskrah
-repo:       apache-tiles-basic-example
+repo:       apache-tiles-basic-example/tree/master
 ---
 > [Apache Tiles][Tiles]{:target="_blank"} is a free open-sourced templating framework for modern Java applications. Based upon the 
   Composite pattern it is built to simplify the development of user interfaces.
@@ -56,7 +56,9 @@ At the end of this guide our folder structure will look similar to this:
 - [Maven][]{:target="_blank"}
 
 # Getting Dependencies
-In this getting started guide we will use `Maven` to manage the dependencies. Let's add the following to our `pom.xml`:
+In this getting started guide we will use `Maven` to manage the dependencies. Let's add the following:
+
+file: {% include file-path.html file_path='pom.xml' %}
 
 {% highlight xml %}
 <dependencies>
@@ -111,8 +113,9 @@ The versions of the various dependencies are represented as placeholders to ease
 {% endhighlight %}
 
 # Setting up Tiles
-`tiles-definitions` are set up in a file called `tiles.xml`. Add the following snippet to your `src/main/webapp/WEB-INF/tiles.xml`
-file:
+`tiles-definitions` are set up in a file called `tiles.xml`. Add the following snippet:
+
+file: {% include file-path.html file_path='src/main/webapp/WEB-INF/tiles.xml' %}
 
 {% highlight xml %}
 <tiles-definitions>
@@ -128,7 +131,9 @@ attribute is used to identify the `tiles-definition` (we would come back to this
 where the template file can be found relative to the `servlet context` i.e. `src/main/webapp`.  
 The child element `<put-attribute>` of parent element `<definition>` specifies a `name/value` pair in our tiles definition. In this
 instance the page title.  
-Let us now use the definitions in our `jsp` template `(src/main/webapp/layouts/classic.jsp)`:
+Let us now use the definitions in our `jsp` template:
+
+file: {% include file-path.html file_path='src/main/webapp/layouts/classic.jsp' %}
 
 {% highlight html %}
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
@@ -150,10 +155,11 @@ Let us now use the definitions in our `jsp` template `(src/main/webapp/layouts/c
 {% endhighlight %}
 
 Notice the `<tiles>` child element within the `<title>` element. It is tagged with `getAsString` which retrieves the `title` property
-`(Tiles getting started homepage)` from the `<put-attribute>`. To run this we need one more configuration bootstrap in `web.xml` 
-`(src/main/webapp/WEB-INF/web.xml)`:
+`(Tiles getting started homepage)` from the `<put-attribute>`. To run this we need one more configuration bootstrap in `web.xml`:
 
 > Also take note of the `tiles` namespace on the second line `(xmlns:tiles="http://tiles.apache.org/tags-tiles")`
+
+file: {% include file-path.html file_path='src/main/webapp/WEB-INF/web.xml' %}
 
 {% highlight xml %}
 <?xml version="1.0" encoding="UTF-8"?>
@@ -197,7 +203,9 @@ Notice the `<tiles>` child element within the `<title>` element. It is tagged wi
 Run this in any compartible servlet 3.1 container to view the output.
 
 # Adding Attributes
-Now that we have seen how to create `definitions`, let us add some more `attributes` to this definition `(tiles.xml)`:  
+Now that we have seen how to create `definitions`, let us add some more `attributes` to this definition::  
+
+file: {% include file-path.html file_path='src/main/webapp/WEB-INF/tiles.xml' %}
 
 {% highlight xml %}
 <tiles-definitions>
@@ -224,7 +232,8 @@ directory and add the following files to it:
 - `navigation.jsp`
 
 Let us add some content to our `JSP` files.  
-`src/main/webapp/tiles/banner.jsp`:
+
+file: {% include file-path.html file_path='src/main/webapp/tiles/banner.jsp' %}
 
 {% highlight html %}
 <div>
@@ -238,8 +247,7 @@ Let us add some content to our `JSP` files.
 </div>
 {% endhighlight %}
 
-
-`src/main/webapp/tiles/blog_header.jsp`:
+file: {% include file-path.html file_path='src/main/webapp/tiles/blog_header.jsp' %}
 
 {% highlight html %}
 <h1 class="blog-title">Getting started with Tiles</h1>
@@ -248,7 +256,7 @@ Let us add some content to our `JSP` files.
 </p>
 {% endhighlight %}
 
-`src/main/webapp/tiles/common_menu.jsp`:
+file: {% include file-path.html file_path='src/main/webapp/tiles/common_menu.jsp' %}
 
 {% highlight html %}
 <div>
@@ -286,7 +294,9 @@ Let us add some content to our `JSP` files.
 </div>
 {% endhighlight %}
 
-`src/main/webapp/tiles/credits.jsp`, our example project makes use of [Twitter Bootstrap][Bootstrap]:
+Our example project makes use of [Twitter Bootstrap][Bootstrap]:
+
+file: {% include file-path.html file_path='src/main/webapp/tiles/credits.jsp' %}
 
 {% highlight html %}
 <p>
@@ -299,7 +309,7 @@ Let us add some content to our `JSP` files.
 </p>
 {% endhighlight %}
 
-`src/main/webapp/tiles/home_body.jsp`:
+file: {% include file-path.html file_path='src/main/webapp/tiles/home_body.jsp' %}
 
 {% highlight html %}
 <div>
@@ -338,7 +348,7 @@ Let us add some content to our `JSP` files.
 </div>
 {% endhighlight %}
 
-`src/main/webapp/tiles/navigation.jsp`
+file: {% include file-path.html file_path='src/main/webapp/tiles/navigation.jsp' %}
 
 {% highlight html %}
 <nav>
@@ -351,6 +361,8 @@ Let us add some content to our `JSP` files.
 
 # Putting it all Together
 To wrap up, this is the complete `tiles-definition`:
+
+file: {% include file-path.html file_path='src/main/webapp/WEB-INF/tiles.xml' %}
 
 {% highlight xml %}
 <?xml version="1.0" encoding="UTF-8"?>
@@ -370,8 +382,10 @@ To wrap up, this is the complete `tiles-definition`:
 </tiles-definitions>
 {% endhighlight %}
 
-Now in our welcome page `(src/main/webapp/index.jsp)` let us make use of our tiles definition name (Remember I said we would 
-come back to it) `myapp.homepage`:
+Now in our welcome page let us make use of our tiles definition name (Remember I said 
+we would come back to it) `myapp.homepage`:
+
+file: {% include file-path.html file_path='src/main/webapp/index.jsp' %}
 
 {% highlight xml %}
 <?xml version="1.0" encoding="UTF-8" ?>
@@ -396,7 +410,8 @@ Run this in any servlet 3.1 container to see the final output.
 
 > When tiles dispatcher servlet is configured, you can serve definition names directly with *.tiles e.g. `/myapp.homepage.tiles`:
 
-`src/main/webapp/WEB-INF/web.xml`
+file: {% include file-path.html file_path='src/main/webapp/WEB-INF/web.xml' %}
+
 {% highlight xml %}
 ...
 <servlet>

@@ -133,7 +133,7 @@ Review your selection and hit enter to proceed. At this stage your project is ge
 ## Setting up dependencies
 To build a RESTful webservice with Jersey, we must add the Jersey dependencies to our `pom.xml`:
 
-file: [`pom.xml`](https://{{ site.github.hostname }}/{{ site.github_username }}/rest-example/blob/master/pom.xml)
+file: {% include file-path.html file_path='pom.xml' %}
 
 {% highlight xml %}
 ...
@@ -258,7 +258,7 @@ acceptable and communicates accurately the status of the call.
 ## Building Resources
 We will create a `POJO` to represent our REST resource.
 
-file: [`src/main/java/com/juliuskrah/Resource.java`](https://{{ site.github.hostname }}/{{ site.github_username }}/rest-example/blob/master/src/main/java/com/juliuskrah/Resource.java)
+file: {% include file-path.html file_path='src/main/java/com/juliuskrah/Resource.java' %}
 
 {% highlight java %}
 @XmlRootElement
@@ -268,46 +268,11 @@ public class Resource {
     private LocalDateTime createdTime;
     private LocalDateTime modifiedTime;
 
-    public Resource() {}
+    // Default constructor
 
-    public Resource(Long id, String description, LocalDateTime createdTime, LocalDateTime modifiedTime) {
-        this.id = id;
-        this.description = description;
-        this.createdTime = createdTime;
-        this.modifiedTime = modifiedTime;
-    }
+    // All Args constructor
     
-    public Long getId() {
-        return this.id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getDescription() {
-        return this.description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public LocalDateTime getCreatedTime() {
-        return this.createdTime;
-    }
-
-    public void setCreatedTime(LocalDateTime createdTime) {
-        this.createdTime = createdTime;
-    }
-
-    public LocalDateTime getModifiedTime() {
-        return this.modifiedTime;
-    }
-
-    public void setModifiedTime(LocalDateTime modifiedTime) {
-        this.modifiedTime = modifiedTime;
-    }
+    // Getters and Setters omitted for brevity
 }
 {% endhighlight %}
 
@@ -315,7 +280,7 @@ The `Resource POJO` above consists of self explanatory feilds. The `@XmlRootElem
 jersey on how to represent the resource as XML.  
 The next thing is to wire up a `ResourceService`.
 
-file: [`src/main/java/com/juliuskrah/ResourceService.java`](https://{{ site.github.hostname }}/{{ site.github_username }}/rest-example/blob/master/src/main/java/com/juliuskrah/ResourceService.java)
+file: {% include file-path.html file_path='src/main/java/com/juliuskrah/ResourceService.java' %}
 
 {% highlight java %}
 @Path("/api/v1.0/resources")
@@ -341,20 +306,22 @@ public class ResourceService {
   public List<Resource> getResources() {
       return resources;
   }
+  ...
 }
 {% endhighlight %}
 
-> In an actual production ready application, you would connect to a database. For the purpose of this tutorial,
+> In an actual production ready application, you will connect to a database. For the purpose of this tutorial,
   we will use a `static` list.
 
 In the `ResourceService` we have specified the root context path we are going to access the service 
 (`/api/v1.0/resources`).  
-In the same service class we have also created a `GET` resource which returns a list of all resources available
-on the server. The resource will be represented as `JSON` or `XML`.
+In the same service class we have also created a `GET` endpoint which returns a list of all resources available
+on the server. The resource will be represented as `JSON` or `XML` identified by
+`@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })`.
 
 We will setup a [`Netty`][Netty]{:target="_blank"} server to serve our requests.
 
-file: [`src/main/java/com/juliuskrah/App.java`](https://{{ site.github.hostname }}/{{ site.github_username }}/rest-example/blob/master/src/main/java/com/juliuskrah/App.java)
+file: {% include file-path.html file_path='src/main/java/com/juliuskrah/App.java' %}
 
 {% highlight java %}
 public class App {
@@ -516,7 +483,7 @@ connection: keep-alive
 
 Let us write the REST operation for getting a specific resource `/api/v1.0/resources/[resource_id]`:
 
-file: [`src/main/java/com/juliuskrah/ResourceService.java`](https://{{ site.github.hostname }}/{{ site.github_username }}/rest-example/blob/master/src/main/java/com/juliuskrah/ResourceService.java)
+file: {% include file-path.html file_path='src/main/java/com/juliuskrah/ResourceService.java' %}
 
 {% highlight java %}
 ...
@@ -536,7 +503,7 @@ public Resource getResource(@PathParam("id") Long id) {
 {% endhighlight %}
 
 The `@Path` annotation takes a variable (denoted by `{` and `}`) passed by the client, which is interpreted by Jersey
-in the `@PathParam` and cast to a `Long` as `id`. The `: [0-9]+` is a regular expression which constrains the client
+in the `@PathParam` and cast to a `Long` as `id`. The `: [0-9]+` is a regular expression which constraint the client
 to use only positive whole numbers otherwise return `404` to the client.  
 If the client passes the path parameter in the format the server accepts, the `id` of the resource will be searched
 from within the `static` resources field. If it exist return the response to the client or else return a `404`.
@@ -561,7 +528,7 @@ connection: keep-alive
 
 Now let us write our `POST` method that creates a new resource:
 
-file: [`src/main/java/com/juliuskrah/ResourceService.java`](https://{{ site.github.hostname }}/{{ site.github_username }}/rest-example/blob/master/src/main/java/com/juliuskrah/ResourceService.java)
+file: {% include file-path.html file_path='src/main/java/com/juliuskrah/ResourceService.java' %}
 
 {% highlight java %}
 ...
@@ -601,7 +568,7 @@ For those not using Windows, you should omit the escape `\`.
 
 The remaining two methods of our webservice is shown below:
 
-file: [`src/main/java/com/juliuskrah/ResourceService.java`](https://{{ site.github.hostname }}/{{ site.github_username }}/rest-example/blob/master/src/main/java/com/juliuskrah/ResourceService.java)
+file: {% include file-path.html file_path='src/main/java/com/juliuskrah/ResourceService.java' %}
 
 {% highlight java %}
 ...

@@ -10,3 +10,4 @@
 - title: REST Web Services
   tutorial:
   - 2017/07/16/developing-restful-services-with-jax-rs-jersey
+  - 2017/07/23/developing-restful-services-with-spring
