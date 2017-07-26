@@ -1,26 +1,23 @@
 ---
 layout:     series
-title:      Developing RESTful Services with Spring
-date:       2017-07-23 12:08:50 +0000
+title:      Developing RESTful Services with Spring and Jersey
+date:       2017-07-26 21:39:54 +0000
 categories: tutorial
-tags:       java maven spring-boot rest
+tags:       java maven jersey jax-rs rest spring-boot javaee
 section:    series
 author:     juliuskrah
-repo:       rest-example/tree/spring
+repo:       rest-example/tree/jersey-spring
 ---
-> The [Spring Framework][Spring]{:target="_blank"} has in  recent years emerged as a robust REST solution for Java 
-  developers.
+> [Jersey framework][Jersey]{:target="_blank"} is a [JAX-RS][]{:target="_blank"} Reference Implementation. `Jersey`
+  provides it’s own API that extend the JAX-RS toolkit with additional features and utilities to further simplify 
+  RESTful service and client development. Jersey also exposes numerous extension SPIs so that developers may extend 
+  Jersey to best suit their needs.
 
 # Introduction
-In the second part of this series we are going to explore the `Client-Server` REST constraint. This constraint 
-postulates separation of concerns which allows the client and the server evolve independently. The client does not
-need to worry about the server's implementation, provided the server's interface does not change.  
-We will re-implement the server using the `Spring Framework`but  maintaining the interfaces from the 
-[previous post]({% post_url 2017-07-16-developing-restful-services-with-jax-rs-jersey %}). The client will
-continue to access it the same way without prior knowledge of the implementation.
-
-> For a basic introduction to rest, checkout the 
-  [first article]({% post_url 2017-07-16-developing-restful-services-with-jax-rs-jersey %}) in this series.
+This post is a third in a [series]({% post_url 2017-07-23-developing-restful-services-with-spring %}) on 
+[REST]({% post_url 2017-07-16-developing-restful-services-with-jax-rs-jersey %}). In this post we will combine
+the power of [`Spring`][Spring]{:target="_blank"}  and `JAX-RS`(Jersey) to build a REST API.  
+We will setup Spring to forward all requests to the Jersey Servlet for processing.
 
 ## Project Structure
 At the end of this guide our folder structure will look similar to the following:
@@ -47,13 +44,13 @@ To follow along this guide, your development system should have the following ap
 # Creating Project Template
 Head over to the [Spring Initializr][Initializr]{:target="_blank"} website to generate a Spring project template:
 
-![spring.io](https://i.imgur.com/4iKKqY8.png)
+![spring.io](https://i.imgur.com/6XjOoqC.png)
 
 {:.image-caption}
 *Spring Initializr*
 
-Select `Web` and `DevTools` as dependencies and generate the project. `DevTools` is a handy tool to have during 
-development as it offers _live reload_ when code changes.
+Select `Jersey (JAX-RS)` and `DevTools` as dependencies and generate the project. `DevTools` is a handy tool to have 
+during development as it offers _live reload_ when code changes.
 
 Download and extract the template and let's get to work :smile:.
 
@@ -68,21 +65,19 @@ mvnw clean spring-boot:run   # Windows
 If everything goes well, `Tomcat` should be started on port `8080` and wait for `http` requests.
 
 ## Setting up dependencies
-To build a RESTful webservice with Spring, and enable `XML` representation we can add the 
-`jackson-datatype-xml` to our `pom.xml`:
+Remove the `spring-boot-starter-web` dependency from the `pom.xml`. Refer to issue 
+[`3132`](https://github.com/spring-projects/spring-boot/issues/3132){:target="_blank"}
+of `Spring-Boot` for more insight on this bug:
 
 file: {% include file-path.html file_path='pom.xml' %}
 
 {% highlight xml %}
+<!--
 <dependency>
-  <groupId>com.fasterxml.jackson.dataformat</groupId>
-  <artifactId>jackson-dataformat-xml</artifactId>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-web</artifactId>
 </dependency>
-<dependency>
-  <groupId>org.codehaus.woodstox</groupId>
-  <artifactId>woodstox-core-asl</artifactId>
-  <version>4.4.1</version>
-</dependency>
+-->
 {% endhighlight %}
 
 ## Building Resources
@@ -91,6 +86,7 @@ We will create a `POJO` to represent our REST resource.
 file: {% include file-path.html file_path='src/main/java/com/juliuskrah/Resource.java' %}
 
 {% highlight java %}
+@XmlRootElement
 public class Resource {
     private Long id;
     private String description;
@@ -110,10 +106,10 @@ The next thing is to wire up a `ResourceService` to expose some endpoints.
 file: {% include file-path.html file_path='src/main/java/com/juliuskrah/ResourceService.java' %}
 
 {% highlight java %}
-@RestController
-@RequestMapping(path = "/api/v1.0/resources", produces = {
-        MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+@Path("/api/v1.0/resources")
+@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 public class ResourceService {
+
     private static List<Resource> resources = null;
 
     static {
@@ -130,7 +126,7 @@ public class ResourceService {
         resources.add(new Resource(10L, "Resource Ten", LocalDateTime.now(), null));
     }
 
-    @GetMapping
+    @GET
     public List<Resource> getResources() {
         return resources;
     }
@@ -141,13 +137,28 @@ public class ResourceService {
 > For a production ready application, you will normally connect to a database. For the purpose of this tutorial,
   we will use a `static` field to initialize our list.
 
-In the `ResourceService` we have specified the root context path (`/api/v1.0/resources`) we are going to access the
-service.  
-In the same service class we have also created a `GetMapping` endpoint which returns a list of all resources available
-on the server. The resource will be represented as `JSON` or `XML` identified by 
-`produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE }`.  
-The [`@RestController`][RestController]{:target="_blank"} annotation indicate to Spring method return value should be
-bound to the [web response body](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/ResponseBody.html){:target="_blank"}.
+In the class with the `main` method; also annotated with [`@SpringBootApplication`](https://docs.spring.io/spring-boot/docs/current/reference/html/using-boot-using-springbootapplication-annotation.html){:target="_blank"},
+add the following `@Bean` of type `ResourceConfig` in which you register all the endpoints:
+
+file: {% include file-path.html file_path='src/main/java/com/juliuskrah/Application.java' %}
+
+{% highlight java %}
+...
+@Bean
+public ResourceConfig jerseyConfig() {
+    ResourceConfig config = new ResourceConfig();
+    config.register(ResourceService.class);
+    return config;
+}
+{% endhighlight  %}
+
+One more thing to wire `Jersey` to `Spring`, annotate your `ResourceService` class with `@Component` to
+make it a Spring managed bean.
+
+{% highlight java %}
+@Component
+public class ResourceService { ... }
+{% endhighlight %}
 
 Start the server by running the following command:
 
@@ -301,23 +312,24 @@ file: {% include file-path.html file_path='src/main/java/com/juliuskrah/Resource
 
 {% highlight java %}
 ...
-@GetMapping("{id:[0-9]+}")
-public ResponseEntity<Resource> getResource(@PathVariable Long id) {
-  Resource resource = new Resource(id, null, null, null);
+@GET
+@Path("{id: [0-9]+}")
+public Resource getResource(@PathParam("id") Long id) {
+    Resource resource = new Resource(id, null, null, null);
 
-  int index = Collections.binarySearch(resources, resource, Comparator.comparing(Resource::getId));
+    int index = Collections.binarySearch(resources, resource, Comparator.comparing(Resource::getId));
 
-  if (index >= 0)
-    return ResponseEntity.ok(resources.get(index));
-  else
-    return ResponseEntity.notFound().build();
+    if (index >= 0)
+        return resources.get(index);
+    else
+        throw new WebApplicationException(Response.Status.NOT_FOUND);
 }
+...
 {% endhighlight %}
 
-The `@GetMapping` annotation takes a variable (denoted by `{` and `}`) passed by the client, which is converted by 
-Spring to a `Long` using automatic type conversion.
-The `:[0-9]+` is a regular expression which constraint the client to use only positive whole numbers otherwise 
-the server returns `404` to the client.  
+The `@Path` annotation takes a variable (denoted by `{` and `}`) passed by the client, which is interpreted by Jersey
+in the `@PathParam` and cast to a `Long` as `id`. The `: [0-9]+` is a regular expression which constraint the client
+to use only positive whole numbers otherwise return `404` to the client.  
 If the client passes the path parameter in the format the server accepts, the `id` of the resource will be searched
 from within the `static` resources field. If it exist return the response to the client or else return a `404`.
 
@@ -345,27 +357,28 @@ file: {% include file-path.html file_path='src/main/java/com/juliuskrah/Resource
 
 {% highlight java %}
 ...
-@PostMapping
-public ResponseEntity<Void> createResource(@RequestBody Resource resource, UriComponentsBuilder b) {
+@POST
+public Response createResource(Resource resource) {
   if (Objects.isNull(resource.getId()))
-    return ResponseEntity.badRequest().build();
+    throw new WebApplicationException(Response.Status.BAD_REQUEST);
 
   int index = Collections.binarySearch(resources, resource, Comparator.comparing(Resource::getId));
 
   if (index < 0) {
     resource.setCreatedTime(LocalDateTime.now());
     resources.add(resource);
-    UriComponents uriComponents = b.path("/api/v1.0/resources/{id}").buildAndExpand(resource.getId());
-    return ResponseEntity.created(uriComponents.toUri()).build();
+    return Response
+            .status(Response.Status.CREATED)
+            .location(URI.create(String.format("/api/v1.0/resources/%s", resource.getId())))
+            .build();
   } else
-    return ResponseEntity.status(HttpStatus.CONFLICT).build();
+      throw new WebApplicationException(Response.Status.CONFLICT);
 }
 {% endhighlight %}
 
-What is happening in the above snippet is a `PostMapping` request that returns a `201` (created) status code and a 
-`Location` header with the location of the newly created resource.  
-If the resource being created already exists on the server an error code of `409` (conflict) is returned by the 
-server.
+What is happening in the above snippet is a `POST` request that returns a `201` status code and a `Location` header
+with the location of the newly created resource.  
+If the resource being created already exists on the server an error code of `409` is returned by the server.
 
 {% highlight bash %}
 > curl -i -X POST -H "Content-Type: application/json" -d "{ \"id\": 87, \"description\": \"Resource Eighty-Seven\"}" http://localhost:8080/api/v1.0/resources
@@ -384,37 +397,42 @@ file: {% include file-path.html file_path='src/main/java/com/juliuskrah/Resource
 
 {% highlight java %}
 ...
-@PutMapping("{id:[0-9]+}")
-public ResponseEntity<Void> updateResource(@PathVariable Long id, @RequestBody Resource resource) {
+@PUT
+@Path("{id: [0-9]+}")
+public Response updateResource(@PathParam("id") Long id, Resource resource) {
   resource.setId(id);
-
   int index = Collections.binarySearch(resources, resource, Comparator.comparing(Resource::getId));
 
-  if (index >= 0) {
+  if (index >= 0){
     Resource updatedResource = resources.get(index);
     updatedResource.setModifiedTime(LocalDateTime.now());
     updatedResource.setDescription(resource.getDescription());
     resources.set(index, updatedResource);
-    return ResponseEntity.noContent().build();
+    return Response
+           .status(Response.Status.NO_CONTENT)
+           .build();
   } else
-    return ResponseEntity.notFound().build();
+    throw new WebApplicationException(Response.Status.NOT_FOUND);
 }
 
-@DeleteMapping("{id:[0-9]+}")
-public ResponseEntity<Void> deleteResource(@PathVariable Long id) {
+@DELETE
+@Path("{id: [0-9]+}")
+public Response deleteResource(@PathParam("id") Long id) {
   Resource resource = new Resource(id, null, null, null);
-
   int index = Collections.binarySearch(resources, resource, Comparator.comparing(Resource::getId));
 
   if (index >= 0) {
-    resources.remove(index);
-    return ResponseEntity.noContent().build();
+  resources.remove(index);
+  return Response
+         .status(Response.Status.NO_CONTENT)
+         .build();
+
   } else
-    return ResponseEntity.notFound().build();
+      throw new WebApplicationException(Response.Status.NOT_FOUND);
 }
 {% endhighlight %}
 
-Test the `Put` endpoint with the following command:
+Test the `PUT` endpoint with the following command:
 
 {% highlight bash %}
 > curl -i -X PUT -H "Content-Type: application/json" -d "{\"description\": \"Resource One Modified\"}" http://localhost:8080/api/v1.0/resources/1
@@ -424,7 +442,7 @@ content-length: 0
 connection: keep-alive
 {% endhighlight %}
 
-Test `Delete` endpoint with the following command:
+Test `DELETE` endpoint with the following command:
 
 {% highlight bash %}
 > curl -i -X DELETE  http://localhost:8080/api/v1.0/resources/1
@@ -435,13 +453,15 @@ connection: keep-alive
 {% endhighlight %}
 
 # Conclusion
-In this post we focused on the `Client-Server` constraint of REST. We learned how to implement REST with Spring.    
-As usual you can find the full example to this guide {% include source.html %}. Until the next post, keep doing cool things :+1:.
+In this post we built up on our previous post by wiring up the best of Spring and Jersey in the same application.  
+As usual you can find the full example to this guide {% include source.html %}. 
+Until the next post, keep doing cool things :+1:.
 
 
 [cURL]:                                https://curl.haxx.se/
 [Initializr]:                          https://start.spring.io/
+[JAX-RS]:                              https://jcp.org/en/jsr/detail?id=339
 [JDK]:                                 http://www.oracle.com/technetwork/java/javase/downloads/index.html
+[Jersey]:                              http://jersey.github.io/
 [Maven]:                               http://maven.apache.org
-[RestController]:                      https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/RestController.html
 [Spring]:                              http://projects.spring.io/spring-framework/ 

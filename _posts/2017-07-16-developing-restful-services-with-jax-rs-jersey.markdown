@@ -3,7 +3,7 @@ layout:     series
 title:      Developing RESTful Services with JAX-RS (Jersey)
 date:       2017-07-16 00:08:10 +0000
 categories: tutorial
-tags:       java maven jersey jax-rs rest
+tags:       java maven jersey jax-rs rest javaee
 section:    series
 author:     juliuskrah
 repo:       rest-example/tree/jersey
