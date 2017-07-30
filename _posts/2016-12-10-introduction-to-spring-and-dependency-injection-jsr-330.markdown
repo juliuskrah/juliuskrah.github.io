@@ -8,16 +8,17 @@ section:    blog
 author:     juliuskrah
 repo:       gs-spring/tree/spring
 ---
-> The [Spring Framework][Spring]{:target="_blank"} provides a comprehensive programming and configuration model for modern Java-based 
-  enterprise applications - on any kind of deployment platform. A key element of Spring is infrastructural support at the application 
-  level: Spring focuses on the "plumbing" of enterprise applications so that teams can focus on application-level business logic, 
-  without unnecessary ties to specific deployment environments.
+> The [Spring Framework][Spring]{:target="_blank"} provides a comprehensive programming and configuration model for 
+  modern Java-based enterprise applications - on any kind of deployment platform. A key element of Spring is 
+  infrastructural support at the application level: Spring focuses on the "plumbing" of enterprise applications so 
+  that teams can focus on application-level business logic, without unnecessary ties to specific deployment 
+  environments.
 
 # Introduction
-Spring Framework is an implementation of the [Inversion of Control][IoC]{:target="_blank"} (IoC) principle. IoC is also known as 
-`Dependency Injection` (DI). It is a process whereby objects define their dependencies, that is, the other objects they work with, 
-only through constructor arguments, arguments to a factory method, or properties that are set on the object instance after it is 
-constructed or returned from a factory method. 
+Spring Framework is an implementation of the [Inversion of Control][IoC]{:target="_blank"} (IoC) principle. IoC is 
+also known as `Dependency Injection` (DI). It is a process whereby objects define their dependencies, that is, the 
+other objects they work with, only through constructor arguments, arguments to a factory method, or properties that
+are set on the object instance after it is constructed or returned from a factory method. 
 
 > The objects that form the backbone of your application and that are managed by the Spring IoC container are called `beans`. 
   A `bean` is an object that is instantiated, assembled, and otherwise managed by a Spring IoC container. These beans are created 
@@ -32,8 +33,8 @@ construction of classes, or a mechanism such as the _Service Locator_ pattern.
 - [Maven][]{:target="_blank"}
 
 ## Project Structure
-To demonstrate Dependency Injection, we will create a project that showcases the concept. This project will have the following 
-directory structure:
+To demonstrate Dependency Injection, we will create a project that showcases the concept. This project will have the 
+following directory structure:
 
 ```
 .
@@ -120,6 +121,9 @@ file: {% include file-path.html file_path='pom.xml' %}
 {% highlight xml %}
 ...
 <properties>
+  <maven.compiler.source>1.8</maven.compiler.source>
+	<maven.compiler.target>1.8</maven.compiler.target>
+	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   <spring.version>4.3.4.RELEASE</spring.version>
 </properties>
 

@@ -8,11 +8,11 @@ section:    blog
 author:     juliuskrah
 repo:       spring-tiles-example
 ---
-> [Apache Tiles][Tiles]{:target="_blank"} is a free open-sourced templating framework for modern Java applications. Based upon the 
-  `Composite Pattern`, it is built to simplify the development of user interfaces. There are several integrations to the Tiles 
-  templating framework.  
-  [Spring][]{:target="_blank"} provides one such integration into the `Tiles` framework using `TilesConfigurer` and `TilesViewResolver`
-  which internally registers `TilesView`.
+> [Apache Tiles][Tiles]{:target="_blank"} is a free open-sourced templating framework for modern Java applications. 
+  Based upon the `Composite Pattern`, it is built to simplify the development of user interfaces. There are several 
+  integrations to the Tiles templating framework.  
+  [Spring][]{:target="_blank"} provides one such integration into the `Tiles` framework using `TilesConfigurer` and
+  `TilesViewResolver` which internally registers `TilesView`.
 
 # Introduction
 In this post we are going to learn how to make `Spring` play nice with `Tiles`. If you are new to Spring, take a look at my
