@@ -56,6 +56,9 @@ To follow along this guide, your development system should have the following ap
 - [Java Development Kit][JDK]{:target="_blank"}  
 - [Maven][]{:target="_blank"}
 - [cURL][]{:target="_blank"}
+- [Heroku Account][Heroku]{:target="_blank"}
+- [Heroku CLI][]{:target="_blank"}
+- [Git][]{:target="_blank"}
 
 
 # Creating Project Template
@@ -627,9 +630,142 @@ content-length: 0
 connection: keep-alive
 {% endhighlight %}
 
+# Deploying to Heroku
+To deploy this application to Heroku, we must ensure we have a Heroku account and `Heroku CLI`. Navigate to the 
+directory of your application and execute the following command from your terminal:
+
+{% highlight bash %}
+> heroku create
+Creating app... done, murmuring-shore-59920
+https://murmuring-shore-59920.herokuapp.com/ | https://git.heroku.com/murmuring-shore-59920.git
+{% endhighlight %}
+
+This creates a heroku app called `murmuring-shore-59920`. Heroku defines an environment variable `$PORT` which is
+the HTTP port exposed over firewall for HTTP traffic. We will modify our source file to read this variable:
+
+file: {% include file-path.html file_path='src/main/java/com/juliuskrah/App.java' %}
+
+{% highlight java %}
+public static void main(String... cmd) throws IOException, InterruptedException {
+  int port = Objects.nonNull(System.getenv("PORT")) ? 
+    Integer.valueOf(System.getenv("PORT")) : 8080;
+
+  URI baseUri = UriBuilder.fromUri("http://localhost/").port(port).build();
+  ResourceConfig resourceConfig = new ResourceConfig().packages("com.juliuskrah");
+  NettyHttpContainerProvider.createServer(baseUri, resourceConfig, false);
+  System.out.printf("Application running on %s\n", baseUri.toURL().toExternalForm());
+}
+{% endhighlight %}
+
+Heroku needs to be able to run our web service with all the dependencies. We add the maven dependency plugin to our
+project:
+
+file: {% include file-path.html file_path='pom.xml' %}
+
+{% highlight xml %}
+...
+<plugins>
+  <plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-dependency-plugin</artifactId>
+    <executions>
+      <execution>
+        <id>copy-dependencies</id>
+        <phase>package</phase>
+        <goals>
+          <goal>copy-dependencies</goal>
+        </goals>
+        <configuration>
+          <includeScope>compile</includeScope>
+        </configuration>
+      </execution>
+    </executions>
+  </plugin>
+</plugins>
+{% endhighlight %}
+
+Next create a [`Procfile`][Procfile]{:target="_blank"}. This is a plain text file called `Procfile` not `procfile` or 
+`procfile.txt` but just `Procfile`.  
+In this file we will create a `web` process type. The `web` process type is a special process type that listens for
+HTTP traffic.
+
+file: {% include file-path.html file_path='Procfile' %}
+
+```
+web: java -cp target/classes:target/dependency/* com.juliuskrah.App
+```
+
+The application is ready to be deployed to Heroku with `git add . && git push heroku master`. But first let us
+test the application locally to make sure everything works. To test locally create an `.env` file:
+
+file: {% include file-path.html file_path='.env' %}
+
+```
+PORT=2222
+```
+
+This creates an environment variable for local testing:
+
+{% highlight bash %}
+> mvn clean package
+> heroku local web
+{% endhighlight %}
+
+Now that we are confident everything works, we will deploy to heroku:
+
+{% highlight bash %}
+> git add .
+> git commit -am "Added heroku app"
+> git push heroku master
+Counting objects: 137, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (93/93), done.
+Writing objects: 100% (137/137), 72.61 KiB | 0 bytes/s, done.
+Total 137 (delta 42), reused 0 (delta 0)
+remote: Compressing source files... done.
+remote: Building source:
+remote:
+remote: -----> Java app detected
+remote: -----> Installing OpenJDK 1.8... done
+remote: -----> Executing: mvn -DskipTests clean dependency:list install
+...
+remote:        [INFO] ------------------------------------------------------------------------
+remote:        [INFO] BUILD SUCCESS
+remote:        [INFO] ------------------------------------------------------------------------
+remote:        [INFO] Total time: 13.305 s
+remote:        [INFO] Finished at: 2017-08-01T23:39:57Z
+remote:        [INFO] Final Memory: 31M/342M
+remote:        [INFO] ------------------------------------------------------------------------
+remote: -----> Discovering process types
+remote:        Procfile declares types -> web
+remote:
+remote: -----> Compressing...
+remote:        Done: 82.4M
+remote: -----> Launching...
+remote:        Released v3
+remote:        https://murmuring-shore-59920.herokuapp.com/ deployed to Heroku
+remote:
+remote: Verifying deploy... done.
+To https://git.heroku.com/murmuring-shore-59920.git
+ * [new branch]      origin -> master
+{% endhighlight %}
+
+We scale up a [dyno](https://devcenter.heroku.com/articles/dyno-types){:target="_blank"} with the following command:
+
+{% highlight bash %}
+> heroku ps:scale web=1
+Scaling dynos... done, now running web at 1:Free
+> heroku open
+{% endhighlight %}
+
+The last command opens the heroku app in your default browser. If you get a `404`, that is normal because you
+haven't mapped any resource to `/`. Just append the url with `/api/v1.0/resources` to start hacking.
+
+
 # Conclusion
 In this post we learned REST and touched a little on the constraints. We learned how it is `HTTP` based.
-We also talked about the basic `methods` in HTTP and how to leverage them in a RESTful application.    
+We also talked about the basic `methods` in HTTP and how to leverage them in a RESTful application. We also learned
+how to deploy a REST application to Heroku.    
 As usual you can find the full example to this guide {% include source.html %}. Until the next post, keep doing cool things :+1:.
 
 [Cacheable]:                http://restcookbook.com/Basics/caching/
@@ -637,6 +773,9 @@ As usual you can find the full example to this guide {% include source.html %}. 
 [Code on Demand]:           http://restfulapi.net/rest-architectural-constraints/#code-on-demand
 [cURL]:                     https://curl.haxx.se/
 [Fielding Dissertation]:    https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm
+[Git]:                      https://git-scm.com/
+[Heroku]:                   https://signup.heroku.com/
+[Heroku CLI]:               https://devcenter.heroku.com/articles/getting-started-with-java#set-up
 [JDK]:                      http://www.oracle.com/technetwork/java/javase/downloads/index.html
 [JAX-RS]:                   https://jcp.org/en/jsr/detail?id=339
 [Jersey]:                   http://jersey.github.io/
@@ -645,6 +784,7 @@ As usual you can find the full example to this guide {% include source.html %}. 
 [Layered System]:           http://restfulapi.net/rest-architectural-constraints/#layered-system
 [Maven]:                    http://maven.apache.org
 [Netty]:                    http://netty.io/
+[Procfile]:                 https://devcenter.heroku.com/articles/procfile
 [RI]:                       https://en.wikipedia.org/wiki/Reference_implementation
 [Stateless]:                https://stackoverflow.com/a/3105337/6157880
 [Uniform Interface]:        https://stackoverflow.com/a/26049761/6157880
