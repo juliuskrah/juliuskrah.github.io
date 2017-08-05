@@ -52,7 +52,7 @@ At the end of this guide our folder structure will look similar to the following
 
 
 # Prerequisites
-To follow along this guide, your development system should have the following applications installed:
+To follow along this guide, you should have the following set up:
 - [Java Development Kit][JDK]{:target="_blank"}  
 - [Maven][]{:target="_blank"}
 - [cURL][]{:target="_blank"}
@@ -631,8 +631,8 @@ connection: keep-alive
 {% endhighlight %}
 
 # Deploying to Heroku
-To deploy this application to Heroku, we must ensure we have a Heroku account and `Heroku CLI`. Navigate to the 
-directory of your application and execute the following command from your terminal:
+To deploy this application to Heroku, we must ensure we have a Heroku account and `Heroku CLI`. Navigate to 
+the root directory of your application and execute the following command from your terminal:
 
 {% highlight bash %}
 > heroku create

@@ -39,10 +39,13 @@ At the end of this guide our folder structure will look similar to the following
 ```
 
 # Prerequisites
-To follow along this guide, your development system should have the following applications installed:
+To follow along this guide, your development system should have the following setup:
 - [Java Development Kit][JDK]{:target="_blank"}  
 - [Maven][]{:target="_blank"}
 - [cURL][]{:target="_blank"}
+- [Heroku Account][Heroku]{:target="_blank"}
+- [Heroku CLI][]{:target="_blank"}
+- [Git][]{:target="_blank"}
 
 # Creating Project Template
 Head over to the [Spring Initializr][Initializr]{:target="_blank"} website to generate a Spring project template:
@@ -434,14 +437,131 @@ content-length: 0
 connection: keep-alive
 {% endhighlight %}
 
+# Deploying to Heroku
+To deploy this application to Heroku, we must ensure we have a Heroku account and `Heroku CLI`. Navigate to 
+the root directory of your application and execute the following command from your terminal:
+
+{% highlight bash %}
+> heroku create
+Creating app... done, floating-gorge-84071
+https://floating-gorge-84071.herokuapp.com/ | https://git.heroku.com/floating-gorge-84071.git
+{% endhighlight %}
+
+This creates a heroku app called `floating-gorge-84071`. Heroku defines an environment variable `$PORT` which is
+the HTTP port exposed over firewall for HTTP traffic.
+
+Next create a [`Procfile`][Procfile]{:target="_blank"}. This is a plain text file called `Procfile` not `procfile` or 
+`procfile.txt` but just `Procfile`.  
+In this file we will create a `web` process type. The `web` process type is a special process type that listens for
+HTTP traffic.
+
+file: {% include file-path.html file_path='Procfile' %}
+
+```
+web: java -jar target/*.war --server.port=$PORT
+```
+
+The application is ready to be deployed to Heroku with `git add . && git push heroku master`. But first let us
+test the application locally to make sure everything works. 
+
+{% highlight bash %}
+> mvn clean package
+> heroku local web
+{% endhighlight %}
+
+> For those on Windows platform, create a file `Procfile.windows` for local testing.
+
+file: {% include file-path.html file_path='Procfile.windows' %}
+
+```
+web: java -jar target\rest-service-0.0.1-SNAPSHOT.war --server.port=${PORT:5000}
+```
+
+Next run (Windows only):
+
+{% highlight bash %}
+> mvn clean package
+> heroku local web -f Procfile.windows
+{% endhighlight %}
+
+Now that we are confident everything works, we will deploy to heroku:
+
+{% highlight bash %}
+> git add .
+> git commit -am "Added heroku app"
+> git push heroku master
+Counting objects: 137, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (93/93), done.
+Writing objects: 100% (137/137), 72.61 KiB | 0 bytes/s, done.
+Total 137 (delta 42), reused 0 (delta 0)
+remote: Compressing source files... done.
+remote: Building source:
+remote:
+remote: -----> Java app detected
+remote: -----> Installing OpenJDK 1.8... done
+remote: -----> Executing: mvn -DskipTests clean dependency:list install
+...
+remote:        [INFO] ------------------------------------------------------------------------
+remote:        [INFO] BUILD SUCCESS
+remote:        [INFO] ------------------------------------------------------------------------
+remote:        [INFO] Total time: 13.305 s
+remote:        [INFO] Finished at: 2017-08-01T23:39:57Z
+remote:        [INFO] Final Memory: 31M/342M
+remote:        [INFO] ------------------------------------------------------------------------
+remote: -----> Discovering process types
+remote:        Procfile declares types -> web
+remote:
+remote: -----> Compressing...
+remote:        Done: 82.4M
+remote: -----> Launching...
+remote:        Released v3
+remote:        https://floating-gorge-84071.herokuapp.com/ deployed to Heroku
+remote:
+remote: Verifying deploy... done.
+To https://git.heroku.com/floating-gorge-84071.git
+ * [new branch]      origin -> master
+{% endhighlight %}
+
+We scale up a [dyno](https://devcenter.heroku.com/articles/dyno-types){:target="_blank"} with the following command:
+
+{% highlight bash %}
+> heroku ps:scale web=1
+Scaling dynos... done, now running web at 1:Free
+> heroku open
+{% endhighlight %}
+
+The last command opens the heroku app in your default browser. If you get a `404`, that is normal because you
+haven't mapped any resource to `/`. Just append the url with `/api/v1.0/resources` to start hacking.
+
+You can view the logs for the application by running this command:
+
+{% highlight bash %}
+> heroku logs --tail
+2017-08-05T22:12:53.118407+00:00 app[web.1]:  =========|_|==============|___/=/_/_/_/
+2017-08-05T22:12:53.120445+00:00 app[web.1]:  :: Spring Boot ::        (v1.5.6.RELEASE)
+2017-08-05T22:12:53.120470+00:00 app[web.1]:
+2017-08-05T22:12:53.118202+00:00 app[web.1]:
+2017-08-05T22:12:53.118216+00:00 app[web.1]:   .   ____          _            __ _ _
+2017-08-05T22:12:53.118258+00:00 app[web.1]:  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+2017-08-05T22:12:53.118290+00:00 app[web.1]: ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+2017-08-05T22:12:53.118325+00:00 app[web.1]:  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+2017-08-05T22:12:53.118367+00:00 app[web.1]:   '  |____| .__|_| |_|_| |_\__, | / / / /
+{% endhighlight %}
+
 # Conclusion
-In this post we focused on the `Client-Server` constraint of REST. We learned how to implement REST with Spring.    
+In this post we focused on the `Client-Server` constraint of REST. We learned how to implement REST with Spring.
+We also learned how to deploy a Spring-Boot app to Heroku.    
 As usual you can find the full example to this guide {% include source.html %}. Until the next post, keep doing cool things :+1:.
 
 
 [cURL]:                                https://curl.haxx.se/
+[Git]:                                 https://git-scm.com/
+[Heroku]:                              https://signup.heroku.com/
+[Heroku CLI]:                          https://devcenter.heroku.com/articles/getting-started-with-java#set-up
 [Initializr]:                          https://start.spring.io/
 [JDK]:                                 http://www.oracle.com/technetwork/java/javase/downloads/index.html
 [Maven]:                               http://maven.apache.org
+[Procfile]:                            https://devcenter.heroku.com/articles/procfile
 [RestController]:                      https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/RestController.html
 [Spring]:                              http://projects.spring.io/spring-framework/ 
