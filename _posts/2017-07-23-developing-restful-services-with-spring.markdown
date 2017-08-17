@@ -133,6 +133,11 @@ public class ResourceService {
         resources.add(new Resource(10L, "Resource Ten", LocalDateTime.now(), null));
     }
 
+   /**
+    * GET  /api/v1.0/resources : get all resources.
+    * 
+    * @return the {@code List<Resource>} of resources with status code 200 (OK)
+    */
     @GetMapping
     public List<Resource> getResources() {
         return resources;
@@ -304,6 +309,12 @@ file: {% include file-path.html file_path='src/main/java/com/juliuskrah/Resource
 
 {% highlight java %}
 ...
+/**
+ * GET /api/v1.0/resources/:id : get the resource specified by the identifier.
+ * 
+ * @param id the id to the resource being looked up
+ * @return the {@code Resource} with status 200 (OK) and body or status 404 (NOT FOUND)
+ */
 @GetMapping("{id:[0-9]+}")
 public ResponseEntity<Resource> getResource(@PathVariable Long id) {
   Resource resource = new Resource(id, null, null, null);
@@ -348,6 +359,14 @@ file: {% include file-path.html file_path='src/main/java/com/juliuskrah/Resource
 
 {% highlight java %}
 ...
+/**
+  * POST /api/v1.0/resources : creates a new resource.
+  * 
+  * @param resource the resource being sent by the client as payload
+  * @return the {@code Resource} with status 201 (CREATED) and no -content or status 
+  *         400 (BAD REQUEST) if the resource does not contain an Id or status
+  *         409 (CONFLICT) if the resource being created already exists in the list
+  */
 @PostMapping
 public ResponseEntity<Void> createResource(@RequestBody Resource resource, UriComponentsBuilder b) {
   if (Objects.isNull(resource.getId()))
@@ -387,6 +406,14 @@ file: {% include file-path.html file_path='src/main/java/com/juliuskrah/Resource
 
 {% highlight java %}
 ...
+/**
+ * PUT /api/v1.0/resources/:id : update a resource identified by the given id
+ * 
+ * @param id the identifier of the resource to be updated
+ * @param resource the resource that contains the update
+ * @return the {@code Resource} with a status code 204 (NO CONTENT) or status code
+ *         404 (NOT FOUND) when the resource being updated cannot be found
+ */
 @PutMapping("{id:[0-9]+}")
 public ResponseEntity<Void> updateResource(@PathVariable Long id, @RequestBody Resource resource) {
   resource.setId(id);
@@ -403,6 +430,13 @@ public ResponseEntity<Void> updateResource(@PathVariable Long id, @RequestBody R
     return ResponseEntity.notFound().build();
 }
 
+/**
+ * DELETE /api/v1.0/resources/:id : delete a resource identified by the given id
+ * 
+ * @param id the identifier of the resource to be deleted
+ * @return the {@code Response} with a status code of 204 (NO CONTENT) or status code
+ *         404 (NOT FOUND) when there is no resource with the given identifier
+ */
 @DeleteMapping("{id:[0-9]+}")
 public ResponseEntity<Void> deleteResource(@PathVariable Long id) {
   Resource resource = new Resource(id, null, null, null);
