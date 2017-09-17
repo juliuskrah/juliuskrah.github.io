@@ -11,5 +11,5 @@ He loves to **write code** and **write about what he codes**.
 
 He is an avid proponent to open source and you can find his open source contributions on
 {% include icon-github.html username=site.github_username %} /
-[GitHub]({{ site.github.url }}/{{ site.github_username }}){:target="_blank"} and
+[GitHub](https://{{ site.github.hostname }}/{{ site.github_username }}){:target="_blank"} and
 [Bitbucket](https://bitbucket.org/{{ site.github_username }}){:target="_blank"}

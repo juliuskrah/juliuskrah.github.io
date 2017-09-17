@@ -10,7 +10,7 @@ title: Software Musings
 email: juliuskrah@gmail.com
 description: > # this means to ignore newlines until "baseurl:"
   Web development blog that uses JavaEE and other related web technologies
-  with a strong emphasis on Spring, Thymeleaf, Websockets and Microservices
+  with a strong emphasis on Spring, Thymeleaf, Server Sent Events and Microservices
 baseurl: "" # the subpath of your site, e.g. /blog
 permalink: /:categories/:year/:month/:day/:title/
 url: "http://juliuskrah.com" # the base hostname & protocol for your site
@@ -55,7 +55,7 @@ github_username:  juliuskrah
 stackoverflow_link: users/6157880/julius-krah
 repository: juliuskrah/juliuskrah.github.io
 # plugins: Change from `gems` to `plugins` after upgrade to jekyll 3.5.0
-gems:
+plugins:
   - jemoji
   - jekyll-mentions
   - jekyll-feed

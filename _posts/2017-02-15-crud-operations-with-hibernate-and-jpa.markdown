@@ -51,7 +51,9 @@ We will create a [Maven][]{:target="_blank"} project using the standard director
 ```
 
 # Setting up Dependencies
-Getting the dependencies to start using Hibernate and JPA is just a matter of adding the following to our `pom.xml` file:
+Getting the dependencies to start using Hibernate and JPA is just a matter of adding the following to the `pom.xml` file:
+
+file: {% include file-path.html file_path='pom.xml' %}
 
 {% highlight xml %}
 <dependencies>
@@ -81,7 +83,8 @@ persistence unit, an `orm.xml` file contained in the `META-INF` directory of the
 files on the classpath and referenced from the persistence.xml file, or a combination of these.
 
 For our simple use case we will create a `persistence.xml` file.  
-file: `src/main/resources/META-INF/persistence.xml`:
+
+file: {% include file-path.html file_path='src/main/resources/META-INF/persistence.xml' %}
 
 {% highlight xml %}
 <?xml version="1.0" encoding="UTF-8"?>
@@ -115,7 +118,8 @@ We have also specified the properties Hibernate will use to connect to the datab
 `javax.persistence.provider` which tells JPA which implementation to use (in our case Hibernate).
 
 The next thing to do is create the Entity class which maps to a database table.  
-file: `src/main/java/com/tutorial/entity/Person.java`:
+
+file: {% include file-path.html file_path='src/main/java/com/tutorial/entity/Person.java' %}
 
 {% highlight java %}
 @Entity
@@ -161,7 +165,8 @@ The JPA specification defines two ways of managing entities: `Container-Managed 
 This is beyond the scope of this tutorial. For the purposes of simplification, we will use an Application-Managed Entity Manager.
 
 We will create a PersonRepository to facilitate our CRUD operations.  
-file: `src/main/java/com/tutorial/repository/PersonRepositoryImpl.java`:
+
+file: {% include file-path.html file_path='src/main/java/com/tutorial/repository/PersonRepositoryImpl.java' %}
 
 {% highlight java %}
 public class PersonRepositoryImpl implements PersonRepository {
@@ -227,9 +232,9 @@ We will create a main class to test our CRUD methods.
   In our `persistence.xml` file we set a property `javax.persistence.schema-generation.database.action` to `drop-and-create`. This 
   instructs Hibernate to drop and recreate the database everytime the application is run. Please don't use this setting in a production
   environment. In the [third part]({% post_url 2017-02-26-database-migration-with-liquibase-hikaricp-hibernate-and-jpa %}) of this 
-  series we will look at database migration which is a recommended approach.
+  series we will look at database migration which is a reco
 
-file: `src/main/java/com/tutorial/Application.java`:
+file: {% include file-path.html file_path='src/main/java/com/tutorial/Application.java' %}
 
 {% highlight java %}
 public class Application {
