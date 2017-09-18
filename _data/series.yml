@@ -13,6 +13,6 @@
   - 2017/07/23/developing-restful-services-with-spring
   - 2017/07/26/developing-restful-services-with-spring-and-jersey
 
-- title: Dynamic Scheduling with Quartz
-  tutorial:
-  - 2017/09/17/dynamic-job-scheduling-with-quartz-and-spring
+# - title: Dynamic Scheduling with Quartz
+#   tutorial:
+#   - 2017/09/17/dynamic-job-scheduling-with-quartz-and-spring
