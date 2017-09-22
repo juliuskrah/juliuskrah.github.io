@@ -15,7 +15,8 @@ repo:       quartz-manager/tree/master
 Every developer at a certain point in his carreer is faced with the difficult task of scheduling jobs dynamically. 
 In this post we are going to create a sample application for dynamically scheduling jobs using a
 [REST API]({% post_url 2017-07-16-developing-restful-services-with-jax-rs-jersey %}).  
-We will dynamically create jobs that sends emails to a predefined group of people on a user defined schedule.
+We will dynamically create jobs that sends emails to a predefined group of people on a user defined schedule using 
+[Spring Boot]({% post_url 2017-04-23-crud-operations-with-spring-boot %}).
 
 ## Concepts
 Before we dive any further, there are a few quartz concepts we need to understand:
@@ -75,7 +76,80 @@ Before we dive any further, there are a few quartz concepts we need to understan
       sched.scheduleJob(job, trigger);
       ```
 
-# Create and Setup Dependencies for the Sample Application
+## Create and Setup Dependencies for the Sample Application
+Head over to [start.spring.io][Initializr]{:target="_blank"} and build a Spring Boot template as illustrated in the
+image below:
 
+![spring.io](https://i.imgur.com/noNNTb7.png)
+
+{:.image-caption}
+*Spring Initializr*
+
+Download the zip archive and extract the contents to a folder of your choice. Open your `pom.xml` located at
+the root of the template directory and add the following dependencies:
+
+file: {% include file-path.html file_path='pom.xml' %}
+
+{% highlight xml %}
+...
+<dependency>
+  <groupId>org.springframework</groupId>
+  <artifactId>spring-context-support</artifactId>
+</dependency>
+<dependency>
+  <groupId>org.quartz-scheduler</groupId>
+  <artifactId>quartz</artifactId>
+  <version>2.3.0</version>
+</dependency>
+...
+{% endhighlight %}
+
+These are the dependencies needed for Quartz with Spring integration.
+
+## Scope
+By the end of this post we will be able to schedule `Quartz` jobs dynamically using a REST API.  
+We will create `create` jobs:
+
+```java
+// 
+Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
+scheduler.scheduleJob(jobDetail, trigger);
+```
+
+`retrieve` existing jobs:
+
+```java
+//
+scheduler.getJobDetail(jobKey);
+```
+
+`update` jobs:
+
+```java
+// store, and set overwrite flag to 'true'
+scheduler.addJob(jobDetail, true);
+```
+
+`delete` jobs:
+
+```java
+// 
+scheduler.deleteJob(jobKey);
+```
+
+`pause` jobs:
+
+```java
+// 
+scheduler.pauseJob(jobKey);
+```
+
+and `resume` jobs:
+
+```java
+// 
+scheduler.resumeJob(jobKey);
+```
 
 [Quartz]:               http://www.quartz-scheduler.org/
+[Initializr]:           https://start.spring.io
