@@ -21,7 +21,7 @@ We will dynamically create jobs that sends emails to a predefined group of peopl
 ## Concepts
 Before we dive any further, there are a few quartz concepts we need to understand:
 
-1.    Job - an interface to be implemented by components that you wish to have executed by the scheduler. The 
+1.    **Job** - an interface to be implemented by components that you wish to have executed by the scheduler. The 
       interface has one method `execute(...)`. This is where your scheduled task runs. Information on the 
       `JobDetail` and `Trigger` is retrieved using the `JobExecutionContext`.
 
@@ -33,7 +33,7 @@ Before we dive any further, there are a few quartz concepts we need to understan
       }
        ```
 
-2.    JobDetail - used to define instances of `Jobs`. This defines how a job is run. Whatever 
+2.    **JobDetail** - used to define instances of `Jobs`. This defines how a job is run. Whatever 
       data you want available to the `Job` when it is instantiated is provided through the `JobDetail`.  
       Quartz provides a Domain Specific Language (DSL) in the form of `JobBuilder` for constructing `JobDetail`
       instances.
@@ -45,7 +45,7 @@ Before we dive any further, there are a few quartz concepts we need to understan
         .build();
       ```
 
-3.    Trigger - a component that defines the schedule upon which a given Job will be executed. The trigger  
+3.    **Trigger** - a component that defines the schedule upon which a given Job will be executed. The trigger  
       provides instruction on when the job is run.  
       Quartz provides a DSL (TriggerBuilder) for constructing `Trigger` instances.
 
@@ -60,8 +60,8 @@ Before we dive any further, there are a few quartz concepts we need to understan
         .build();
       ```
 
-4.    Scheduler - the main API for interacting with the scheduler. A **Scheduler’s** life-cycle is bounded by it’s
-      creation, via a **SchedulerFactory** and a call to its `shutdown()` method. Once created the Scheduler 
+4.    **Scheduler** - the main API for interacting with the scheduler. A **Scheduler’s** life-cycle is bounded by 
+      it’s creation, via a **SchedulerFactory** and a call to its `shutdown()` method. Once created the Scheduler 
       interface can be used _add_, _remove_, and _list_ `Jobs` and `Triggers`, and perform other
       scheduling-related operations (such as _pausing_ a trigger). However, the Scheduler will not actually act on
       any triggers (execute jobs) until it has been started with the `start()` method.
@@ -150,6 +150,73 @@ and `resume` jobs:
 // 
 scheduler.resumeJob(jobKey);
 ```
+
+# About Jobstores
+JobStore’s are responsible for keeping track of all the "work data" that you give to the scheduler: `jobs`,
+`triggers`, `calendars`, etc. Selecting the appropriate JobStore for your Quartz scheduler instance is an
+important step. Luckily, the choice should be a very easy one once you understand the differences between them.  
+You declare which `JobStore` your scheduler should use (and it's configuration settings) in the properties file
+(or object) that you provide to the `SchedulerFactory` that you use to produce your scheduler instance.
+
+There are three types of Jobstores that are available in Quartz:
+
+1. **RAMJobStore** - is the simplest `JobStore` to use, it is also the most performant (in terms of CPU time). 
+   `RAMJobStore` gets its name in the obvious way: it keeps all of its data in RAM. This is why it’s 
+   lightning-fast, and also why it’s so simple to configure. The drawback is that when your application ends (or 
+   crashes) all of the scheduling information is lost - this means RAMJobStore cannot honor the setting of 
+   _"non-volatility"_ on jobs and triggers. For some applications this is acceptable - or even the desired 
+   behavior, but for other applications, this may be disastrous. In this part of the series we will be using
+   `RAMJobStore`.
+2. **JDBCJobStore** - is also aptly named - it keeps all of its data in a database via JDBC. Because of this it is 
+   a bit more complicated to configure than RAMJobStore, and it also is not as fast. However, the performance  
+   draw-back is not terribly bad, especially if you build the database tables with indexes on the primary keys.   
+   On fairly modern set of machines with a decent LAN (between the scheduler and database) the time to retrieve 
+   and update a firing trigger will typically be less than 10 milliseconds. We will talk more about `JDBCJobStore`
+   in the next post.
+3. **TerracottaJobStore** - provides a means for scaling and robustness without the use of a database. This means 
+   your database can be kept free of load from Quartz, and can instead have all of its resources saved for the
+   rest of your application.
+
+   `TerracottaJobStore` can be ran clustered or non-clustered, and in either case provides a storage medium for
+   your job data that is persistent between application restarts, because the data is stored in the Terracotta
+   server. It’s performance is much better than using a database via JDBCJobStore (about an order of magnitude 
+   better), but fairly slower than RAMJobStore. This is out of the scope for this series.
+
+## Setting up the Project
+In order to set up the REST API for the dyanmic jobs, we will create two abstractions over `JobDetail` and
+`Trigger` aptly named `JobDescriptor` and `TriggerDescriptor`:
+
+file: {% include file-path.html file_path='src/main/java/com/juliuskrah/quartz/model/TriggerDescriptor.java' %}
+
+{% highlight java %}
+public class TriggerDescriptor {
+  private String name;
+  private String group;
+  private LocalDateTime fireTime;
+  private String cron;
+
+  // Code ommitted for brevity. Click on link to view full source
+}
+{% endhighlight %}
+
+file: {% include file-path.html file_path='src/main/java/com/juliuskrah/quartz/model/JobDescriptor.java' %}
+
+{% highlight java %}
+public class JobDescriptor {
+  private String name;
+  private String group;
+  private String subject;
+  private String messageBody;
+  private List<String> to;
+  private List<String> cc;
+  private List<String> bcc;
+  private Map<String, Object> data = new LinkedHashMap<>();
+  @JsonProperty("triggers")
+  private List<TriggerDescriptor> triggerDescriptors = new ArrayList<>();
+
+  // Code ommitted for brevity. Click on link to view full source
+{% endhighlight %}
+
 
 [Quartz]:               http://www.quartz-scheduler.org/
 [Initializr]:           https://start.spring.io
