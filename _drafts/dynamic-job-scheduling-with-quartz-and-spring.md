@@ -18,6 +18,42 @@ In this post we are going to create a sample application for dynamically schedul
 We will dynamically create jobs that sends emails to a predefined group of people on a user defined schedule using 
 [Spring Boot]({% post_url 2017-04-23-crud-operations-with-spring-boot %}).
 
+## Project Structure
+At the end of this guide our folder structure will look similar to the following:
+
+```
+.
+|__src/
+|  |__main/
+|  |  |__java/
+|  |  |  |__com/
+|  |  |  |  |__juliuskrah/
+|  |  |  |  |  |__quartz/
+|  |  |  |  |  |  |__Application.java
+|  |  |  |  |  |  |__job/
+|  |  |  |  |  |  |  |__EmailJob.java
+|  |  |  |  |  |  |__model/
+|  |  |  |  |  |  |  |__JobDescriptor.java
+|  |  |  |  |  |  |  |__TriggerDescriptor.java
+|  |  |  |  |  |  |__service/
+|  |  |  |  |  |  |  |__EmailService.java
+|  |  |  |  |  |  |__web/
+|  |  |  |  |  |  |  |__rest/
+|  |  |  |  |  |  |  |  |__EmailResource.java
+|  |  |__resources/
+|  |  |  |  |__application.yaml
+|__pom.xml
+```
+
+
+# Prerequisites
+To follow along this guide, you should have the following set up:
+- [Java Development Kit][JDK]{:target="_blank"}  
+_Optional_
+- [Maven][]{:target="_blank"}
+- [cURL][]{:target="_blank"}
+
+
 ## Concepts
 Before we dive any further, there are a few quartz concepts we need to understand:
 
@@ -107,8 +143,9 @@ file: {% include file-path.html file_path='pom.xml' %}
 These are the dependencies needed for Quartz with Spring integration.
 
 ## Scope
-By the end of this post we will be able to schedule `Quartz` jobs dynamically using a REST API.  
-We will create `create` jobs:
+By the end of this post we will be able to schedule `Quartz` jobs dynamically to send emails
+using a REST API.  
+We will `create` jobs:
 
 ```java
 // 
@@ -123,14 +160,14 @@ scheduler.scheduleJob(jobDetail, trigger);
 scheduler.getJobDetail(jobKey);
 ```
 
-`update` jobs:
+`update` existing jobs:
 
 ```java
 // store, and set overwrite flag to 'true'
 scheduler.addJob(jobDetail, true);
 ```
 
-`delete` jobs:
+`delete` existing  jobs:
 
 ```java
 // 
@@ -182,7 +219,7 @@ There are three types of Jobstores that are available in Quartz:
    server. It’s performance is much better than using a database via JDBCJobStore (about an order of magnitude 
    better), but fairly slower than RAMJobStore. This is out of the scope for this series.
 
-## Setting up the Project
+## Setting up the Descriptors
 In order to set up the REST API for the dyanmic jobs, we will create two abstractions over `JobDetail` and
 `Trigger` aptly named `JobDescriptor` and `TriggerDescriptor`:
 
@@ -195,6 +232,19 @@ public class TriggerDescriptor {
   private LocalDateTime fireTime;
   private String cron;
 
+  /**
+   * Convenience method for building a Trigger
+   */
+  public Trigger buildTrigger() {
+    //
+  }
+
+  /**
+   * Convenience method for building a TriggerDescriptor
+   */
+  public static TriggerDescriptor buildDescriptor(Trigger trigger) {
+    //
+  }
   // Code ommitted for brevity. Click on link to view full source
 }
 {% endhighlight %}
@@ -214,9 +264,216 @@ public class JobDescriptor {
   @JsonProperty("triggers")
   private List<TriggerDescriptor> triggerDescriptors = new ArrayList<>();
 
+  /**
+   * Convenience method for building triggers of Job
+   */
+  public Set<Trigger> buildTriggers() {
+    // 
+  }
+
+  /**
+   * Convenience method for building a JobDetail
+   */
+  public JobDetail buildJobDetail() {
+    //
+  }
+	
+  /**
+   * Convenience method for building a JobDescriptor
+   */
+  public static JobDescriptor buildDescriptor(JobDetail jobDetail, List<? extends Trigger> triggersOfJob) {
+    // 
+  }
+
   // Code ommitted for brevity. Click on link to view full source
+}
 {% endhighlight %}
 
+Next we will define our Job class:
 
-[Quartz]:               http://www.quartz-scheduler.org/
-[Initializr]:           https://start.spring.io
+file: {% include file-path.html file_path='src/main/java/com/juliuskrah/quartz/job/EmailJob.java' %}
+
+{% highlight java %}
+public class EmailJob implements Job {
+
+  @Override
+  public void execute(JobExecutionContext context) throws JobExecutionException {
+    // JobDataMap map = context.getJobDetail().getJobDataMap();
+    // JobDataMap map = context.getTrigger().getJobDataMap();
+    JobDataMap map = context.getMergedJobDataMap();
+    System.out.format("Map: [%s]\n", map.getWrappedMap());
+  }
+}
+{% endhighlight %}
+
+> The `JobDataMap` can be used to hold any amount of (_serializable_) data objects which you wish to
+  have made available to the job instance when it executes. `JobDataMap` is an implementation of the Java `Map`
+  interface, and has some added convenience methods for storing and retrieving data of primitive types.  
+  You can retrieve the `JobDataMap` from the `JobExecutionContext` that is stored as part of the `JobDetail` or
+  `Trigger`.  
+  The `JobDataMap` that is found on the `JobExecutionContext` during Job execution serves as a convenience. It is
+  a merge of the `JobDataMap` found on the `JobDetail` and the one found on the `Trigger`, with the values in the
+  latter overriding any same-named values in the former.
+
+## Boostrapping with Spring Boot
+At the beginning of this post I stated that the life-cycle of a `Scheduler` is bounded by it’s creation, via a
+**SchedulerFactory** and a call to its *`shutdown()`* method. For this post we will create a _Singleton_ instance
+of a SchedulerFactory. We can achieve this by creating it as a Spring Bean:
+
+file: {% include file-path.html file_path='src/main/java/com/juliuskrah/quartz/Application.java' %}
+
+{% highlight java %}
+...
+@Bean
+public SchedulerFactoryBean schedulerFactory() {
+  SchedulerFactoryBean factoryBean = new SchedulerFactoryBean();
+		
+  return factoryBean;
+}
+{% endhighlight %}
+
+The bean definition above is doing several things:-
+1. **JobFactory** - The default is Spring's `AdaptableJobFactory`, which supports `java.lang.Runnable`
+   objects as well as standard Quartz `org.quartz.Job` instances. Note that this default only applies to a local
+   Scheduler, not to a RemoteScheduler (where setting a custom JobFactory is not supported by Quartz).
+2. **ThreadPool** - Default is a Quartz `SimpleThreadPool` with a pool size of 10. This is configured through
+	 the corresponding Quartz properties.
+3. **SchedulerFactory** - The default used here is the `StdSchedulerFactory`, reading in the standard
+	 `quartz.properties` from `quartz.jar`.
+4. **JobStore** - The default used is `RAMJobStore` which does not support persistence. and is not clustered.
+5. **Life-Cycle** - The `SchedulerFactoryBean` implements `org.springframework.context.SmartLifecycle` and
+   `org.springframework.beans.factory.DisposableBean` which means the life-cycle of the scheduler is managed
+   by the Spring container. The `sheduler.start()` is called in the `start()` implementation of `SmartLifecycle`
+   after initialization and the `scheduler.shutdown()` is called in the `destroy()` implementation of
+   `DisposableBean` at application teardown.  
+   You can override the startup behaviour by setting `setAutoStartup(..)` to `false`. With this setting you have
+   to manually start the scheduler.
+
+## Creating Some Service and Controller Classes
+We will create a service class that will take care of `Creating`, `Fetching`, `Updating`, `Deleting`, `Pausing`
+and `Resuming` jobs:
+
+file: {% include file-path.html file_path='src/main/java/com/juliuskrah/quartz/service/EmailService.java' %}
+
+{% highlight java %}
+@Service
+@Transactional
+public class EmailService {
+  private final Scheduler scheduler;
+
+  public EmailService(Scheduler scheduler) {
+    this.scheduler = scheduler;
+  }
+	
+  public JobDescriptor createJob(String group, JobDescriptor descriptor) {
+    //
+  }
+	
+  public JobDescriptor findJob(String group, String name) {
+    //
+  }
+	
+  public void updateJob(JobDescriptor descriptor) {
+    //
+  }
+	
+  public void deleteJob(String group, String name) {
+    //
+  }
+	
+  public void pauseJob(String group, String name) {
+    //
+  }
+	
+  public void resumeJob(String group, String name) {
+    //
+  }
+}
+{% endhighlight %}
+
+Now the REST endpoints:
+
+file: {% include file-path.html file_path='src/main/java/com/juliuskrah/quartz/web/rest/EmailResource.java' %}
+
+{% highlight java %}
+@RestController
+@RequestMapping("/api/v1.0")
+public class EmailResource {
+  private final EmailService emailService;
+
+  public EmailResource(EmailService emailService) {
+    this.emailService = emailService;
+  }
+
+  @PostMapping(path = "/groups/{group}/jobs")
+  public ResponseEntity<JobDescriptor> createJob(@PathVariable String group, 
+            @RequestBody JobDescriptor descriptor) {
+    //
+  }
+
+  @GetMapping(path = "/groups/{group}/jobs/{name}")
+  public ResponseEntity<JobDescriptor> findJob(@PathVariable String group, 
+            @PathVariable String name) {
+    //
+  }
+
+  @PutMapping(path = "/groups/{group}/jobs/{name}")
+  public ResponseEntity<Void> updateJob(@PathVariable String group, 
+            @PathVariable String name, @RequestBody JobDescriptor descriptor) {
+    //
+  }
+
+  @DeleteMapping(path = "/groups/{group}/jobs/{name}")
+  public ResponseEntity<JobDescriptor> deleteJob(@PathVariable String group, @PathVariable String name) {
+    //
+  }
+
+  @PatchMapping(path = "/groups/{group}/jobs/{name}/pause")
+  public ResponseEntity<JobDescriptor> pauseJob(@PathVariable String group, @PathVariable String name) {
+    //
+  }
+
+  @PatchMapping(path = "/groups/{group}/jobs/{name}/resume")
+  public ResponseEntity<JobDescriptor> resumeJob(@PathVariable String group, @PathVariable String name) {
+    //
+  }
+}
+{% endhighlight %}
+
+Start the server:
+
+{% highlight posh %}
+> mvnw clean spring-boot:run    # Windows
+$ ./mvnw clean spring-boot:run  # Linux and Mac
+{% endhighlight %}
+
+and test the create endpoint `http://localhost:8080/api/v1.0/groups/email/jobs` via post using `curl` or `Postman`
+with the following JSON payload:
+
+{% highlight json %}
+{
+  "name": "manager",
+  "subject": "Daily Fuel Report",
+  "messageBody": "Sample fuel report",
+  "to": ["juliuskrah@example.com", "juliuskrah@example.net"],
+  "triggers":
+    [
+       {
+         "name": "manager",
+         "group": "email",
+         "cron": "0/10 * * * * ?"
+       }
+    ]
+}
+{% endhighlight %}
+
+This will execute every 10 seconds by printing to STDOUT.
+
+# Setting up Email
+
+
+[cURL]:                     https://curl.haxx.se/
+[Initializr]:               https://start.spring.io
+[JDK]:                      http://www.oracle.com/technetwork/java/javase/downloads/index.html
+[Maven]:                    http://maven.apache.org
+[Quartz]:                   http://www.quartz-scheduler.org/
