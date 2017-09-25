@@ -30,6 +30,7 @@ At the end of this guide our folder structure will look similar to the following
 |  |  |  |  |__juliuskrah/
 |  |  |  |  |  |__quartz/
 |  |  |  |  |  |  |__Application.java
+|  |  |  |  |  |  |__AutowiringSpringBeanJobFactory.java 
 |  |  |  |  |  |  |__job/
 |  |  |  |  |  |  |  |__EmailJob.java
 |  |  |  |  |  |  |__model/
@@ -373,7 +374,7 @@ public class EmailService {
     //
   }
 	
-  public void updateJob(JobDescriptor descriptor) {
+  public void updateJob(String group, String name, JobDescriptor descriptor) {
     //
   }
 	
@@ -448,7 +449,7 @@ $ ./mvnw clean spring-boot:run  # Linux and Mac
 {% endhighlight %}
 
 and test the create endpoint `http://localhost:8080/api/v1.0/groups/email/jobs` via post using `curl` or `Postman`
-with the following JSON payload:
+with the following JSON payload and content type `application/json`:
 
 {% highlight json %}
 {
@@ -469,7 +470,104 @@ with the following JSON payload:
 
 This will execute every 10 seconds by printing to STDOUT.
 
+Update at `http://localhost:8080/api/v1.0/groups/email/jobs/manager` with content type `application/json` and
+payload: 
+
+{% highlight json %}
+{
+  "name": "manager",
+  "subject": "Daily Fuel Report",
+  "messageBody": "Sample fuel report",
+  "to": ["juliuskrah@example.com", "juliuskrah@example.net", "juliuskrah@example.org"],
+  "cc": ["juliuskrah@example.io"]
+}
+{% endhighlight %}
+
 # Setting up Email
+Create a configuration file and add the `SMTP` details of your mail server which defines the behaviour of the
+`JavaMailSender` bean. We will inject this bean into the job class:
+
+file: {% include file-path.html file_path='src/main/resources/application.yaml' %}
+
+{% highlight yaml %}
+spring:
+  mail:
+    host: smtp.example.com
+    port: 587
+    username: username@example.com
+    password: password
+{% endhighlight %}
+
+One thing we did not talk about, the `AdaptableJobFactory` does not do any dependency injection. Each (and every)
+time the scheduler executes the job, it creates a new instance of the class before calling its `execute(..)`
+method. When the execution is complete, references to the job class instance are dropped, and the instance is then
+garbage collected. One of the ramifications of this behavior is the fact that jobs must have a no-argument 
+constructor (when using the AdaptableJobFactory implementation). Another ramification is that it does not make
+sense to have state data-fields defined on the job class - as their values would not be preserved between job 
+executions.
+
+It is at this point that things get interesting. We will create our own implementation of `JobFactory` that 
+supports dependency injection:
+
+file: {% include file-path.html file_path='src/main/java/com/juliuskrah/quartz/AutowiringSpringBeanJobFactory.java' %}
+
+{% highlight java %}
+public class AutowiringSpringBeanJobFactory extends 
+            SpringBeanJobFactory implements ApplicationContextAware {
+  private transient AutowireCapableBeanFactory beanFactory;
+
+  @Override
+  public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+    beanFactory = applicationContext.getAutowireCapableBeanFactory();
+  }
+
+  @Override
+  protected Object createJobInstance(TriggerFiredBundle bundle) throws Exception {
+    final Object job = super.createJobInstance(bundle);
+    beanFactory.autowireBean(job); // Dependency Injection is done here
+    return job;
+  }
+}
+{% endhighlight %}
+
+Override the `AdaptableJobFactory` in the `SchedulerFactoryBean` and use `AutowiringSpringBeanJobFactory` instead:
+
+file: {% include file-path.html file_path='src/main/java/com/juliuskrah/quartz/Application.java' %}
+
+{% highlight java %}
+...
+@Bean
+public SchedulerFactoryBean schedulerFactory(ApplicationContext applicationContext) {
+  SchedulerFactoryBean factoryBean = new SchedulerFactoryBean();
+  AutowiringSpringBeanJobFactory jobFactory = new AutowiringSpringBeanJobFactory();
+  jobFactory.setApplicationContext(applicationContext); 
+		
+  factoryBean.setJobFactory(jobFactory);    // Set jobFactory to AutowiringSpringBeanJobFactory
+  return factoryBean;
+}
+{% endhighlight %}
+
+Now inject the `JavaMailSender` into the job class:
+
+file: {% include file-path.html file_path='src/main/java/com/juliuskrah/quartz/job/EmailJob.java' %}
+
+{% highlight java %}
+public class EmailJob implements Job {
+  @Autowired
+  private JavaMailSender mailSender;
+
+  ...
+
+  private void sendEmail(Map<String, Object> map) {
+    // Get job details from map and send email
+    try {
+      this.mailSender.send(..);
+    } catch (MailException ex) {
+      // simply log it and go on...
+    }
+  }
+}
+{% endhighlight %}
 
 
 [cURL]:                     https://curl.haxx.se/
