@@ -78,7 +78,7 @@ Before we dive any further, there are a few quartz concepts we need to understan
 
       ```java
       // define the job and tie it to the Job implementation
-      JobDetail job = newJob(HelloJob.class)
+      JobDetail job = newJob(EmailJob.class)
         .withIdentity("myJob", "group1") // name "myJob", group "group1"
         .build();
       ```
@@ -100,7 +100,7 @@ Before we dive any further, there are a few quartz concepts we need to understan
 
 4.    **Scheduler** - the main API for interacting with the scheduler. A **Scheduler’s** life-cycle is bounded by 
       it’s creation, via a **SchedulerFactory** and a call to its `shutdown()` method. Once created the Scheduler 
-      interface can be used _add_, _remove_, and _list_ `Jobs` and `Triggers`, and perform other
+      interface can be used to _add_, _remove_, and _list_ `Jobs` and `Triggers`, and perform other
       scheduling-related operations (such as _pausing_ a trigger). However, the Scheduler will not actually act on
       any triggers (execute jobs) until it has been started with the `start()` method.
 
@@ -142,7 +142,7 @@ file: {% include file-path.html file_path='pom.xml' %}
 ...
 {% endhighlight %}
 
-These are the dependencies needed for Quartz with Spring integration.
+The above are the dependencies needed for Quartz with Spring integration.
 
 ## Scope
 By the end of this post we will be able to schedule `Quartz` jobs dynamically to send emails
@@ -342,7 +342,7 @@ The bean definition above is doing several things:-
 	 the corresponding Quartz properties.
 3. **SchedulerFactory** - The default used here is the `StdSchedulerFactory`, reading in the standard
 	 `quartz.properties` from `quartz.jar`.
-4. **JobStore** - The default used is `RAMJobStore` which does not support persistence. and is not clustered.
+4. **JobStore** - The default used is `RAMJobStore` which does not support persistence and is not clustered.
 5. **Life-Cycle** - The `SchedulerFactoryBean` implements `org.springframework.context.SmartLifecycle` and
    `org.springframework.beans.factory.DisposableBean` which means the life-cycle of the scheduler is managed
    by the Spring container. The `sheduler.start()` is called in the `start()` implementation of `SmartLifecycle`
@@ -426,17 +426,17 @@ public class EmailResource {
   }
 
   @DeleteMapping(path = "/groups/{group}/jobs/{name}")
-  public ResponseEntity<JobDescriptor> deleteJob(@PathVariable String group, @PathVariable String name) {
+  public ResponseEntity<Void> deleteJob(@PathVariable String group, @PathVariable String name) {
     //
   }
 
   @PatchMapping(path = "/groups/{group}/jobs/{name}/pause")
-  public ResponseEntity<JobDescriptor> pauseJob(@PathVariable String group, @PathVariable String name) {
+  public ResponseEntity<Void> pauseJob(@PathVariable String group, @PathVariable String name) {
     //
   }
 
   @PatchMapping(path = "/groups/{group}/jobs/{name}/resume")
-  public ResponseEntity<JobDescriptor> resumeJob(@PathVariable String group, @PathVariable String name) {
+  public ResponseEntity<Void> resumeJob(@PathVariable String group, @PathVariable String name) {
     //
   }
 }
@@ -499,7 +499,9 @@ spring:
     password: password
 {% endhighlight %}
 
-One thing we did not talk about, the `AdaptableJobFactory` does not do any dependency injection. Each (and every)
+One thing we did not talk about, the `AdaptableJobFactory` does not do any 
+[dependency]({% post_url 2016-12-10-introduction-to-spring-and-dependency-injection-jsr-330 %}) 
+[injection]({% post_url 2017-07-30-dependency-injection-jsr-330-on-the-java-platform-using-hk2 %}). Each (and every)
 time the scheduler executes the job, it creates a new instance of the class before calling its `execute(..)`
 method. When the execution is complete, references to the job class instance are dropped, and the instance is then
 garbage collected. One of the ramifications of this behavior is the fact that jobs must have a no-argument 
