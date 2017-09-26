@@ -1,6 +1,7 @@
 ---
 layout:     series
 title:      Dynamic Job Scheduling with Quartz and Spring
+date:       2017-09-26 20:17:17 +0000
 categories: tutorial
 tags:       java maven liquibase quartz rest spring-boot
 section:    series
@@ -13,7 +14,7 @@ repo:       quartz-manager/tree/master
 
 # Introduction
 Every developer at a certain point in his carreer is faced with the difficult task of scheduling jobs dynamically. 
-In this post we are going to create a sample application for dynamically scheduling jobs using a
+In this post we are going to create a simple application for dynamically scheduling jobs using a
 [REST API]({% post_url 2017-07-16-developing-restful-services-with-jax-rs-jersey %}).  
 We will dynamically create jobs that sends emails to a predefined group of people on a user defined schedule using 
 [Spring Boot]({% post_url 2017-04-23-crud-operations-with-spring-boot %}).
@@ -568,6 +569,14 @@ public class EmailJob implements Job {
   }
 }
 {% endhighlight %}
+
+That's all folks.
+
+# Conclusion
+In this post we learned how to schedule quartz jobs dynamically using `RAMJobStore`. In the next post we will learn
+how to persist these jobs into the database using `JDBCJobStore`.
+
+You can find the source to this guide {% include source.html %}. Until the next post, keep doing cool things :smile:.
 
 
 [cURL]:                     https://curl.haxx.se/
