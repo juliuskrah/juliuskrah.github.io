@@ -6,11 +6,11 @@ gem "minima"
 gem "html-proofer"
 # If you have any plugins, put them here!
 group :jekyll_plugins do
-  gem 'jekyll'
+  gem 'jekyll', '3.5.2'
   gem 'github-pages'
   gem 'jemoji'
   gem 'jekyll-mentions'
-  gem 'jekyll-feed', '0.9.2'
+  gem 'jekyll-feed'
   gem 'jekyll-seo-tag'
   gem 'jekyll-sitemap'
   gem 'jekyll-compose'
