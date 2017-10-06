@@ -20,13 +20,13 @@ env:
 
 sudo: false # route your build to the container-based infrastructure for a faster build
 
-deploy:
-  provider: pages
-  skip_cleanup: true
-  github_token: $GITHUB_TOKEN
+# deploy:
+  # provider: pages
+  # skip_cleanup: true
+  # github_token: $GITHUB_TOKEN
   # target_branch: master
   # fqdn: juliuskrah.com
-  email: juliuskrah@gmail.com
-  name: Julius Krah
-  on:
-    branch: master
+  # email: juliuskrah@gmail.com
+  # name: Julius Krah
+  # on:
+    # branch: master
