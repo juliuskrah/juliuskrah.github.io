@@ -54,8 +54,9 @@ infolinks_wsid: 0
 github_username:  juliuskrah
 stackoverflow_link: users/6157880/julius-krah
 repository: juliuskrah/juliuskrah.github.io
-# plugins: Change from `gems` to `plugins` after upgrade to jekyll 3.5.0
-plugins_dir:
+# plugins: Change from `plugins` to `plugins_dir` after upgrade to jekyll 3.5.2
+# plugins_dir:
+plugins:
   - jemoji
   - jekyll-mentions
   - jekyll-feed
