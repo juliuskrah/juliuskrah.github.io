@@ -1,6 +1,7 @@
 ---
 layout:     series
 title:      Persisting Dynamic Jobs with Quartz and Spring
+date:       2017-10-06 23:11:17 +0000
 categories: tutorial
 tags:       java maven liquibase quartz rest spring-boot
 section:    series
