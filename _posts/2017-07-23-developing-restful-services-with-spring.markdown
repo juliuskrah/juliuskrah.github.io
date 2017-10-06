@@ -40,6 +40,7 @@ At the end of this guide our folder structure will look similar to the following
 
 # Prerequisites
 To follow along this guide, your development system should have the following setup:
+
 - [Java Development Kit][JDK]{:target="_blank"}  
 - [Maven][]{:target="_blank"}
 - [cURL][]{:target="_blank"}

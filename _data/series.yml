@@ -16,3 +16,4 @@
 - title: Dynamic Scheduling with Quartz
   tutorial:
   - 2017/09/26/dynamic-job-scheduling-with-quartz-and-spring
+  - 2017/10/06/persisting-dynamic-jobs-with-quartz-and-spring

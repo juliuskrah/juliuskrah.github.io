@@ -3,7 +3,7 @@ layout:     series
 title:      Dynamic Job Scheduling with Quartz and Spring
 date:       2017-09-26 20:17:17 +0000
 categories: tutorial
-tags:       java maven liquibase quartz rest spring-boot
+tags:       java maven quartz rest spring-boot
 section:    series
 author:     juliuskrah
 repo:       quartz-manager/tree/master
@@ -50,8 +50,9 @@ At the end of this guide our folder structure will look similar to the following
 
 # Prerequisites
 To follow along this guide, you should have the following set up:
+
 - [Java Development Kit][JDK]{:target="_blank"}  
-_Optional_
+_Optional_  
 - [Maven][]{:target="_blank"}
 - [cURL][]{:target="_blank"}
 
@@ -69,7 +70,7 @@ Before we dive any further, there are a few quartz concepts we need to understan
       public interface Job {
         public void execute(JobExecutionContext context) throws JobExecutionException;
       }
-       ```
+      ```
 
 2.    **JobDetail** - used to define instances of `Jobs`. This defines how a job is run. Whatever 
       data you want available to the `Job` when it is instantiated is provided through the `JobDetail`.  
@@ -211,7 +212,7 @@ There are three types of Jobstores that are available in Quartz:
    draw-back is not terribly bad, especially if you build the database tables with indexes on the primary keys.   
    On fairly modern set of machines with a decent LAN (between the scheduler and database) the time to retrieve 
    and update a firing trigger will typically be less than 10 milliseconds. We will talk more about `JDBCJobStore`
-   in the next post.
+   in the [next post]({% post_url 2017-10-06-persisting-dynamic-jobs-with-quartz-and-spring %}).
 3. **TerracottaJobStore** - provides a means for scaling and robustness without the use of a database. This means 
    your database can be kept free of load from Quartz, and can instead have all of its resources saved for the
    rest of your application.
@@ -335,6 +336,7 @@ public SchedulerFactoryBean schedulerFactory() {
 {% endhighlight %}
 
 The bean definition above is doing several things:-
+
 1. **JobFactory** - The default is Spring's `AdaptableJobFactory`, which supports `java.lang.Runnable`
    objects as well as standard Quartz `org.quartz.Job` instances. Note that this default only applies to a local
    Scheduler, not to a RemoteScheduler (where setting a custom JobFactory is not supported by Quartz).
@@ -575,8 +577,9 @@ public class EmailJob implements Job {
 That's all folks.
 
 # Conclusion
-In this post we learned how to schedule quartz jobs dynamically using `RAMJobStore`. In the next post we will learn
-how to persist these jobs into the database using `JDBCJobStore`.
+In this post we learned how to schedule quartz jobs dynamically using `RAMJobStore`. In the 
+[next post]({% post_url 2017-10-06-persisting-dynamic-jobs-with-quartz-and-spring %})
+we will learn how to persist these jobs into the database using `JDBCJobStore`.
 
 You can find the source to this guide {% include source.html %}. Until the next post, keep doing cool things :smile:.
 
