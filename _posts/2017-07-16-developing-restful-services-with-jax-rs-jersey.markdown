@@ -17,7 +17,7 @@ REST stands for REpresentational State Transfer. The REST architectural style de
 constraints, applied to the architecture, were originally communicated by Roy Fielding in his doctoral dissertation
 and defines the basis of RESTful-style.
 
-**The six constraints are: (click the constraint to read more)**
+**The six constraints are: (click on the constraint below to read more)**
 
 - [Uniform Interface][]{:target="_blank"}
 - [Stateless][]{:target="_blank"}
@@ -56,6 +56,9 @@ To follow along this guide, you should have the following set up:
 
 - [Java Development Kit][JDK]{:target="_blank"}  
 - [Maven][]{:target="_blank"}
+
+_Optional_
+
 - [cURL][]{:target="_blank"}
 - [Heroku Account][Heroku]{:target="_blank"}
 - [Heroku CLI][]{:target="_blank"}

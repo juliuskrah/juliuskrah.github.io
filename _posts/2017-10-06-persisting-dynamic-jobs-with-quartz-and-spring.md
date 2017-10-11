@@ -91,7 +91,7 @@ org.quartz.jobStore.driverDelegateClass = org.quartz.impl.jdbcjobstore.StdJDBCDe
 ```
 
 # Directory structure
-At the end of this guide our folder structure will look similar to the following:
+The contents of the archive should be similar to the directory structure below:
 
 ```
 .
@@ -108,6 +108,7 @@ At the end of this guide our folder structure will look similar to the following
 |  |  |  |  |  |  |  |__JobDescriptor.java
 |  |  |  |  |  |  |  |__TriggerDescriptor.java
 |  |  |  |  |  |  |__service/
+|  |  |  |  |  |  |  |__AsyncMailSender.java
 |  |  |  |  |  |  |  |__EmailService.java
 |  |  |  |  |  |  |__web/
 |  |  |  |  |  |  |  |__rest/
@@ -337,7 +338,8 @@ That's all folks.
 
 # Conclusion
 In this post we learned how to schedule quartz jobs dynamically using `JDBCJobStore`. We also covered how do use
-`Async` annotation to make our jobs execute faster.
+`Async` annotation to make our jobs execute faster. In the next post we will cover 
+[Error Handling]({% post_url 2017-10-11-error-handling-in-a-rest-service-with-quartz %}) in a REST service.
 
 You can find the source to this guide {% include source.html %}. Until the next post, keep doing cool things :smile:.
 
