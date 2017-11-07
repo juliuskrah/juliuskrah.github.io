@@ -1,0 +1,22 @@
+Infolinks.com, 2956258, RESELLER
+appnexus.com, 3251, RESELLER
+openx.com, 118151, DIRECT|RESELLER, 6a698e2ec38604c6
+thrive.plus, 190, DIRECT, a24eb641fc82e93d
+google.com, pub-6373315980741255, DIRECT, f08c47fec0942fa0
+spotxchange.com, 156078, DIRECT, 7842df1d2fe2db34
+spotx.tv, 156078, DIRECT, 7842df1d2fe2db34
+contextweb.com, 560800, DIRECT, 89ff185a4c4e857c
+lkqd.net, 295, DIRECT, 59c49fa9598a0117
+lkqd.com, 295, DIRECT, 59c49fa9598a0117
+springserve.com, 190, DIRECT, a24eb641fc82e93d
+aol.com, 6202, DIRECT
+aol.com, 17744, DIRECT
+advertising.com, 6202, DIRECT
+advertising.com, 17744, DIRECT
+Freewheel.tv, 480577, DIRECT
+Freewheel.tv, 480593, RESELLER
+vi.ai, 913453223927387, DIRECT #41b5eef6
+spotxchange.com, 74964, RESELLER, 7842df1d2fe2db34
+spotx.tv, 74964, RESELLER, 7842df1d2fe2db34
+freewheel.tv, 364193, RESELLER
+freewheel.tv, 369249, RESELLER

@@ -1,6 +1,6 @@
 ---
 layout:     series
-title:      Developing RESTful Services with Spring
+title:      Developing RESTful Web Services with Spring
 date:       2017-07-23 12:08:50 +0000
 categories: tutorial
 tags:       java maven spring-boot rest
@@ -31,7 +31,7 @@ At the end of this guide our folder structure will look similar to the following
 |  |__main/
 |  |  |__java/
 |  |  |  |__com/
-|  |  |  |  |__juliuskrah
+|  |  |  |  |__juliuskrah/
 |  |  |  |  |  |__Application.java
 |  |  |  |  |  |__Resource.java
 |  |  |  |  |  |__ResourceService.java
@@ -586,7 +586,8 @@ You can view the logs for the application by running this command:
 
 # Conclusion
 In this post we focused on the `Client-Server` constraint of REST. We learned how to implement REST with Spring.
-We also learned how to deploy a Spring-Boot app to Heroku.    
+We also learned how to deploy a Spring-Boot app to Heroku. In another post we will learn how to [secure a RESTful
+Web Service]({% post_url 2017-11-07-securing-a-spring-rest-service-with-jwt %}).   
 As usual you can find the full example to this guide {% include source.html %}. Until the next post, keep doing cool things :+1:.
 
 

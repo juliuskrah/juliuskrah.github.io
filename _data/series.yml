@@ -12,6 +12,7 @@
   - 2017/07/16/developing-restful-services-with-jax-rs-jersey
   - 2017/07/23/developing-restful-services-with-spring
   - 2017/07/26/developing-restful-services-with-spring-and-jersey
+  - 2017/11/07/securing-a-spring-rest-service-with-jwt
 
 - title: Dynamic Scheduling with Quartz
   tutorial:

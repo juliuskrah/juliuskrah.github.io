@@ -1,6 +1,6 @@
 ---
 layout:     series
-title:      Developing RESTful Services with Spring and Jersey
+title:      Developing RESTful Web Services with Spring and Jersey
 date:       2017-07-26 21:39:54 +0000
 categories: tutorial
 tags:       java maven jersey jax-rs rest spring-boot javaee
@@ -488,7 +488,8 @@ connection: keep-alive
 {% endhighlight %}
 
 # Conclusion
-In this post we built up on our previous post by wiring up the best of Spring and Jersey in the same application.  
+In this post we built up on our previous post by wiring up the best of Spring and Jersey in the same application. In the next post we will learn how to [secure a RESTful
+Web Service]({% post_url 2017-11-07-securing-a-spring-rest-service-with-jwt %}) using JWT.   
 As usual you can find the full example to this guide {% include source.html %}. 
 Until the next post, keep doing cool things :+1:.
 
