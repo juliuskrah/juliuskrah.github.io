@@ -21,7 +21,7 @@ building a Web Service and more often than not, it is overlooked.
 In this post we are going to secure the web service using JWT with [Spring Security][]{:target="_blank"}.
 
 Spring Security is a framework that focuses on providing both authentication and authorization to Java 
-applications. To get started with this post get the source for the provious post as [zip](https://github.com/juliuskrah/rest-example/archive/v1.zip)|[tar.gz](hhttps://github.com/juliuskrah/rest-example/archive/v1.tar.gz) and extract the contents of the archive.
+applications. To get started with this post, get the source for the previous post as [zip](https://github.com/juliuskrah/rest-example/archive/v1.zip)|[tar.gz](hhttps://github.com/juliuskrah/rest-example/archive/v1.tar.gz) and extract the contents of the archive.
 
 ## Project Structure
 At the end of this guide our folder structure will look similar to the following:
@@ -138,7 +138,7 @@ Date: Tue, 07 Nov 2017 10:10:16 GMT
 }
 {% endhighlight %}
 
-As you can see, you got an `Access Denied` when you tried to access a protected resource. Let's create a password
+As you can see, you got an `Unauthorized` when you tried to access a protected resource. Let's create a password
 and username and try again:
 
 file: {% include file-path.html file_path='src/main/resources/application.properties' %}
@@ -215,7 +215,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .and()
           .withUser("admin").password("admin").roles("USER", "ADMIN");
     } catch (Exception e) {
-      throw new BeanInitializationException("Security configuration failed", e);
+        throw new BeanInitializationException("Security configuration failed", e);
     }
   } 
 
@@ -356,7 +356,7 @@ public class JWTAuthenticationFilter extends AbstractAuthenticationProcessingFil
 }
 {% endhighlight %}
 
-We can test what we did now:
+We can test what we did:
 
 {% highlight bash %}
 > curl -X POST -i -H "Accept: application/json" -H "Content-Type: application/x-www-form-urlencoded" http://localhost:8080/api/authenticate -d "username=julius&password=secret"
@@ -406,6 +406,12 @@ Date: Tue, 07 Nov 2017 11:34:46 GMT
   }
   ...
 ]
+{% endhighlight %}
+
+The token can also be passed as a query parameter in the URL:
+
+{% highlight bash %}
+> curl -i -H "Accept: application/json" http://localhost:8080/api/v1.0/resources?access_token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqdWxpdXMiLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNTEwMTgwMDg4fQ.taul450j0s39mnyzfdd3jurloRUlCowJK6Vd6EmN2tv5y9iiGTfPXyfLBDx0NLOZKUHcbhgYSUe_AoK_DzybGg
 {% endhighlight %}
 
 You can play around with it. Change some values and see how it behaves.  
