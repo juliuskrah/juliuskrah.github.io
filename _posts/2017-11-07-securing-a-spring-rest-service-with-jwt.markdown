@@ -227,14 +227,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 UsernamePasswordAuthenticationFilter.class)          //  <1>
       .exceptionHandling()
         .authenticationEntryPoint(new JWTAuthenticationEntryPoint()) //  <2>
-        .accessDeniedHandler(new JWTAccessDeniedHandler())           //  <3>
-      .and()
-        .csrf()
-        .disable()                                                   //  <4>
+        .accessDeniedHandler(new JWTAccessDeniedHandler())           //  <3>                                 
       .and()
         .sessionManagement()
-        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)      //  <5>
+        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)      //  <4>
       .and()
+        .csrf()                                                     
+        .disable()                                                   //  <5>
         .authorizeRequests().anyRequest().authenticated()            //  <6>
       .and()
         .apply(securityConfigurerAdapter())                          //  <7>
@@ -250,8 +249,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
    override the Spring Security default of redirecting to a login page. Login pages do not make sense for REST
    services.
 3. `AccessDeniedHandler` for when a user tries to access a resource he is not permitted to access.
-4. We will disable `CSRF` protection. It is not required in REST.
-5. We will set session management to `STATELESS` for REST is stateless.
+4. We will set session management to `STATELESS` for REST is stateless.
+5. We will disable `CSRF` protection. It is not required in REST.
 6. Make sure all routes require authentication.
 7. Apply a security configurer to authenticate all requests.
 
