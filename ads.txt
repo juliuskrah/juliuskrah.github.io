@@ -1,6 +1,10 @@
-Infolinks.com, 2956258, RESELLER
+Infolinks.com, 2956258, RESELLER  
+Infolinks.com, 2956258, DIRECT           
 appnexus.com, 3251, RESELLER
-openx.com, 118151, DIRECT|RESELLER, 6a698e2ec38604c6
+appnexus.com, 3251, DIRECT
+openx.com, 118151, DIRECT, 6a698e2ec38604c6
+openx.com, 118151, RESELLER, 6a698e2ec38604c6
+
 thrive.plus, 190, DIRECT, a24eb641fc82e93d
 google.com, pub-6373315980741255, DIRECT, f08c47fec0942fa0
 spotxchange.com, 156078, DIRECT, 7842df1d2fe2db34
@@ -20,3 +24,5 @@ spotxchange.com, 74964, RESELLER, 7842df1d2fe2db34
 spotx.tv, 74964, RESELLER, 7842df1d2fe2db34
 freewheel.tv, 364193, RESELLER
 freewheel.tv, 369249, RESELLER
+pubmatic.com,60809,DIRECT,5d62403b186f2ace
+pubmatic.com,60809,RESELLER,5d62403b186f2ace
