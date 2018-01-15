@@ -213,7 +213,7 @@ It is time to create our entry point module to start our flask REST service:
 file: {% include file-path.html file_path='todoapi/app.py' %}
 
 {% highlight python linenos %}
-rom simplexml import dumps
+from simplexml import dumps
 from flask import make_response, Flask
 from flask_restful import Api
 from todoapi.resources import todo_resource
