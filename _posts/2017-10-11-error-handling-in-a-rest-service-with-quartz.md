@@ -240,6 +240,8 @@ public interface FieldErrorVO {
 }
 {% endhighlight %}
 
+> While `ImmutableFieldErrorVO` may not be generated yet, the above will compile properly
+
 And another value object to map all other errors:
 
 file: {% include file-path.html file_path='src/main/java/com/juliuskrah/quartz/web/rest/errors/ErrorVO.java' %}
@@ -254,6 +256,8 @@ public interface ErrorVO {
   List<FieldErrorVO> fieldErrors();
 }
 {% endhighlight %}
+
+> While `ImmutableErrorVO` may not be generated yet, the above will compile properly
 
 Now we create the `ExceptionTranslator` class:
 
