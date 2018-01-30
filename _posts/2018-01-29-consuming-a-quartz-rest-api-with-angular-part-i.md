@@ -385,6 +385,7 @@ Add the markup for the table just below the `<mat-divider>` tag:
 file: {% include file-path.html file_path='src/app/app.component.html' %}
 
 {% highlight html %}
+{% raw %}
 ...
 <h1>Dashboard</h1>
 <mat-divider></mat-divider>
@@ -415,6 +416,7 @@ file: {% include file-path.html file_path='src/app/app.component.html' %}
   </mat-table>
 </div>
 ...
+{% endraw %}
 {% endhighlight %}
 
 To enable the use of `material table` we have to register a `MatTableModule` in the `Application Module`:
