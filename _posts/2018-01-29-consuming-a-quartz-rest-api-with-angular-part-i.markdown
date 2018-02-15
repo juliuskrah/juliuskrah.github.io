@@ -1,6 +1,7 @@
 ---
 layout:     series
 title:      Consuming a Quartz REST API with Angular Part 1
+date:       2018-01-29 22:10:15 +0000
 categories: tutorial
 tags:       typescript npm angular quartz
 section:    series
