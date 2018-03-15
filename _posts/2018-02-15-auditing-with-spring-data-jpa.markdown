@@ -3,27 +3,30 @@ layout:     post
 title:      Auditing with Spring Data JPA
 date:       2018-02-15 10:00:20 +0000
 categories: blog
-tags:       java maven jpa spring-data spring-boot reactive
+tags:       java maven jpa spring-data spring-boot reactive audit
 section:    blog
 author:     juliuskrah
 repo:       spring-data-audit/tree/spring-data-jpa-audit
 ---
 > [Spring Data][]{:target="_blank"} provides sophisticated support to transparently keep track of who created or
-  changed an entity and the point in time this happened. 
-  
+  changed an entity and the point in time this happened.
+
 # Introduction
+
 Spring Data provides an abstraction layer to easily create a data access layer to a datastore. Check out the
-[CRUD Operations with Spring Boot]({% post_url 2017-04-23-crud-operations-with-spring-boot %}) for an 
+[CRUD Operations with Spring Boot]({% post_url 2017-04-23-crud-operations-with-spring-boot %}) for an
 introduction to Spring Data.
 In this post we will learn how to apply `Entity Auditing` using Spring Data. We will be using `@CreatedBy`, 
 `@LastModifiedBy` to capture the user who created or modified the entity as well as `@CreatedDate` and 
 `@LastModifiedDate` to capture the point in time this happened.
 
 ## Prerequisites
-- [Java Development Kit][JDK]{:target="_blank"}  
+
+- [Java Development Kit][JDK]{:target="_blank"}
 - [Maven][]{:target="_blank"}
 
 ## Project Structure
+
 At the end of this guide our folder structure will look similar to the following:
 
 ```
@@ -54,12 +57,14 @@ At the end of this guide our folder structure will look similar to the following
 ```
 
 ## What You Need to Get Started
+
 To help readers be able to follow along and do hands-on, I have provided an initial code that you can download as
-[zip](https://github.com/juliuskrah/spring-data-audit/archive/v1.0.zip)/[tar.gz](https://github.com/juliuskrah/spring-data-audit/archive/v1.0.tar.gz).
+[zip](https://github.com/juliuskrah/spring-data-audit/archive/v1.1.zip)/[tar.gz](https://github.com/juliuskrah/spring-data-audit/archive/v1.1.tar.gz).
 Go ahead download and extract, and import into your favorite IDE as a maven project. Run and confirm everything 
 works.
 
 # Create the Required Auditing Classes
+
 The first order of business is to create an Entity class and add the Spring Data auditing metadata:
 
 file: {% include file-path.html file_path='src/main/java/com/juliuskrah/audit/Customer.java' %}
@@ -114,10 +119,10 @@ file: {% include file-path.html file_path='src/main/java/com/juliuskrah/audit/Cu
 public interface CustomerRepository extends CrudRepository<Customer, String> {}
 {% endhighlight %}
 
-In our case, we are using `@CreatedBy` and `@LastModifiedBy`, the auditing infrastructure somehow needs to become 
-aware of the current principal. To do so, we implement the `AuditorAware<T>` SPI interface to tell the 
-infrastructure who the current user or system interacting with the application is. The generic type `T` defines of 
-what type the properties annotated with `@CreatedBy` or `@LastModifiedBy` have to be:
+In our case, we are using `@CreatedBy` and `@LastModifiedBy`, the auditing infrastructure somehow needs to 
+become aware of the current principal. To do so, we implement the `AuditorAware<T>` SPI interface to tell the 
+infrastructure who the current user or system interacting with the application is. The generic type `T` defines 
+of what type the properties annotated with `@CreatedBy` or `@LastModifiedBy` have to be:
 
 file: {% include file-path.html file_path='src/main/java/com/juliuskrah/audit/SpringSecurityAuditorAware.java' %}
 
@@ -153,6 +158,7 @@ public class Application {
   `springSecurityAuditorAware` is the bean name of the `AuditorAware` implementation.
 
 ## Test the `@CreatedDate` and `@LastModifiedDate`
+
 Now we need to verify the auditing infrastructure works as expected. We will write two test cases to verify this:
 
 file: {% include file-path.html file_path='src/test/java/com/juliuskrah/audit/ApplicationTests.java' %}
@@ -199,6 +205,7 @@ public class ApplicationTests {
 {% endhighlight %}
 
 # Add Some Routes
+
 This step is added to test the Principal injected for `@CreatedBy` and `@LastModifiedBy`. We will first create
 a `HandlerFuntion` to process our requests:
 
@@ -298,6 +305,7 @@ spring:
 {% endhighlight %}
 
 ## Test the `@CreatedBy` and `@LastModifiedBy`
+
 We need to verify the auditing infrastructure works as expected. We will write two test cases to verify this:
 
 file: {% include file-path.html file_path='src/test/java/com/juliuskrah/audit/ApplicationTests.java' %}
@@ -372,12 +380,13 @@ public class ApplicationTests {
 }
 {% endhighlight %}
 
-
 That's all folks
 
 # Conclusion
+
 In this post we looked at Spring Data's built-in auditing infrastructure with minimal configuration leveraging
-Spring Webflux and Reactive Spring Security.   
+Spring Webflux and Reactive Spring Security.
+
 You can find the source to this guide {% include source.html %}. Until the next post, keep doing cool things :+1:.
 
 [JDK]:                      http://www.oracle.com/technetwork/java/javase/downloads/index.html
