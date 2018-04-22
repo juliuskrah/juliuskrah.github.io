@@ -74,6 +74,8 @@ and unzip the source repository for this guide. You also need to set the followi
 3. MAIL_PORT
 4. MAIL_USERNAME
 
+<script src="https://asciinema.org/a/177759.js" id="asciicast-177759" data-rows="24" data-t="20ss" data-autoplay="0" async></script>
+
 # HTML Mail without Inline
 
 Download and extract the base project if you haven't already done so. Create the class `HtmlEmailService` that
@@ -177,7 +179,7 @@ public class JasperReportsService implements ReportService {
 }
 {% endhighlight %}
 
-Let's test sending an HTML mail. Be sure to set your SMTP configuration properties in `application.yaml`:
+Let's test sending a HTML mail. Be sure to set your SMTP configuration properties in `application.yaml`:
 
 file: {% include file-path.html file_path='src/main/java/com/juliuskrah/jasper/Application.java' %}
 
@@ -224,7 +226,7 @@ Not very elegant, but you get the general idea.
 
 # HTML Mail with Inline
 
-Generating a HTML JasperReports with image resources is a bit tricky. JasperReports handles the image resources
+Generating HTML in JasperReports with image resources is a bit tricky. JasperReports handles the image resources
 separately before associating them to the HTML. 
 We will implement the `generateInlineHtmlReport()` to handle the image resources.
 The implementation of `generateInlineHtmlReport()` is similar to `generateHtmlReport()`. I will just highlight the
@@ -272,6 +274,8 @@ public class HtmlEmailService implements EmailService {
   // ...
   @Override
   public void sendHtmlEmail(String recipient, String html, Map<String, byte[]> imageSource) {
+    // Set true for inline
+    final MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
     // ...
 
     // Set to true for HTML
@@ -312,7 +316,7 @@ Set an appropriate cron expression for `com.juliuskrah.inline-cron` and that's a
 
 
 # Conclusion
-In this post we learned how to create a HTML report with JasperReports with and without inline images.      
+In this post we learned how to generate HTML mail with JasperReports with and without inline images.      
 As usual you can find the full example to this guide {% include source.html %}. Until the next post, keep doing cool things :+1:.
 
 [JasperReports]:            https://community.jaspersoft.com/project/jasperreports-library
