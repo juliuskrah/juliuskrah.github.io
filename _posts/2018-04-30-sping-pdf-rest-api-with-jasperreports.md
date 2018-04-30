@@ -13,7 +13,8 @@ repo:       jasper-html-mail/tree/jasper-rest
 
 # Introduction
 
-In this post, we will create a PDF report that is exposed over a RESTful endpoint using Spring Boot.
+In this post, we will create a PDF report that is exposed over a RESTful endpoint using Spring Boot. This is also
+a good place to start for those of you trying to figure out how to integrate JasperReports with Spring Framework 5.
 
 ## Prerequisites
 
