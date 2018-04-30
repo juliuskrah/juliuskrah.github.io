@@ -6,7 +6,7 @@ categories: blog
 tags:       java spring tiles maven
 section:    blog
 author:     juliuskrah
-repo:       spring-tiles-example
+repo:       spring-tiles-example/tree/master
 ---
 > [Apache Tiles][Tiles]{:target="_blank"} is a free open-sourced templating framework for modern Java applications. 
   Based upon the `Composite Pattern`, it is built to simplify the development of user interfaces. There are several 
@@ -73,9 +73,13 @@ structure as illustrated below:
 Using Maven, it is easier to get and manage dependencies for this introductory project. We will add the following dependencies to
 our `pom.xml`:
 
+file: {% include file-path.html file_path='pom.xml' %}
+
 {% highlight xml %}
 <dependencies>
+  <!--
   ...
+  -->
 <!-- Apache Tiles -->
   <dependency>
     <groupId>org.apache.tiles</groupId>
@@ -111,7 +115,9 @@ our `pom.xml`:
     <artifactId>spring-webmvc</artifactId>
     <version>${spring.framework.version}</version>
   </dependency>
+  <!--
   ...
+  -->
 </dependencies>
 {% endhighlight %}
 
@@ -121,19 +127,20 @@ we will be running in a web environment and also require `JSP` for templating.
 # Setting up Tiles
 Before we bootstrap Spring for our tiles-based view resolver, let us create our layout template:
 
-- [`src/main/webapp/layouts/classic.jsp`]({{ site.github.url }}/{{ site.github_username }}/{{ page.repo }}/tree/master/src/main/webapp/layouts/classic.jsp){:target="_blank"}  
+- {% include file-path.html file_path='src/main/webapp/layouts/classic.jsp' %} 
 
 Next we will create our Tiles attributes:
 
-- [`src/main/webapp/tiles/banner.jsp`]({{ site.github.url }}/{{ site.github_username }}/{{ page.repo }}/tree/master/src/main/webapp/tiles/banner.jsp){:target="_blank"}  
-- [`src/main/webapp/tiles/blog_header.jsp`]({{ site.github.url }}/{{ site.github_username }}/{{ page.repo }}/tree/master/src/main/webapp/tiles/blog_header.jsp){:target="_blank"}  
-- [`src/main/webapp/tiles/common_menu.jsp`]({{ site.github.url }}/{{ site.github_username }}/{{ page.repo }}/tree/master/src/main/webapp/tiles/common_menu.jsp){:target="_blank"}  
-- [`src/main/webapp/tiles/credits.jsp`]({{ site.github.url }}/{{ site.github_username }}/{{ page.repo }}/tree/master/src/main/webapp/tiles/credits.jsp){:target="_blank"}  
-- [`src/main/webapp/tiles/home_body.jsp`]({{ site.github.url }}/{{ site.github_username }}/{{ page.repo }}/tree/master/src/main/webapp/tiles/home_body.jsp){:target="_blank"}  
-- [`src/main/webapp/tiles/navigation.jsp`]({{ site.github.url }}/{{ site.github_username }}/{{ page.repo }}/tree/master/src/main/webapp/tiles/navigation.jsp){:target="_blank"}  
+- {% include file-path.html file_path='src/main/webapp/tiles/banner.jsp' %}
+- {% include file-path.html file_path='src/main/webapp/tiles/blog_header.jsp' %}
+- {% include file-path.html file_path='src/main/webapp/tiles/common_menu.jsp' %}
+- {% include file-path.html file_path='src/main/webapp/tiles/credits.jsp' %}
+- {% include file-path.html file_path='src/main/webapp/tiles/home_body.jsp' %}
+- {% include file-path.html file_path='src/main/webapp/tiles/navigation.jsp' %} 
 
-Finally we will create the `Tiles` definition XML file.  
-`src/main/webapp/WEB-INF/tiles.xml`:
+Finally we will create the `Tiles` definition XML file:
+
+file: {% include file-path.html file_path='src/main/webapp/WEB-INF/tiles.xml' %}
 
 {% highlight xml %}
 <tiles-definitions>
@@ -155,7 +162,8 @@ Finally we will create the `Tiles` definition XML file.
 # Creating Springbeans
 In this section we will learn how to create Springbeans to wire it all together. We will configure Spring's `ApplicationContext`
 in a web environment.  
-`src/main/java/com/jipasoft/tiles/config/SpringConfig.java`:
+
+file: {% include file-path.html file_path='src/main/java/com/jipasoft/tiles/config/SpringConfig.java' %}
 
 {% highlight java %}
 import org.springframework.context.annotation.Bean;
@@ -202,7 +210,8 @@ views by name for a Spring `MVC` application. TilesConfigurer configures Tiles 3
 Spring where to find `Tiles definitions` file(s) through the `TilesConfigurer#setDefinitions` method. This is absolutely optional if your
 Tiles definition XML file is `/WEB-INF/tiles.xml`.  
 Now we will bootstrap a controller to serve our Tiles views.  
-`src/main/java/com/jipasoft/tiles/web/IndexController.java`:
+
+file: {% include file-path.html file_path='src/main/java/com/jipasoft/tiles/web/IndexController.java' %}
 
 {% highlight java linenos %}
 import org.springframework.stereotype.Controller;
@@ -225,10 +234,10 @@ In the snippet above on line `4` is `Controller` which is a Spring `Component` i
 To wrap it all up we need to define a [deployment descriptor][Descriptor]{:target="_blank"} for our web environment. However we are 
 using `Servlet 3.1.0` for this project and there is a programmable alternative introduced in Servlet 3.0 through the
 [`javax.servlet.ServletContainerInitializer`](https://docs.oracle.com/javaee/7/api/javax/servlet/ServletContainerInitializer.html){:target="_blank"} interface.  
-We will create an implementation of `ServletContainerInitializer` to serve as our deployment descriptor by extending Spring's Abstract
-class `AbstractAnnotationConfigDispatcherServletInitializer`.
+We will create an implementation of `ServletContainerInitializer` to serve as our deployment descriptor by extending 
+Spring's Abstract class `AbstractAnnotationConfigDispatcherServletInitializer`.
 
-`src/main/java/com/jipasoft/tiles/initializer/WebInitializer.java`:
+file: {% include file-path.html file_path='src/main/java/com/jipasoft/tiles/initializer/WebInitializer.java' %}
 
 {% highlight java %}
 public class WebInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {

@@ -3,7 +3,7 @@ layout:     post
 title:      JasperReports HTML Emails with Spring
 date:       2018-04-21 13:47:17 +0000
 categories: blog
-tags:       java maven spring-boot
+tags:       java maven jasperreports spring-boot
 section:    blog
 author:     juliuskrah
 repo:       jasper-html-mail/tree/master
