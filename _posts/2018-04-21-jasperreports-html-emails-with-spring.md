@@ -6,7 +6,7 @@ categories: blog
 tags:       java maven jasperreports spring-boot
 section:    blog
 author:     juliuskrah
-repo:       jasper-html-mail/tree/master
+repo:       jasper-html-mail/tree/jasper-mail
 ---
 > [JasperReports][]{:target="_blank"} is a library entirely written in Java and it is able to use data coming from
   any kind of data source and produce pixel-perfect documents that can be viewed, printed or exported in a variety of
