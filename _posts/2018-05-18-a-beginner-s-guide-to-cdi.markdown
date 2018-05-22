@@ -3,7 +3,7 @@ layout:     post
 title:      A Beginner's Guide to CDI
 date:       2018-05-18 00:27:12 +0000
 categories: blog
-tags:       java maven javaee cdi rest jax-rs jersey jpa
+tags:       java maven javaee cdi rest jax-rs jpa
 section:    blog
 author:     juliuskrah
 repo:       cdi/tree/2018.5.0

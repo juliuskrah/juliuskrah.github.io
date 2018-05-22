@@ -300,6 +300,9 @@
     }
     .copyright {
         font-size: 14px;
+        .powered-by {
+            float: right;
+        }
     }
 
     @include media-query($on-small) {
