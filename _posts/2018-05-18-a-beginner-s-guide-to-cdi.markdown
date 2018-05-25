@@ -321,8 +321,8 @@ public class CustomerService {
 # Conclusion
 
 This is an introductory post to CDI. We covered the basics of CDI with `@Inject`, `@Produces` and bean scopes.
-As usual you can find the full example to this guide {% include source.html %}. Until the next post, keep doing cool 
-things :+1:.
+As usual you can find the full example to this guide {% include source.html %}. Until the next post, keep 
+doing cool things :+1:.
 
 [CDI]:                      http://cdi-spec.org/
 [Eclipse]:                  https://www.eclipse.org/downloads/
