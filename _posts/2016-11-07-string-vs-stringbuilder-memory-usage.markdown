@@ -9,8 +9,8 @@ author:     juliuskrah
 ---
 When writing an application in Java, there are several things to look out for. What is the optimization consideration? Speed 
 or Memory? This begs the question, when do you use `String` and `StringBuilder`?  
-When using `StringBuilder` you're reserving space to add strings to your buffer. When you're using a `String`, every time you 
-type something like this:
+When using `StringBuilder` you're reserving space to add strings to your buffer. When you're using a `String`,
+every time you type something like this:
 
 {% highlight java %}
 String s = s + someOtherString;
