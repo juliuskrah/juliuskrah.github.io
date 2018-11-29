@@ -57,7 +57,7 @@ file: `build.gradle`
 {% highlight gradle %}
 ...
 dependencies {
-  compile 'org.mongodb.morphia:morphia:1.3.2'
+  compile 'xyz.morphia.morphia:core:1.4.0'
 }
 {% endhighlight %}
 
@@ -68,7 +68,7 @@ file: `build.gradle`
 {% highlight gradle %}
 ...
 dependencies {
-  compile 'org.springframework.boot:spring-boot-starter:1.5.3.RELEASE'
+  compile 'org.springframework.boot:spring-boot-starter:2.1.0.RELEASE'
 }
 {% endhighlight %}
 
@@ -77,7 +77,7 @@ Our full `build.gradle` file:
 {% highlight gradle %}
 buildscript {
   ext {
-    springBootVersion = '1.5.3.RELEASE'
+    springBootVersion = '2.1.0.RELEASE'
   }
   repositories {
     mavenCentral()
@@ -103,7 +103,7 @@ repositories {
 
 dependencies {
   compile 'org.springframework.boot:spring-boot-starter'
-  compile 'org.mongodb.morphia:morphia:1.3.2'
+  compile 'xyz.morphia.morphia:core:1.4.0'
 }
 {% endhighlight %}
 
@@ -349,11 +349,11 @@ The update method on `Datastore` is used to issue a command to the server to cha
 the update command are defined via `UpdateOperations` methods:
 
 {% highlight java %}
-UpdateOperations<Author> ops = authorRepo.createOperations().set("name", "Deborah");
+UpdateOperations<Author> ops = authorRepo.createOperations().set("name", "Pearl");
 final UpdateResults results = authorRepo.update(read, ops);
 {% endhighlight %}
 
-Here we are updating the `read` instance obtained from the database and updating the `name` from `Julius` to `Deborah`.
+Here we are updating the `read` instance obtained from the database and updating the `name` from `Julius` to `Pearl`.
 
 The above executes the update in the database without having to pull in the document. The `UpdateResults` instance 
 returned will contain various statistics about the update operation.
