@@ -1,6 +1,7 @@
 ---
 layout:     post
 title:      Building an SMPP Application using Spring Boot
+date:       2018-12-28 19:27:59 +0000
 categories: blog
 tags:       java spring-boot maven
 section:    blog
