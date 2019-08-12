@@ -409,11 +409,14 @@ Date: Sun, 10 Dec 2017 09:06:25 GMT
 {% endhighlight %}
 
 # Conclusion
-In this post we learned how to create a REST service with Flask in Python.     
+In this post we learned how to create a REST service with Flask in Python. In addition if you have built
+a flask app and are ready to take your application to the next level, you can take a look at this blog 
+post on [Flask Production Recipes][Toptal Flask]{:target="_blank"}.  
 As usual you can find the full example to this guide {% include source.html %}. Until the next post, keep doing cool things :+1:.
 
 [Flask]:                            http://flask.pocoo.org/
 [Flask RESTful]:                    http://flask-restful.readthedocs.io/en/latest/
 [pip]:                              https://pypi.python.org/pypi/pip/
 [Python]:                           https://www.python.org/
+[Toptal Flask]:                     https://www.toptal.com/flask/flask-production-recipes
 [virtualenv]:                       https://pypi.python.org/pypi/virtualenv
