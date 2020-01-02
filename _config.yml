@@ -9,8 +9,10 @@
 title: Software Musings
 email: juliuskrah@gmail.com
 description: > # this means to ignore newlines until "baseurl:"
-  Web development blog that uses JavaEE and other related web technologies
-  with a strong emphasis on Spring, Thymeleaf, Server Sent Events and Microservices
+  Software Musings is my attempt to document the little things I have learnt, for reference later.
+  Some of the things I document, include Web Application Development, Web Services,
+  Microservices, Docker, Java and Python. Once I gain a broader understanding of a topic, I will
+  document it in this blog.
 baseurl: "" # the subpath of your site, e.g. /blog
 permalink: /:categories/:year/:month/:day/:title/
 url: "http://juliuskrah.com" # the base hostname & protocol for your site
@@ -34,7 +36,6 @@ social:
     - https://www.linkedin.com/in/juliuskrah
     - https://github.com/juliuskrah
     - http://stackoverflow.com/users/6157880/julius-krah
-    - https://plus.google.com/+JuliusKrah
 
 # Google site verification for verifying ownership via Google webmaster tools
 # google_site_verification: 1234
