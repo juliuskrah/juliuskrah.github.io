@@ -25,6 +25,10 @@ this. In the demo I am streaming users created in [Keycloak][]{:target="_blank"}
 
 # Solution Architecture
 
+![CDC Architecture](https://i.imgur.com/DmfMs8o.png)
+{:.image-caption}
+Fig 1 *Solution showing all the components functioning together*
+
 There are several open source CDC tools out there in the wild. I have chosen to go with [Debezium][]{:target="_blank"}
 and [PostgreSQL][]{:target="_blank"}; you can choose any combination of your choice. To start debzium, 
 for CDC the following ritual must be performed.
