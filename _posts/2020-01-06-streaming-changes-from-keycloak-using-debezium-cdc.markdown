@@ -25,7 +25,7 @@ this. In the demo I am streaming users created in [Keycloak][]{:target="_blank"}
 
 # Solution Architecture
 
-![CDC Architecture](https://i.imgur.com/DmfMs8o.png)
+![CDC Architecture](https://i.imgur.com/poKXr9K.png)
 {:.image-caption}
 Fig 1 *Solution showing all the components functioning together*
 
