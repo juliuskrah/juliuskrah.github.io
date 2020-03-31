@@ -13,8 +13,9 @@ repo:       smpp/tree/camel
 
 # Introduction
 
-In this post I will build a simple app that will send SMS using the SMPP protocol, bootstraped with 
-Spring Boot and [Camel][camel]{:target="_blank"}.
+In this post I will build a simple app that will send SMS using the SMPP protocol, bootstraped with
+Spring Boot and [Camel][camel]{:target="_blank"}. To use `CloudHopper` to send SMS refer to the
+[CloudHopper Post]({% post_url 2018-12-28-building-an-smpp-application-using-spring-boot %}).
 
 SMPP is a level-7 TCP/IP protocol, which allows fast delivery of SMS messages. The most conmmonly used
 versions of SMPP are v3.3, the most widely supported standard, and v3.4, which adds transceiver support

@@ -8,13 +8,13 @@ section:    blog
 author:     juliuskrah
 repo:       jasper-html-mail/tree/jasper-rest
 ---
-> [JasperReports](/tag/jasperreports/) is a Java class library, and it is meant for those Java developers who need to
-  add reporting capabilities to their applications.
+> [JasperReports](/tag/jasperreports/) is a Java class library, and it is meant for those Java developers
+  who need to add reporting capabilities to their applications.
 
 # Introduction
 
 In this post, we will create a PDF report that is exposed over a RESTful endpoint using Spring Boot. This is also
-a good place to start for those of you trying to figure out how to integrate JasperReports with Spring Framework 5.
+a good place to start for those of you trying to figure out how to integrate JasperReports with Spring Framework 5. To serve excel over REST, [refer to this Excel Post]({% post_url 2020-03-27-sping-excel-rest-api-with-jasperreports %}).
 
 ## Prerequisites
 
