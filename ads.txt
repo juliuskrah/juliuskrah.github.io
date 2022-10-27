@@ -47,3 +47,6 @@ openx.com, 540362347, RESELLER, 6a698e2ec38604c6
 advertising.com, 24831, RESELLER
 appnexus.com, 10736, RESELLER
 sonobi.com, 0e0a64d7d3, DIRECT, d1a215d9eb5aee9e
+zeta.com, 861, reseller
+yahoo.com, 58905, reseller, e1a5b5b6e3255540
+disqus.com, 861, reseller
