@@ -11,8 +11,16 @@ To build and run locally, you need
 
 Once you have jekyll installed run  
 `cd juliuskrah.github.io`
-* `bundle install`  
-* `bundle exec jekyll serve`
+
+```bash
+bundle install
+```
+
+Jekyll
+
+```bash
+bundle exec jekyll serve
+```
 
 # Contributors
 Refer to the [CONTRIBUTORS.txt](/CONTRIBUTORS.txt) for a full list of contributors

@@ -49,10 +49,13 @@ social:
 
 disqus:
   shortname: juliuskrah
-google_analytics: UA-86031412-1
-google_adsense: ca-pub-9742624756788475
-infolinks_pid: 2956258
-infolinks_wsid: 0
+# Disabling analytics
+# google_analytics: UA-86031412-1
+# google_adsense: ca-pub-9742624756788475
+
+# Disabling infolinks
+# infolinks_pid: 2956258
+# infolinks_wsid: 0
 github_username:  juliuskrah
 stackoverflow_link: users/6157880/julius-krah
 repository: juliuskrah/juliuskrah.github.io
